@@ -1,9 +1,8 @@
 import { Express } from 'express'
-import { exampleResponse } from './controller/example.controller'
+import { getUsers } from './controller/user.controller'
 
-function routes(app: Express)
-{
-    app.get('/users', exampleResponse)
+function routes(app: Express) {
+    app.get('/users', getUsers)
 }
 
 export default routes
