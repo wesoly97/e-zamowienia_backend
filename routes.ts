@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import { getUsers } from './controller/user.controller'
+import { getUsers } from './controllers/user.controller'
 
 function routes(app: Express) {
     app.get('/users', getUsers)
