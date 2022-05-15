@@ -6,12 +6,11 @@ import mongoose from 'mongoose'
 const app = express()
 
 const onSuccessConnect = () => console.log('Conected to database')
-
 const onErrorConnect = (error: object) => console.log(error)
 
 mongoose.connect(config.mongo.url,{ retryWrites: true, w: 'majority' }).then(onSuccessConnect).catch(onErrorConnect)
 
-app.listen(3000, () => {
-    console.log(`server is running at localhost:${3000}`)
+app.listen(config.server.port, () => {
+    console.log(`server is running at localhost:${config.server.port}`)
     routes(app)
 })
