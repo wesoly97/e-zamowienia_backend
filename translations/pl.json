@@ -1,3 +1,4 @@
 {
-	"user": "Użytkownik"
+	"titleIsEmpty": "Tytuł jest pusty",
+	"titleMustBeString": "Tytul musi byc ciągiem znaków"
 }

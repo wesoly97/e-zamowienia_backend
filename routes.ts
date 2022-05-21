@@ -1,10 +1,10 @@
 import { Express } from 'express'
-import { getUsers } from './controllers/user.controller'
-import { createOrder } from './controllers/orders.controller'
+import { createOrder } from './controllers/oders/orders.controller'
+import { checkValidationResult } from "./utils/checkValidationResult"
+import { orderValidator } from "./controllers/oders/orders.validators"
 
 function routes(app: Express) {
-    app.get('/users', getUsers)
-    app.post('/orders', createOrder)
+    app.post('/orders', orderValidator, checkValidationResult, createOrder)
 }
 
 export default routes

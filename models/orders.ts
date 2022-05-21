@@ -7,6 +7,9 @@ export interface IOrder {
     category: string,
     mode: string,
     title: string,
+    customerName: string,
+    description: string,
+    files: string[],
     dateOfPublication: Date,
     expirationDate: Date,
 }
@@ -19,6 +22,9 @@ const orderSchema: Schema = new Schema(
         category: { type: String, required: true },
         mode: { type: String, required: true },
         title: { type: String, required: true },
+        description: { type: String, required: true },
+        customerName: { type: String, required: true },
+        files: { type: Array, required: true },
         dateOfPublication: { type: Date, required: true },
         expirationDate: { type: Date, required: true }
     },
