@@ -1,3 +1,4 @@
 {
-    "user": "user"
+    "titleIsEmpty": "The title is empty",
+    "titleMustBeString": "The title must be a string"
 }
