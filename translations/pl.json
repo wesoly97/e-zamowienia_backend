@@ -1,4 +1,11 @@
 {
-	"titleIsEmpty": "Tytuł jest pusty",
-	"titleMustBeString": "Tytul musi byc ciągiem znaków"
+	"errors": {
+		"titleMustBeString": "%s musi być ciągiem znaków",
+		"titleIsEmpty": "%s nie może być pusty"
+	},
+	"orders": {
+		"oderField": {
+			"title": "Tytuł"
+		}
+	}
 }
