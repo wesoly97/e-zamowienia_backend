@@ -1,4 +1,11 @@
 {
-    "titleIsEmpty": "The title is empty",
-    "titleMustBeString": "The title must be a string"
+    "errors": {
+        "titleIsEmpty": "the %s can't be empty",
+        "titleMustBeString": "The %s must be a string"
+    },
+    "orders": {
+        "oderField": {
+            "title": "Title"
+        }
+    }
 }
