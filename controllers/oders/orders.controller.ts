@@ -18,10 +18,18 @@ export const createOrder = (req: Request, res: Response) => {
         procedureIdentifier,
     })
     return order.save()
-        .then( author => res.status(201).json({ order }))
+        .then(order => res.status(201).json({ order }))
         .catch(error => res.status(500).json({ error }))
 }
 
-export const getOrders = (req: Request, res: Response) => Order.find().then(
-    orders => res.status(200).json({ orders }))
+export const getOrders = (req: Request, res: Response) => Order.find().select({
+    _id: 1,
+    title: 1,
+    mode: 1,
+    category: 1,
+    dateOfPublication: 1 ,
+    procedureIdentifier: 1,
+    expirationDate: 1,
+    })
+    .then(orders => res.status(200).json({ orders }))
     .catch(error => res.status(500).json({ error }))
