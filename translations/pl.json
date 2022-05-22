@@ -3,7 +3,8 @@
 		"isEmpty": "%s nie może być pusty",
 		"mustBeString": "%s musi być ciągiem znaków",
 		"mustBeArray": "%s musi być tablicą",
-		"mustBeDate": "%s musi być datą"
+		"mustBeDate": "%s musi być datą",
+		"notFound": "Nie znaleziono"
 	},
 	"orders": {
 		"orderField": {
@@ -14,7 +15,8 @@
 			"customerName": "Nazwa instytucji",
 			"expirationDate": "Termin składania ofert",
 			"procedureIdentifier": "Nr postępowania",
-			"category": "Kategoria"
+			"category": "Kategoria",
+			"orderId": "Numer id zamówienia publicznego"
 		}
 	}
 }

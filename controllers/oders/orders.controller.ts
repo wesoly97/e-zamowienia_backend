@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import Order from '../../models/orders'
 import mongoose from "mongoose"
+import { getTranslation } from "../../utils/getTranslation"
 
 export const createOrder = (req: Request, res: Response) => {
     const { procedureIdentifier, category, mode, title, expirationDate, description, files, customerName } = req.body
@@ -33,3 +34,12 @@ export const getOrders = (req: Request, res: Response) => Order.find().select({
     })
     .then(orders => res.status(200).json({ orders }))
     .catch(error => res.status(500).json({ error }))
+
+export const getOrder = (req: Request, res: Response) => {
+    const orderId = req.params.orderId
+    return Order.findById(orderId).then(
+        order => order ? res.status(200).json({ order }) : res.status(400).json({
+            message:  getTranslation({ key: 'errors.notFound' })
+        })
+    ).catch(error => res.status(500).json({ error }))
+}

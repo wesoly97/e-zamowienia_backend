@@ -3,7 +3,8 @@
         "isEmpty": "the %s can't be empty",
         "mustBeString": "The %s must be a string",
         "mustBeArray": "The %s must be an array",
-        "mustBeDate": "The %s must be an Date"
+        "mustBeDate": "The %s must be an Date",
+        "notFound": "Not found"
     },
     "orders": {
         "orderField": {
@@ -14,7 +15,8 @@
             "customerName": "Customer Name",
             "expirationDate": "Expiration Date",
             "procedureIdentifier": "Procedure Identifier",
-            "category": "Category"
+            "category": "Category",
+            "orderId": "Public order id number"
         }
     }
 }

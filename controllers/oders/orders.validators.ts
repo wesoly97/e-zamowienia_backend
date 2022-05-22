@@ -93,3 +93,18 @@ export const orderValidator = [
         })
     )
 ]
+
+export const checkOderId = [
+    check('orderId')
+        .notEmpty().withMessage(
+        getTranslation({
+            key: 'errors.isEmpty',
+            arg: getTranslation({ key: 'orders.orderField.orderId' })
+        })
+    ).isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.orderId' })
+        })
+    ),
+]
