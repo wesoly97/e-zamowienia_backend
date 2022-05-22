@@ -1,11 +1,20 @@
 {
     "errors": {
-        "titleIsEmpty": "the %s can't be empty",
-        "titleMustBeString": "The %s must be a string"
+        "isEmpty": "the %s can't be empty",
+        "mustBeString": "The %s must be a string",
+        "mustBeArray": "The %s must be an array",
+        "mustBeDate": "The %s must be an Date"
     },
     "orders": {
-        "oderField": {
-            "title": "Title"
+        "orderField": {
+            "title": "Title",
+            "mode": "Procedure",
+            "description": "Description",
+            "files": "File",
+            "customerName": "Customer Name",
+            "expirationDate": "Expiration Date",
+            "procedureIdentifier": "Procedure Identifier",
+            "category": "Category"
         }
     }
 }
