@@ -43,3 +43,16 @@ export const getOrder = (req: Request, res: Response) => {
         })
     ).catch(error => res.status(500).json({ error }))
 }
+
+export const updateOrder = (req: Request, res: Response) => {
+    const orderId = req.params.orderId
+    return Order.findById(orderId).then(order => {
+        if (order) {
+            order.set(req.body)
+            return order.save().then(order => res.status(201).json({ order }))
+                .catch(error => res.status(500).json({ error }))
+        }
+        else
+            res.status(404).json({ message:  getTranslation({ key: 'errors.notFound' }) })
+    })
+}

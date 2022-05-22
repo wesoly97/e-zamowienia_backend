@@ -108,3 +108,67 @@ export const checkOderId = [
         })
     ),
 ]
+
+export const orderUpdateValidator = [
+    check('orderId')
+        .notEmpty().withMessage(
+        getTranslation({
+            key: 'errors.isEmpty',
+            arg: getTranslation({ key: 'orders.orderField.orderId' })
+        })
+    ).isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.orderId' })
+        })
+    ),
+    check('title').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.title' })
+        })
+    ),
+    check('mode').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.mode' })
+        })
+    ),
+    check('description').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.description' })
+        })
+    ),
+    check('category').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.category' })
+        })
+    ),
+    check('customerName').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.customerName' })
+        })
+    ),
+    check('procedureIdentifier').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'orders.orderField.procedureIdentifier' })
+        })
+    ),
+    check('files')
+        .optional().isArray().withMessage(
+        getTranslation({
+            key: 'errors.mustBeArray',
+            arg: getTranslation({ key: 'orders.orderField.files' })
+        })
+    ),
+    check('expirationDate').optional().isDate().withMessage(
+        getTranslation({
+            key: 'errors.mustBeDate',
+            arg: getTranslation({ key: 'orders.orderField.expirationDate' })
+        })
+    )
+]
