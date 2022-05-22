@@ -22,3 +22,6 @@ export const createOrder = (req: Request, res: Response) => {
         .catch(error => res.status(500).json({ error }))
 }
 
+export const getOrders = (req: Request, res: Response) => Order.find().then(
+    orders => res.status(200).json({ orders }))
+    .catch(error => res.status(500).json({ error }))
