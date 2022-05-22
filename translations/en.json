@@ -17,6 +17,7 @@
             "procedureIdentifier": "Procedure Identifier",
             "category": "Category",
             "orderId": "Public order id number"
-        }
+        },
+        "deleteConfirmation": "The public order has been deleted"
     }
 }

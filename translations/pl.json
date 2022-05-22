@@ -17,6 +17,7 @@
 			"procedureIdentifier": "Nr postępowania",
 			"category": "Kategoria",
 			"orderId": "Numer id zamówienia publicznego"
-		}
+		},
+		"deleteConfirmation": "Zamówienie publiczne zostało usunięte"
 	}
 }

@@ -94,7 +94,7 @@ export const orderValidator = [
     )
 ]
 
-export const checkOderId = [
+export const checkOrderId = [
     check('orderId')
         .notEmpty().withMessage(
         getTranslation({
