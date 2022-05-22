@@ -12,7 +12,7 @@ export const createOrder = (req: Request, res: Response) => {
         category,
         dateOfPublication: new Date(),
         description,
-        files,
+        files: files ? files : [],
         customerName,
         expirationDate,
         procedureIdentifier,

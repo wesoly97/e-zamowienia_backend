@@ -1,11 +1,20 @@
 {
 	"errors": {
-		"titleMustBeString": "%s musi być ciągiem znaków",
-		"titleIsEmpty": "%s nie może być pusty"
+		"isEmpty": "%s nie może być pusty",
+		"mustBeString": "%s musi być ciągiem znaków",
+		"mustBeArray": "%s musi być tablicą",
+		"mustBeDate": "%s musi być datą"
 	},
 	"orders": {
-		"oderField": {
-			"title": "Tytuł"
+		"orderField": {
+			"title": "Tytuł",
+			"mode": "Tryb postępowania",
+			"description": "Opis",
+			"files": "Plik",
+			"customerName": "Nazwa instytucji",
+			"expirationDate": "Termin składania ofert",
+			"procedureIdentifier": "Nr postępowania",
+			"category": "Kategoria"
 		}
 	}
 }
