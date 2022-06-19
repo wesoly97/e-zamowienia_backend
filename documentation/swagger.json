@@ -1,0 +1,96 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "E-Zamówienia Dokumentacja API",
+    "description": "Dokumentacja wszystkich endpointow dostępnych w api E-zamówienia"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/orders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Endpoint służy do pobrania wszystkich zamówień publicznych",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "_id": {
+                    "uniqueItems": true,
+                    "example": "62af396caa850b80e1eb3e78",
+                    "type": "string"
+                  },
+                  "procedureIdentifier": {
+                    "example": "ZP/2311/24/901/2022",
+                    "type": "string"
+                  },
+                  "category": {
+                    "example": "Sprzet",
+                    "type": "string"
+                  },
+                  "mode": {
+                    "example": "rozeznanie cenowe",
+                    "type": "string"
+                  },
+                  "title": {
+                    "example": "fajna nazwa",
+                    "type": "string"
+                  },
+                  "price": {
+                    "example": 30001,
+                    "type": "number"
+                  },
+                  "dateOfPublication": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "expirationDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "errorName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Orders"],
+        "summary": "Endpoint służy do dodania nowego zamówienia publicznego",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/orders"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "orders": {
+
+    }
+  }
+}
