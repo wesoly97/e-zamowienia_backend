@@ -9,6 +9,7 @@ export interface IOrder {
     title: string,
     customerName: string,
     description: string,
+    price: number,
     files: string[],
     dateOfPublication: Date,
     expirationDate: Date,
@@ -24,6 +25,7 @@ const orderSchema: Schema = new Schema(
         title: { type: String, required: true },
         description: { type: String, required: true },
         customerName: { type: String, required: true },
+        price:{ type: Number, required: true },
         files: { type: Array, required: true },
         dateOfPublication: { type: Date, required: true },
         expirationDate: { type: Date, required: true }

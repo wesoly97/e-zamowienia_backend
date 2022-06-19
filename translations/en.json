@@ -4,6 +4,7 @@
         "mustBeString": "The %s must be a string",
         "mustBeArray": "The %s must be an array",
         "mustBeDate": "The %s must be an Date",
+        "mustBeNumber": "The %s must be an number",
         "notFound": "Not found"
     },
     "orders": {
@@ -16,7 +17,8 @@
             "expirationDate": "Expiration Date",
             "procedureIdentifier": "Procedure Identifier",
             "category": "Category",
-            "orderId": "Public order id number"
+            "orderId": "Public order id number",
+            "price": "Price"
         },
         "deleteConfirmation": "The public order has been deleted"
     }

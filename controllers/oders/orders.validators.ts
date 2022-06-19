@@ -81,6 +81,13 @@ export const orderValidator = [
             arg: getTranslation({ key: 'orders.orderField.files' })
         })
     ),
+    check('price')
+        .optional().isNumeric().withMessage(
+        getTranslation({
+            key: 'errors.mustBeNumber',
+            arg: getTranslation({ key: 'orders.orderField.price' })
+        })
+    ),
     check('expirationDate')
         .notEmpty().withMessage(getTranslation({
             key: 'errors.isEmpty',
@@ -163,6 +170,13 @@ export const orderUpdateValidator = [
         getTranslation({
             key: 'errors.mustBeArray',
             arg: getTranslation({ key: 'orders.orderField.files' })
+        })
+    ),
+    check('price')
+        .optional().isNumeric().withMessage(
+        getTranslation({
+            key: 'errors.mustBeNumber',
+            arg: getTranslation({ key: 'orders.orderField.price' })
         })
     ),
     check('expirationDate').optional().isDate().withMessage(
