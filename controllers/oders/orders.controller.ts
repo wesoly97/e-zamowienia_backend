@@ -8,7 +8,7 @@ const onNotFound = (res: Response) => res.status(404).json({ message: getTransla
 const onSuccess = (body: object, status: number, res: Response) => res.status(status).json(body)
 
 export const createOrder = (req: Request, res: Response) => {
-    const { procedureIdentifier, category, mode, title, expirationDate, description, files, customerName } = req.body
+    const { procedureIdentifier, category, mode, title, expirationDate, description, files, customerName, price } = req.body
 
     const order = new Order({
         _id: new mongoose.Types.ObjectId(),
@@ -18,6 +18,7 @@ export const createOrder = (req: Request, res: Response) => {
         dateOfPublication: new Date(),
         description,
         files: [],
+        price,
         customerName,
         expirationDate,
         procedureIdentifier,
@@ -33,6 +34,7 @@ export const getOrders = (req: Request, res: Response) => Order.find().select({
     dateOfPublication: 1 ,
     procedureIdentifier: 1,
     expirationDate: 1,
+    price: 1,
     })
     .then(orders => onSuccess(orders,200, res))
     .catch(error => onError(error, res))

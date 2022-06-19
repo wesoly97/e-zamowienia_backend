@@ -3,6 +3,7 @@
 		"isEmpty": "%s nie może być pusty",
 		"mustBeString": "%s musi być ciągiem znaków",
 		"mustBeArray": "%s musi być tablicą",
+		"mustBeNumber": "%s musi być liczbą",
 		"mustBeDate": "%s musi być datą",
 		"notFound": "Nie znaleziono"
 	},
@@ -16,7 +17,8 @@
 			"expirationDate": "Termin składania ofert",
 			"procedureIdentifier": "Nr postępowania",
 			"category": "Kategoria",
-			"orderId": "Numer id zamówienia publicznego"
+			"orderId": "Numer id zamówienia publicznego",
+			"price": "Cena"
 		},
 		"deleteConfirmation": "Zamówienie publiczne zostało usunięte"
 	}
