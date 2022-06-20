@@ -51,7 +51,7 @@ export const updateOrder = (req: Request, res: Response) => {
     return Order.findById(orderId).then(order => {
         if (order) {
             order.set(req.body)
-            return order.save().then(order => onSuccess(order,201, res)).catch(error => onError(error, res))
+            return order.save().then(order => onSuccess(order,200, res)).catch(error => onError(error, res))
         }
         else
             onNotFound(res)
@@ -61,6 +61,6 @@ export const updateOrder = (req: Request, res: Response) => {
 export const deleteOrder = (req: Request, res: Response) => {
     const orderId = req.params.orderId
     return Order.findByIdAndDelete(orderId).then(order => order ?
-        onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' })},201, res)
+        onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' })},200, res)
         : onNotFound(res)).catch(error => onError(error, res))
 }

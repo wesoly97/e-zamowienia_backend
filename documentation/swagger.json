@@ -147,7 +147,7 @@
           "in": "path",
           "required": true,
           "description": "ID zamówienia publicznego do modyfikacji",
-          "type": "integer"
+          "type": "string"
         }
       ],
       "patch": {
@@ -165,7 +165,7 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "schema": {
               "$ref": "#/definitions/order"
             },
@@ -176,6 +176,52 @@
               "$ref": "#/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Zamówienie publiczne zostało usunięte"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/orderError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      },
+      "delete": {
+        "description": "Endpoint służy do usunięcia zamówienia publicznego",
+        "summary": "Endpoint służy do usunięcia zamówienia publicznego",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Zamówienie publiczne zostało usunięte"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Zamówienie publiczne zostało usunięte"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
           },
           "500": {
             "schema": {
