@@ -140,7 +140,7 @@
         }
       }
     },
-    "/user/{orderId}": {
+    "/orders/{orderId}": {
       "parameters": [
         {
           "name": "orderId",
@@ -182,7 +182,7 @@
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "Zamówienie publiczne zostało usunięte"
+                  "example": "Nie znaleziono"
                 }
               }
             },
@@ -217,7 +217,37 @@
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "Zamówienie publiczne zostało usunięte"
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/orderError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      },
+      "get": {
+        "description": "Endpoint służy do pobrania szczegółów zamówienia publicznego",
+        "summary": "Endpoint służy do pobrania szczegółów zamówienia publicznego",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
                 }
               }
             },
