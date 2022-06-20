@@ -125,17 +125,63 @@
             },
             "description": "Ok"
           },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
           "500": {
             "schema": {
               "$ref": "#/orderError"
             },
             "description": "Dodawanie zamówienia nie powiodło się"
+          }
+        }
+      }
+    },
+    "/user/{orderId}": {
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "ID zamówienia publicznego do modyfikacji",
+          "type": "integer"
+        }
+      ],
+      "patch": {
+        "description": "Endpoint służy do modyfikacji zamówienia publicznego",
+        "summary": "Endpoint służy do modyfikacji zamówienia publicznego",
+        "tags": ["Orders"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "uaktualnione wartości istniejących pól",
+            "schema": {
+              "$ref": "#/definitions/order"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
           },
           "400": {
             "schema": {
               "$ref": "#/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/orderError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
           }
         }
       }
