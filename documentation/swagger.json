@@ -60,14 +60,16 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/definitions/orderError"
-            }
+              "$ref": "#/orderError"
+            },
+            "description": "Pobieranie danych nie powiodło się"
           }
         }
       },
       "post": {
         "tags": ["Orders"],
         "description": "Endpoint służy do dodania nowego zamówienia publicznego",
+        "summary": "Endpoint służy do dodania nowego zamówienia publicznego",
         "parameters": [
           {
             "name": "order",
@@ -120,12 +122,20 @@
           "201": {
             "schema": {
               "$ref": "#/definitions/order"
-            }
+            },
+            "description": "Ok"
           },
           "500": {
             "schema": {
-              "$ref": "#/definitions/orderError"
-            }
+              "$ref": "#/orderError"
+            },
+            "description": "Dodawanie zamówienia nie powiodło się"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           }
         }
       }
@@ -180,14 +190,41 @@
           "format": "date-time"
         }
       }
-    },
-    "orderError": {
-      "properties": {
-        "error": {
-          "type": "object",
+    }
+  },
+  "orderError": {
+    "properties": {
+      "error": {
+        "type": "object",
+        "properties": {
+          "errorName": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "orderValidationError": {
+    "properties": {
+      "errors": {
+        "type": "array",
+        "items": {
           "properties": {
-            "errorName": {
-              "type": "string"
+            "value": {
+              "type": "string",
+              "example": "3 tysiace"
+            },
+            "msg": {
+              "type": "string",
+              "example": "Cena musi być liczbą"
+            },
+            "param":{
+              "type": "string",
+              "example": "price"
+            },
+            "location": {
+              "type": "string",
+              "example": "body"
             }
           }
         }
