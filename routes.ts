@@ -4,10 +4,12 @@ import { checkValidationResult } from "./utils/checkValidationResult"
 import { checkOrderId, orderUpdateValidator, orderValidator } from "./controllers/oders/orders.validators"
 import swaggerDocumentation from "./documentation/swagger.json"
 import swaggerUi from 'swagger-ui-express'
+import { createUser } from "./controllers/users/users.controller"
 
 const PATHS = {
     ORDERS: '/orders',
-    DOCUMENTATION: '/documentation'
+    DOCUMENTATION: '/documentation',
+    USERS: '/users'
 }
 
 const routes = (app: Express) => {
@@ -17,6 +19,8 @@ const routes = (app: Express) => {
     app.patch(`${PATHS.ORDERS}/:orderId`, orderUpdateValidator, checkValidationResult, updateOrder)
     app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, deleteOrder)
     app.use(PATHS.DOCUMENTATION, swaggerUi.serve, swaggerUi.setup(swaggerDocumentation))
+
+    app.post(PATHS.USERS, createUser)
 }
 
 export default routes

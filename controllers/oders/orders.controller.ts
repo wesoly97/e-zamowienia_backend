@@ -2,10 +2,7 @@ import { Request, Response } from "express"
 import Order from '../../models/orders'
 import mongoose from "mongoose"
 import { getTranslation } from "../../utils/getTranslation"
-
-const onError = (error: object, res: Response) => res.status(500).json({ error })
-const onNotFound = (res: Response) => res.status(404).json({ message: getTranslation({ key: 'errors.notFound' })})
-const onSuccess = (body: object, status: number, res: Response) => res.status(status).json(body)
+import { onError, onNotFound, onSuccess } from "../../utils/handleRequestStatus"
 
 export const createOrder = (req: Request, res: Response) => {
     const { procedureIdentifier, category, mode, title, expirationDate, description, files, customerName, price } = req.body
