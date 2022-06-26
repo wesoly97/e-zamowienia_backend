@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import User from "../../models/users"
+import User from "../../models/orders"
 import mongoose from "mongoose"
 import { USER_TYPES } from "./users.consts"
 import { onError, onSuccess } from "../../utils/handleRequestStatus"

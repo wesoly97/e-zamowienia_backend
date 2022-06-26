@@ -60,7 +60,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/orderError"
+              "$ref": "#/databaseError"
             },
             "description": "Pobieranie danych nie powiodło się"
           }
@@ -133,7 +133,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/orderError"
+              "$ref": "#/databaseError"
             },
             "description": "Dodawanie zamówienia nie powiodło się"
           }
@@ -190,7 +190,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/orderError"
+              "$ref": "#/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -225,7 +225,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/orderError"
+              "$ref": "#/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -255,7 +255,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/orderError"
+              "$ref": "#/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -304,6 +304,12 @@
               "$ref": "#/definitions/user"
             },
             "description": "Ok"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Dodawanie zamówienia nie powiodło się"
           }
         }
       }
@@ -396,15 +402,62 @@
       }
     }
   },
-  "orderError": {
+  "databaseError": {
     "properties": {
-      "error": {
+      "errors": {
         "type": "object",
         "properties": {
-          "errorName": {
-            "type": "string"
+          "propertyName": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "example": "ValidatorError",
+                "type": "string"
+              },
+              "message": {
+                "example": "Path `propertyName` is required.",
+                "type": "string"
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "example": "Path `propertyName` is required.",
+                    "type": "string"
+                  },
+                  "type": {
+                    "example": "required",
+                    "type": "string"
+                  },
+                  "path": {
+                    "example": "propertyName",
+                    "type": "string"
+                  }
+                }
+              },
+              "kind": {
+                "example": "required",
+                "type": "string"
+              },
+              "path": {
+                "example": "propertyName",
+                "type": "string"
+              }
+            }
           }
         }
+      },
+      "_message": {
+        "example": "validation failed",
+        "type": "string"
+      },
+      "name": {
+        "example": "validationError",
+        "type": "string"
+      },
+      "message": {
+        "example": "validation failed: propertyName: Path `propertyName` is required.",
+        "type": "string"
       }
     }
   },
