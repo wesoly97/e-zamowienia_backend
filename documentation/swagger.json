@@ -261,9 +261,91 @@
           }
         }
       }
+    },
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Endpoint służy do dodania nowego Uzytkownika",
+        "summary": "Endpoint służy do dodania nowego Użytkownika",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Użytkownik do dodania",
+            "schema": {
+              "properties": {
+                "name": {
+                  "example": "Jacek",
+                  "type": "string"
+                },
+                "surname": {
+                  "example": "Krzynówek",
+                  "type": "string"
+                },
+                "mail": {
+                  "example": "jacusK@gmail.com",
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "phoneNumber": {
+                  "example": "+48 123 123 123",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "user": {
+      "properties": {
+        "_id": {
+          "uniqueItems": true,
+          "example": "62af396caa850b80e1eb3e78",
+          "type": "string"
+        },
+        "name": {
+          "example": "Jacek",
+          "type": "string"
+        },
+        "surname": {
+          "example": "Krzynówek",
+          "type": "string"
+        },
+        "mail": {
+          "example": "jacusK@gmail.com",
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "example": "+48 123 123 123",
+          "type": "string"
+        },
+        "AccountType": {
+         "example": "regular",
+          "type": "string"
+        },
+        "dateOfCreation": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "order": {
       "properties": {
         "_id": {
@@ -292,7 +374,7 @@
           "type": "string"
         },
         "customerName": {
-         "example": "ANS",
+          "example": "ANS",
           "type": "string"
         },
         "price": {
