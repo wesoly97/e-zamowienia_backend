@@ -5,7 +5,8 @@
 		"mustBeArray": "%s musi być tablicą",
 		"mustBeNumber": "%s musi być liczbą",
 		"mustBeDate": "%s musi być datą",
-		"notFound": "Nie znaleziono"
+		"notFound": "Nie znaleziono",
+		"alreadyExist": "juz istnieje"
 	},
 	"orders": {
 		"orderField": {
@@ -21,5 +22,8 @@
 			"price": "Cena"
 		},
 		"deleteConfirmation": "Zamówienie publiczne zostało usunięte"
+	},
+	"users": {
+		"emailExist": "Konto z podanym e-mailem już istnieje!"
 	}
 }

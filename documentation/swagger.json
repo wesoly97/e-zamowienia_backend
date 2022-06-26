@@ -305,11 +305,22 @@
             },
             "description": "Ok"
           },
+          "409": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Konto z podanym e-mailem już istnieje!",
+                  "type": "string"
+                }
+              }
+               },
+            "description": "Konto z podanym e-mailem już istnieje"
+          },
           "500": {
             "schema": {
               "$ref": "#/databaseError"
             },
-            "description": "Dodawanie zamówienia nie powiodło się"
+            "description": "Dodawanie użytkownika nie powiodło się"
           }
         }
       }

@@ -21,5 +21,8 @@
             "price": "Price"
         },
         "deleteConfirmation": "The public order has been deleted"
+    },
+    "users": {
+        "emailExist": "The account with the email you provided already exists!"
     }
 }

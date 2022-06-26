@@ -5,6 +5,7 @@ import { checkOrderId, orderUpdateValidator, orderValidator } from "./controller
 import swaggerDocumentation from "./documentation/swagger.json"
 import swaggerUi from 'swagger-ui-express'
 import { createUser } from "./controllers/users/users.controller"
+import { checkEmailExist } from "./controllers/users/users.validators"
 
 const PATHS = {
     ORDERS: '/orders',
@@ -20,7 +21,7 @@ const routes = (app: Express) => {
     app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, deleteOrder)
     app.use(PATHS.DOCUMENTATION, swaggerUi.serve, swaggerUi.setup(swaggerDocumentation))
 
-    app.post(PATHS.USERS, createUser)
+    app.post(PATHS.USERS, checkEmailExist, createUser)
 }
 
 export default routes
