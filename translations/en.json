@@ -23,6 +23,13 @@
         "deleteConfirmation": "The public order has been deleted"
     },
     "users": {
-        "emailExist": "The account with the email you provided already exists!"
+        "emailExist": "The account with the email you provided already exists!",
+        "userField": {
+            "name": "Name",
+            "surname": "Surname",
+            "mail": "Mail",
+            "password": "Password",
+            "phoneNumber": "Phone number"
+        }
     }
 }

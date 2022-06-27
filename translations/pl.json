@@ -24,6 +24,13 @@
 		"deleteConfirmation": "Zamówienie publiczne zostało usunięte"
 	},
 	"users": {
-		"emailExist": "Konto z podanym e-mailem już istnieje!"
+		"emailExist": "Konto z podanym e-mailem już istnieje!",
+		"userField": {
+			"name": "Imie",
+			"surname": "Nazwisko",
+			"mail": "Mail",
+			"password": "Hasło",
+			"phoneNumber": "Numer telefonu"
+		}
 	}
 }

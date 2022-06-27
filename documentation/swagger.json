@@ -305,6 +305,12 @@
             },
             "description": "Ok"
           },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
           "409": {
             "schema": {
               "properties": {
@@ -489,6 +495,33 @@
             "param":{
               "type": "string",
               "example": "price"
+            },
+            "location": {
+              "type": "string",
+              "example": "body"
+            }
+          }
+        }
+      }
+    }
+  },
+  "userValidationError": {
+    "properties": {
+      "errors": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "value": {
+              "type": "string",
+              "example": 123
+            },
+            "msg": {
+              "type": "string",
+              "example": "Imie musi być ciągiem znaków"
+            },
+            "param":{
+              "type": "string",
+              "example": "name"
             },
             "location": {
               "type": "string",
