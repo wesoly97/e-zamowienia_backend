@@ -377,6 +377,47 @@
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
         }
+      },
+      "delete": {
+        "description": "Endpoint służy do usunięcia konta użytkownika",
+        "summary": "Endpoint służy do usunięcia konta użytkownika",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Konto użytkownika zostało usunięte"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
       }
     }
   },

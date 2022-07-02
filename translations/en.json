@@ -33,6 +33,7 @@
             "password": "Password",
             "phoneNumber": "Phone number",
             "userId": "User id number"
-        }
+        },
+        "deleteConfirmation": "User account has been deleted"
     }
 }

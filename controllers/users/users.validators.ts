@@ -19,6 +19,21 @@ export const checkEmailExist = (req: Request, res: Response, next: NextFunction)
         })
 }
 
+export const checkUserId = [
+    check('userId')
+        .notEmpty().withMessage(
+        getTranslation({
+            key: 'errors.isEmpty',
+            arg: getTranslation({ key: 'users.userField.userId' })
+        })
+    ).isMongoId().withMessage(
+        getTranslation({
+            key: 'errors.mustBeMongoObjectId',
+            arg: getTranslation({ key: 'users.userField.userId' })
+        })
+    ),
+]
+
 export const userValidator = [
     check('name')
         .notEmpty().withMessage(
@@ -83,18 +98,6 @@ export const userValidator = [
 ]
 
 export const userUpdateValidator = [
-    check('userId')
-        .notEmpty().withMessage(
-        getTranslation({
-            key: 'errors.isEmpty',
-            arg: getTranslation({ key: 'users.userField.userId' })
-        })
-    ).isMongoId().withMessage(
-        getTranslation({
-            key: 'errors.mustBeMongoObjectId',
-            arg: getTranslation({ key: 'users.userField.userId' })
-        })
-    ),
     check('name').optional().isString().withMessage(
         getTranslation({
             key: 'errors.mustBeString',

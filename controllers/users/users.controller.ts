@@ -3,6 +3,8 @@ import User from "../../models/users"
 import mongoose from "mongoose"
 import { USER_TYPES } from "./users.consts"
 import { onError, onNotFound, onSuccess } from "../../utils/handleRequestStatus"
+import Order from "../../models/orders";
+import {getTranslation} from "../../utils/getTranslation";
 
 export const createUser = (req: Request, res: Response) => {
     const { name, surname, mail, password, phoneNumber } = req.body
@@ -31,4 +33,12 @@ export const updateUser = (req: Request, res: Response) => {
         else
             onNotFound(res)
     })
+}
+
+export const deleteUser = (req: Request, res: Response) => {
+    const userId = req.params.userId
+
+    return User.findByIdAndDelete(userId).then(user => user ?
+        onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' })},200, res)
+        : onNotFound(res)).catch(error => onError(error, res))
 }

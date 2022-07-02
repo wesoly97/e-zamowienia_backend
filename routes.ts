@@ -3,8 +3,8 @@ import redoc from 'redoc-express'
 import { createOrder, deleteOrder, getOrder, getOrders, updateOrder } from './controllers/oders/orders.controller'
 import { checkValidationResult } from "./utils/checkValidationResult"
 import { checkOrderId, orderUpdateValidator, orderValidator } from "./controllers/oders/orders.validators"
-import { createUser, updateUser } from "./controllers/users/users.controller"
-import { checkEmailExist, userUpdateValidator, userValidator } from "./controllers/users/users.validators"
+import { createUser, deleteUser, updateUser } from "./controllers/users/users.controller"
+import { checkEmailExist, checkUserId, userUpdateValidator, userValidator } from "./controllers/users/users.validators"
 import { getDocumentationFile } from "./controllers/documentation/documentation.controller"
 
 const PATHS = {
@@ -24,7 +24,8 @@ const routes = (app: Express) => {
     app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, deleteOrder)
 
     app.post(PATHS.USERS, userValidator, checkValidationResult, checkEmailExist, createUser)
-    app.patch(`${PATHS.USERS}/:userId`, userUpdateValidator, checkValidationResult, checkEmailExist, updateUser)
+    app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, checkEmailExist, updateUser)
+    app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, deleteUser)
 }
 
 export default routes
