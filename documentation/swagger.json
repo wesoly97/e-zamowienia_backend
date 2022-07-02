@@ -147,7 +147,7 @@
           "in": "path",
           "required": true,
           "description": "ID zamówienia publicznego do modyfikacji",
-          "type": "string"
+          "type": "ObjectID"
         }
       ],
       "patch": {
@@ -273,27 +273,7 @@
             "in": "body",
             "description": "Użytkownik do dodania",
             "schema": {
-              "properties": {
-                "name": {
-                  "example": "Jacek",
-                  "type": "string"
-                },
-                "surname": {
-                  "example": "Krzynówek",
-                  "type": "string"
-                },
-                "mail": {
-                  "example": "jacusK@gmail.com",
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
-                },
-                "phoneNumber": {
-                  "example": "+48 123 123 123",
-                  "type": "string"
-                }
-              }
+              "$ref": "#/userFieldToSend"
             }
           }
         ],
@@ -327,6 +307,74 @@
               "$ref": "#/databaseError"
             },
             "description": "Dodawanie użytkownika nie powiodło się"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID użytkownika do modyfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "patch": {
+        "description": "Endpoint służy do modyfikacji danych użytkownika",
+        "summary": "Endpoint służy do modyfikacji danych użytkownika",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "uaktualnione wartości istniejących pól",
+            "schema": {
+              "$ref": "#/userFieldToSend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "409": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Konto z podanym e-mailem już istnieje!",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Konto z podanym e-mailem już istnieje"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
           }
         }
       }
@@ -529,6 +577,29 @@
             }
           }
         }
+      }
+    }
+  },
+  "userFieldToSend": {
+    "properties": {
+      "name": {
+        "example": "Jacek",
+        "type": "string"
+      },
+      "surname": {
+        "example": "Krzynówek",
+        "type": "string"
+      },
+      "mail": {
+        "example": "jacusK@gmail.com",
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      },
+      "phoneNumber": {
+        "example": "+48 123 123 123",
+        "type": "string"
       }
     }
   }

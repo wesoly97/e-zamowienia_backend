@@ -2,9 +2,11 @@
 	"errors": {
 		"isEmpty": "%s nie może być pusty",
 		"mustBeString": "%s musi być ciągiem znaków",
+		"mustBeMongoObjectId": "%s musi być typu mongo id",
 		"mustBeArray": "%s musi być tablicą",
 		"mustBeNumber": "%s musi być liczbą",
 		"mustBeDate": "%s musi być datą",
+		"mustBeEmail": "%s jest nieprawidłowym adresem",
 		"notFound": "Nie znaleziono",
 		"alreadyExist": "juz istnieje"
 	},
@@ -30,7 +32,8 @@
 			"surname": "Nazwisko",
 			"mail": "Mail",
 			"password": "Hasło",
-			"phoneNumber": "Numer telefonu"
+			"phoneNumber": "Numer telefonu",
+			"userId": "Numer id użytkownika"
 		}
 	}
 }

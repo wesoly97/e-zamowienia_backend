@@ -2,8 +2,10 @@
     "errors": {
         "isEmpty": "the %s can't be empty",
         "mustBeString": "The %s must be a string",
+        "mustBeMongoObjectId": "%s must be a type of mongo id",
         "mustBeArray": "The %s must be an array",
         "mustBeDate": "The %s must be an Date",
+        "mustBeEmail": "%s is an invalid address",
         "mustBeNumber": "The %s must be an number",
         "notFound": "Not found"
     },
@@ -29,7 +31,8 @@
             "surname": "Surname",
             "mail": "Mail",
             "password": "Password",
-            "phoneNumber": "Phone number"
+            "phoneNumber": "Phone number",
+            "userId": "User id number"
         }
     }
 }

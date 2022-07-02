@@ -7,12 +7,15 @@ import { getTranslation } from "../../utils/getTranslation"
 export const checkEmailExist = (req: Request, res: Response, next: NextFunction) => {
     const { mail } = req.body
 
+    if(!mail)
+        return next()
+
     return Users.findOne({ mail }).then(user => {
             if (user) {
                 return fieldAlreadyExist('users.emailExist', res)
             }
             else
-                next()
+                return next()
         })
 }
 
@@ -47,9 +50,9 @@ export const userValidator = [
             key: 'errors.isEmpty',
             arg: getTranslation({ key: 'users.userField.mail' })
         })
-    ).isString().withMessage(
+    ).isEmail().withMessage(
         getTranslation({
-            key: 'errors.mustBeString',
+            key: 'errors.mustBeEmail',
             arg: getTranslation({ key: 'users.userField.mail' })
         })
     ),
@@ -72,6 +75,51 @@ export const userValidator = [
             arg: getTranslation({ key: 'users.userField.phoneNumber' })
         })
     ).isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'users.userField.phoneNumber' })
+        })
+    )
+]
+
+export const userUpdateValidator = [
+    check('userId')
+        .notEmpty().withMessage(
+        getTranslation({
+            key: 'errors.isEmpty',
+            arg: getTranslation({ key: 'users.userField.userId' })
+        })
+    ).isMongoId().withMessage(
+        getTranslation({
+            key: 'errors.mustBeMongoObjectId',
+            arg: getTranslation({ key: 'users.userField.userId' })
+        })
+    ),
+    check('name').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'users.userField.name' })
+        })
+    ),
+    check('surname').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'users.userField.surname' })
+        })
+    ),
+    check('mail').optional().isEmail().withMessage(
+        getTranslation({
+            key: 'errors.mustBeEmail',
+            arg: getTranslation({ key: 'users.userField.mail' })
+        })
+    ),
+    check('password').optional().isString().withMessage(
+        getTranslation({
+            key: 'errors.mustBeString',
+            arg: getTranslation({ key: 'users.userField.password' })
+        })
+    ),
+    check('phoneNumber').optional().isString().withMessage(
         getTranslation({
             key: 'errors.mustBeString',
             arg: getTranslation({ key: 'users.userField.phoneNumber' })

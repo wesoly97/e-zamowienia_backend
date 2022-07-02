@@ -108,9 +108,9 @@ export const checkOrderId = [
             key: 'errors.isEmpty',
             arg: getTranslation({ key: 'orders.orderField.orderId' })
         })
-    ).isString().withMessage(
+    ).isMongoId().withMessage(
         getTranslation({
-            key: 'errors.mustBeString',
+            key: 'errors.mustBeMongoObjectId',
             arg: getTranslation({ key: 'orders.orderField.orderId' })
         })
     ),
@@ -123,9 +123,9 @@ export const orderUpdateValidator = [
             key: 'errors.isEmpty',
             arg: getTranslation({ key: 'orders.orderField.orderId' })
         })
-    ).isString().withMessage(
+    ).isMongoId().withMessage(
         getTranslation({
-            key: 'errors.mustBeString',
+            key: 'errors.mustBeMongoObjectId',
             arg: getTranslation({ key: 'orders.orderField.orderId' })
         })
     ),
