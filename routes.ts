@@ -20,7 +20,7 @@ const routes = (app: Express) => {
     app.post(PATHS.ORDERS, orderValidator, checkValidationResult, createOrder)
     app.get(PATHS.ORDERS, getOrders)
     app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
-    app.patch(`${PATHS.ORDERS}/:orderId`, orderUpdateValidator, checkValidationResult, updateOrder)
+    app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, updateOrder)
     app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, deleteOrder)
 
     app.post(PATHS.USERS, userValidator, checkValidationResult, checkEmailExist, createUser)

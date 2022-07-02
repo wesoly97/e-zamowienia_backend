@@ -117,18 +117,6 @@ export const checkOrderId = [
 ]
 
 export const orderUpdateValidator = [
-    check('orderId')
-        .notEmpty().withMessage(
-        getTranslation({
-            key: 'errors.isEmpty',
-            arg: getTranslation({ key: 'orders.orderField.orderId' })
-        })
-    ).isMongoId().withMessage(
-        getTranslation({
-            key: 'errors.mustBeMongoObjectId',
-            arg: getTranslation({ key: 'orders.orderField.orderId' })
-        })
-    ),
     check('title').optional().isString().withMessage(
         getTranslation({
             key: 'errors.mustBeString',
