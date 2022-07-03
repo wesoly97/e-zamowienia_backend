@@ -1,0 +1,762 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "E-Zamówienia Dokumentacja API",
+    "description": "Dokumentacja wszystkich endpointow dostępnych w api E-zamówienia"
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/orders": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "Endpoint służy do pobrania wszystkich zamówień publicznych",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "properties": {
+                  "_id": {
+                    "uniqueItems": true,
+                    "example": "62af396caa850b80e1eb3e78",
+                    "type": "string"
+                  },
+                  "procedureIdentifier": {
+                    "example": "ZP/2311/24/901/2022",
+                    "type": "string"
+                  },
+                  "category": {
+                    "example": "Sprzet",
+                    "type": "string"
+                  },
+                  "mode": {
+                    "example": "rozeznanie cenowe",
+                    "type": "string"
+                  },
+                  "title": {
+                    "example": "fajna nazwa",
+                    "type": "string"
+                  },
+                  "price": {
+                    "example": 30001,
+                    "type": "number"
+                  },
+                  "dateOfPublication": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "expirationDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Pobieranie danych nie powiodło się"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Orders"],
+        "description": "Endpoint służy do dodania nowego zamówienia publicznego",
+        "summary": "Endpoint służy do dodania nowego zamówienia publicznego",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Zamówienie do dodania",
+            "schema": {
+              "properties": {
+                "procedureIdentifier": {
+                  "example": "ZP/2311/24/901/2022",
+                  "type": "string"
+                },
+                "category": {
+                  "example": "Sprzet",
+                  "type": "string"
+                },
+                "mode": {
+                  "example": "rozeznanie cenowe",
+                  "type": "string"
+                },
+                "title": {
+                  "example": "fajna nazwa",
+                  "type": "string"
+                },
+                "price": {
+                  "example": 30001,
+                  "type": "number"
+                },
+                "description": {
+                  "example": "fajny opis",
+                  "type": "string"
+                },
+                "customerName": {
+                  "example": "ANS",
+                  "type": "string"
+                },
+                "files": {
+                  "example": [],
+                  "type": "array"
+                },
+                "expirationDate": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Dodawanie zamówienia nie powiodło się"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}": {
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "ID zamówienia publicznego do modyfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "patch": {
+        "description": "Endpoint służy do modyfikacji zamówienia publicznego",
+        "summary": "Endpoint służy do modyfikacji zamówienia publicznego",
+        "tags": ["Orders"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "uaktualnione wartości istniejących pól",
+            "schema": {
+              "$ref": "#/definitions/order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      },
+      "delete": {
+        "description": "Endpoint służy do usunięcia zamówienia publicznego",
+        "summary": "Endpoint służy do usunięcia zamówienia publicznego",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Zamówienie publiczne zostało usunięte"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      },
+      "get": {
+        "description": "Endpoint służy do pobrania szczegółów zamówienia publicznego",
+        "summary": "Endpoint służy do pobrania szczegółów zamówienia publicznego",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Endpoint służy do pobrania wszystkich użtkowników",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/user"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Pobieranie danych nie powiodło się"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "Endpoint służy do dodania nowego Uzytkownika",
+        "summary": "Endpoint służy do dodania nowego Użytkownika",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Użytkownik do dodania",
+            "schema": {
+              "$ref": "#/userFieldToSend"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "409": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Konto z podanym e-mailem już istnieje!",
+                  "type": "string"
+                }
+              }
+               },
+            "description": "Konto z podanym e-mailem już istnieje"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Dodawanie użytkownika nie powiodło się"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID użytkownika do modyfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "patch": {
+        "description": "Endpoint służy do modyfikacji danych użytkownika",
+        "summary": "Endpoint służy do modyfikacji danych użytkownika",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "uaktualnione wartości istniejących pól",
+            "schema": {
+              "$ref": "#/userFieldToSend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "409": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Konto z podanym e-mailem już istnieje!",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Konto z podanym e-mailem już istnieje"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      },
+      "delete": {
+        "description": "Endpoint służy do usunięcia konta użytkownika",
+        "summary": "Endpoint służy do usunięcia konta użytkownika",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Konto użytkownika zostało usunięte"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      },
+      "get": {
+        "description": "Endpoint służy do pobrania szczegółów konta użytkownika",
+        "summary": "Endpoint służy do pobrania szczegółów konta użytkownika",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      }
+    },
+    "/users/checkEmail": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Endpoint służy do sprawdzenia czy email jest dostepny",
+        "summary": "Endpoint służy do sprawdzenia czy email jest dostepny",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Email do sprawdzenia",
+            "schema": {
+              "properties": {
+                "mail": {
+                  "example": "jacusK@gmail.com",
+                  "type": "string",
+                  "uniqueItems": true
+                }
+              },
+              "required": ["mail"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Podany email jest poprawny",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "409": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Konto z podanym e-mailem już istnieje!",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Konto z podanym e-mailem już istnieje"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "user": {
+      "properties": {
+        "_id": {
+          "uniqueItems": true,
+          "example": "62af396caa850b80e1eb3e78",
+          "type": "string"
+        },
+        "name": {
+          "example": "Jacek",
+          "type": "string"
+        },
+        "surname": {
+          "example": "Krzynówek",
+          "type": "string"
+        },
+        "mail": {
+          "example": "jacusK@gmail.com",
+          "type": "string"
+        },
+        "phoneNumber": {
+          "example": "+48 123 123 123",
+          "type": "string"
+        },
+        "AccountType": {
+         "example": "regular",
+          "type": "string"
+        },
+        "dateOfCreation": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "order": {
+      "properties": {
+        "_id": {
+          "uniqueItems": true,
+          "example": "62af396caa850b80e1eb3e78",
+          "type": "string"
+        },
+        "procedureIdentifier": {
+          "example": "ZP/2311/24/901/2022",
+          "type": "string"
+        },
+        "category": {
+          "example": "Sprzet",
+          "type": "string"
+        },
+        "mode": {
+          "example": "rozeznanie cenowe",
+          "type": "string"
+        },
+        "title": {
+          "example": "fajna nazwa",
+          "type": "string"
+        },
+        "description": {
+          "example": "taki tam opis",
+          "type": "string"
+        },
+        "customerName": {
+          "example": "ANS",
+          "type": "string"
+        },
+        "price": {
+          "example": 30001,
+          "type": "number"
+        },
+        "files": {
+          "type": "array",
+          "example": "[]"
+        },
+        "dateOfPublication": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "databaseError": {
+    "properties": {
+      "errors": {
+        "type": "object",
+        "properties": {
+          "propertyName": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "example": "ValidatorError",
+                "type": "string"
+              },
+              "message": {
+                "example": "Path `propertyName` is required.",
+                "type": "string"
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "example": "Path `propertyName` is required.",
+                    "type": "string"
+                  },
+                  "type": {
+                    "example": "required",
+                    "type": "string"
+                  },
+                  "path": {
+                    "example": "propertyName",
+                    "type": "string"
+                  }
+                }
+              },
+              "kind": {
+                "example": "required",
+                "type": "string"
+              },
+              "path": {
+                "example": "propertyName",
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "_message": {
+        "example": "validation failed",
+        "type": "string"
+      },
+      "name": {
+        "example": "validationError",
+        "type": "string"
+      },
+      "message": {
+        "example": "validation failed: propertyName: Path `propertyName` is required.",
+        "type": "string"
+      }
+    }
+  },
+  "orderValidationError": {
+    "properties": {
+      "errors": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "value": {
+              "type": "string",
+              "example": "3 tysiace"
+            },
+            "msg": {
+              "type": "string",
+              "example": "Cena musi być liczbą"
+            },
+            "param":{
+              "type": "string",
+              "example": "price"
+            },
+            "location": {
+              "type": "string",
+              "example": "body"
+            }
+          }
+        }
+      }
+    }
+  },
+  "userValidationError": {
+    "properties": {
+      "errors": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "value": {
+              "type": "string",
+              "example": 123
+            },
+            "msg": {
+              "type": "string",
+              "example": "Imie musi być ciągiem znaków"
+            },
+            "param":{
+              "type": "string",
+              "example": "name"
+            },
+            "location": {
+              "type": "string",
+              "example": "body"
+            }
+          }
+        }
+      }
+    }
+  },
+  "userFieldToSend": {
+    "properties": {
+      "name": {
+        "example": "Jacek",
+        "type": "string"
+      },
+      "surname": {
+        "example": "Krzynówek",
+        "type": "string"
+      },
+      "mail": {
+        "example": "jacusK@gmail.com",
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      },
+      "phoneNumber": {
+        "example": "+48 123 123 123",
+        "type": "string"
+      }
+    }
+  }
+}

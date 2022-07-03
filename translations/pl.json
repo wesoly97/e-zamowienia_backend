@@ -2,10 +2,13 @@
 	"errors": {
 		"isEmpty": "%s nie może być pusty",
 		"mustBeString": "%s musi być ciągiem znaków",
+		"mustBeMongoObjectId": "%s musi być typu mongo id",
 		"mustBeArray": "%s musi być tablicą",
 		"mustBeNumber": "%s musi być liczbą",
 		"mustBeDate": "%s musi być datą",
-		"notFound": "Nie znaleziono"
+		"mustBeEmail": "%s jest nieprawidłowym adresem",
+		"notFound": "Nie znaleziono",
+		"alreadyExist": "juz istnieje"
 	},
 	"orders": {
 		"orderField": {
@@ -21,5 +24,18 @@
 			"price": "Cena"
 		},
 		"deleteConfirmation": "Zamówienie publiczne zostało usunięte"
+	},
+	"users": {
+		"emailExist": "Konto z podanym e-mailem już istnieje!",
+		"userField": {
+			"name": "Imie",
+			"surname": "Nazwisko",
+			"mail": "Mail",
+			"password": "Hasło",
+			"phoneNumber": "Numer telefonu",
+			"userId": "Numer id użytkownika"
+		},
+		"deleteConfirmation": "Konto użytkownika zostało usunięte",
+		"emailIsValid": "Podany email jest poprawny"
 	}
 }
