@@ -48,3 +48,6 @@ export const getUserData = (req: Request, res: Response) => {
         user => user ? onSuccess(user, 200, res) : onNotFound(res)
     ).catch(error => onError(error, res))
 }
+
+export const getUsers = (req: Request, res: Response) => User.find().select(['-password'])
+    .then(users => onSuccess(users,200, res)).catch(error => onError(error, res))

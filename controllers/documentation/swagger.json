@@ -269,6 +269,27 @@
       }
     },
     "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Endpoint służy do pobrania wszystkich użtkowników",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                  "$ref": "#/definitions/user"
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Pobieranie danych nie powiodło się"
+          }
+        }
+      },
       "post": {
         "tags": ["Users"],
         "description": "Endpoint służy do dodania nowego Uzytkownika",
