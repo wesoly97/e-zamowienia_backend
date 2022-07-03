@@ -242,6 +242,12 @@
             },
             "description": "Ok"
           },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
           "404": {
             "schema": {
               "properties": {
@@ -418,6 +424,42 @@
             "description": "modyfikacja zamówienia nie powiodła się"
           }
         }
+      },
+      "get": {
+        "description": "Endpoint służy do pobrania szczegółów konta użytkownika",
+        "summary": "Endpoint służy do pobrania szczegółów konta użytkownika",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
       }
     }
   },
@@ -439,9 +481,6 @@
         },
         "mail": {
           "example": "jacusK@gmail.com",
-          "type": "string"
-        },
-        "password": {
           "type": "string"
         },
         "phoneNumber": {

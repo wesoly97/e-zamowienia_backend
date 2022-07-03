@@ -1,10 +1,9 @@
-import { Request, Response } from "express"
 import User from "../../models/users"
 import mongoose from "mongoose"
+import { Request, Response } from "express"
 import { USER_TYPES } from "./users.consts"
 import { onError, onNotFound, onSuccess } from "../../utils/handleRequestStatus"
-import Order from "../../models/orders";
-import {getTranslation} from "../../utils/getTranslation";
+import { getTranslation } from "../../utils/getTranslation"
 
 export const createUser = (req: Request, res: Response) => {
     const { name, surname, mail, password, phoneNumber } = req.body
@@ -25,7 +24,7 @@ export const createUser = (req: Request, res: Response) => {
 export const updateUser = (req: Request, res: Response) => {
     const userId = req.params.userId
 
-    return User.findById(userId).then(user => {
+    return User.findById(userId).select(['-password']).then(user => {
         if (user) {
             user.set(req.body)
             return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
@@ -41,4 +40,11 @@ export const deleteUser = (req: Request, res: Response) => {
     return User.findByIdAndDelete(userId).then(user => user ?
         onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' })},200, res)
         : onNotFound(res)).catch(error => onError(error, res))
+}
+
+export const getUserData = (req: Request, res: Response) => {
+    const userId = req.params.userId
+    return User.findById(userId).select(['-password']).then(
+        user => user ? onSuccess(user, 200, res) : onNotFound(res)
+    ).catch(error => onError(error, res))
 }
