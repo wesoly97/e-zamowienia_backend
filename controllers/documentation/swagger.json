@@ -482,6 +482,61 @@
           }
         }
       }
+    },
+    "/users/checkEmail": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Endpoint służy do sprawdzenia czy email jest dostepny",
+        "summary": "Endpoint służy do sprawdzenia czy email jest dostepny",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Email do sprawdzenia",
+            "schema": {
+              "properties": {
+                "mail": {
+                  "example": "jacusK@gmail.com",
+                  "type": "string",
+                  "uniqueItems": true
+                }
+              },
+              "required": ["mail"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Podany email jest poprawny",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "409": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Konto z podanym e-mailem już istnieje!",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Konto z podanym e-mailem już istnieje"
+          }
+        }
+      }
     }
   },
   "definitions": {

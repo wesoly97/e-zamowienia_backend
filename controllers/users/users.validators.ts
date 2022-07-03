@@ -34,6 +34,21 @@ export const checkUserId = [
     ),
 ]
 
+export const checkEmail = [
+    check('mail')
+        .notEmpty().withMessage(
+        getTranslation({
+            key: 'errors.isEmpty',
+            arg: getTranslation({ key: 'users.userField.mail' })
+        })
+    ).isEmail().withMessage(
+        getTranslation({
+            key: 'errors.mustBeEmail',
+            arg: getTranslation({ key: 'users.userField.mail' })
+        })
+    ),
+]
+
 export const userValidator = [
     check('name')
         .notEmpty().withMessage(
@@ -57,18 +72,6 @@ export const userValidator = [
         getTranslation({
             key: 'errors.mustBeString',
             arg: getTranslation({ key: 'users.userField.surname' })
-        })
-    ),
-    check('mail')
-        .notEmpty().withMessage(
-        getTranslation({
-            key: 'errors.isEmpty',
-            arg: getTranslation({ key: 'users.userField.mail' })
-        })
-    ).isEmail().withMessage(
-        getTranslation({
-            key: 'errors.mustBeEmail',
-            arg: getTranslation({ key: 'users.userField.mail' })
         })
     ),
     check('password')

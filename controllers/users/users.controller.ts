@@ -51,3 +51,7 @@ export const getUserData = (req: Request, res: Response) => {
 
 export const getUsers = (req: Request, res: Response) => User.find().select(['-password'])
     .then(users => onSuccess(users,200, res)).catch(error => onError(error, res))
+
+export const emailIsValid = (req: Request, res: Response) => onSuccess({
+    message: getTranslation({ key: 'users.emailIsValid' })
+    },200, res)

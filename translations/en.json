@@ -34,6 +34,7 @@
             "phoneNumber": "Phone number",
             "userId": "User id number"
         },
-        "deleteConfirmation": "User account has been deleted"
+        "deleteConfirmation": "User account has been deleted",
+        "emailIsValid": "The specified email is valid"
     }
 }
