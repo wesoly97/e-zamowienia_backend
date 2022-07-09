@@ -8,7 +8,8 @@
         "mustBeEmail": "%s is an invalid address",
         "mustBeNumber": "The %s must be an number",
         "notFound": "Not found",
-        "invalidEmailOrPassword": "Invalid email Or password"
+        "invalidEmailOrPassword": "Invalid email Or password",
+        "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character"
     },
     "orders": {
         "orderField": {
@@ -37,6 +38,6 @@
         },
         "deleteConfirmation": "User account has been deleted",
         "emailIsValid": "The specified email is valid",
-        "loginSuccess": "logowanie przebiegło pomyślnie"
+        "loginSuccess": "logowanie przebiegło pomyślnie",
     }
 }

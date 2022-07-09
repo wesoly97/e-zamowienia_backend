@@ -9,7 +9,8 @@
 		"mustBeEmail": "%s jest nieprawidłowym adresem",
 		"notFound": "Nie znaleziono",
 		"alreadyExist": "juz istnieje",
-		"invalidEmailOrPassword": "Nieprawidłowy email lub hasło"
+		"invalidEmailOrPassword": "Nieprawidłowy email lub hasło",
+		"invalidPasswordFormat": "Hasło musi zawierać co najmniej 8 znaków, jedną wielką literę, jedną małą literę, liczbę oraz znak specjalny"
 	},
 	"orders": {
 		"orderField": {

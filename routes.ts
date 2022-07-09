@@ -1,7 +1,7 @@
 import { Express } from 'express'
 import redoc from 'redoc-express'
 import { createOrder, deleteOrder, getOrder, getOrders, updateOrder } from './controllers/oders/orders.controller'
-import { checkValidationResult } from "./utils/checkValidationResult"
+import { checkLoginValidationResult, checkValidationResult } from "./utils/checkValidationResult"
 import { checkOrderId, orderUpdateValidator, orderValidator } from "./controllers/oders/orders.validators"
 import {
     createUser,
@@ -14,7 +14,7 @@ import {
 } from "./controllers/users/users.controller"
 import {
     checkEmail,
-    checkEmailExist,
+    checkEmailExist, checkPassword,
     checkUserId,
     userUpdateValidator,
     userValidator
@@ -37,13 +37,13 @@ const routes = (app: Express) => {
     app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, updateOrder)
     app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, deleteOrder)
 
-    app.post(PATHS.USERS, checkEmail, userValidator, checkValidationResult, checkEmailExist, createUser)
+    app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
     app.get(PATHS.USERS, getUsers)
     app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, checkEmailExist, updateUser)
     app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, deleteUser)
     app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, getUserData)
     app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
-    app.post(`${PATHS.USERS}/login`,logIn)
+    app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 }
 
 export default routes
