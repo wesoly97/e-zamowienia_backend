@@ -536,6 +536,12 @@
               }
             },
             "description": "Konto z podanym e-mailem już istnieje"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "sprawdzenie email nie powiodło się"
           }
         }
       }

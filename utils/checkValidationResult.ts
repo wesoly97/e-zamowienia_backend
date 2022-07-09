@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator"
 import { NextFunction, Request, Response } from "express"
-import {invalidLoginOrPassword} from "./handleRequestStatus";
+import { invalidLoginOrPassword } from "./handleRequestStatus"
 
 export const checkValidationResult = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req)
