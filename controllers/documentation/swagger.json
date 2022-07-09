@@ -13,7 +13,8 @@
     "/orders": {
       "get": {
         "tags": ["Orders"],
-        "summary": "Endpoint służy do pobrania wszystkich zamówień publicznych",
+        "description": "Pobieranie wszystkich zamówień publicznych",
+        "summary": "getOrders",
         "responses": {
           "200": {
             "description": "OK",
@@ -68,8 +69,8 @@
       },
       "post": {
         "tags": ["Orders"],
-        "description": "Endpoint służy do dodania nowego zamówienia publicznego",
-        "summary": "Endpoint służy do dodania nowego zamówienia publicznego",
+        "description": "Dodwanie nowego zamówienia publicznego",
+        "summary": "addOrder",
         "parameters": [
           {
             "name": "order",
@@ -151,8 +152,8 @@
         }
       ],
       "patch": {
-        "description": "Endpoint służy do modyfikacji zamówienia publicznego",
-        "summary": "Endpoint służy do modyfikacji zamówienia publicznego",
+        "description": "Modyfikowanie zamówienia publicznego",
+        "summary": "editOrderData",
         "tags": ["Orders"],
         "parameters": [
           {
@@ -197,8 +198,8 @@
         }
       },
       "delete": {
-        "description": "Endpoint służy do usunięcia zamówienia publicznego",
-        "summary": "Endpoint służy do usunięcia zamówienia publicznego",
+        "description": "Usunięcie zamówienia publicznego",
+        "summary": "deleteOrder",
         "tags": ["Orders"],
         "responses": {
           "200": {
@@ -232,8 +233,8 @@
         }
       },
       "get": {
-        "description": "Endpoint służy do pobrania szczegółów zamówienia publicznego",
-        "summary": "Endpoint służy do pobrania szczegółów zamówienia publicznego",
+        "description": "Pobieranie szczegółów zamówienia publicznego",
+        "summary": "getOrderData",
         "tags": ["Orders"],
         "responses": {
           "200": {
@@ -271,7 +272,8 @@
     "/users": {
       "get": {
         "tags": ["Users"],
-        "summary": "Endpoint służy do pobrania wszystkich użtkowników",
+        "description": "Pobieranie wszystkich użytkowników",
+        "summary": "getUsers",
         "responses": {
           "200": {
             "description": "OK",
@@ -292,8 +294,8 @@
       },
       "post": {
         "tags": ["Users"],
-        "description": "Endpoint służy do dodania nowego Uzytkownika",
-        "summary": "Endpoint służy do dodania nowego Użytkownika",
+        "description": "Dodawanie nowego Uzytkownika",
+        "summary": "addUser",
         "parameters": [
           {
             "name": "order",
@@ -349,8 +351,8 @@
         }
       ],
       "patch": {
-        "description": "Endpoint służy do modyfikacji danych użytkownika",
-        "summary": "Endpoint służy do modyfikacji danych użytkownika",
+        "description": "Modyfikowanie danych użytkownika",
+        "summary": "editUserData",
         "tags": ["Users"],
         "parameters": [
           {
@@ -406,8 +408,8 @@
         }
       },
       "delete": {
-        "description": "Endpoint służy do usunięcia konta użytkownika",
-        "summary": "Endpoint służy do usunięcia konta użytkownika",
+        "description": "Usuwanie konta użytkownika",
+        "summary": "deleteUserAccount",
         "tags": ["Users"],
         "responses": {
           "200": {
@@ -447,8 +449,8 @@
         }
       },
       "get": {
-        "description": "Endpoint służy do pobrania szczegółów konta użytkownika",
-        "summary": "Endpoint służy do pobrania szczegółów konta użytkownika",
+        "description": "Pobieranie szczegółów konta użytkownika",
+        "summary": "getUserData",
         "tags": ["Users"],
         "responses": {
           "200": {
@@ -486,8 +488,8 @@
     "/users/checkEmail": {
       "post": {
         "tags": ["Users"],
-        "description": "Endpoint służy do sprawdzenia czy email jest dostepny",
-        "summary": "Endpoint służy do sprawdzenia czy email jest dostepny",
+        "description": "Sprawdzenie czy podany email już istnieje",
+        "summary": "checkEmail",
         "parameters": [
           {
             "name": "order",
@@ -534,6 +536,65 @@
               }
             },
             "description": "Konto z podanym e-mailem już istnieje"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Logowanie się",
+        "summary": "login",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Email oraz hasło do sprawdzenia",
+            "schema": {
+              "properties": {
+                "mail": {
+                  "example": "jacusK@gmail.com",
+                  "type": "string",
+                  "uniqueItems": true
+                },
+                "password": {
+                  "example": "Haslo!23",
+                  "type": "string"
+                }
+              },
+              "required": ["mail", "password"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "logowanie przebiegło pomyślnie",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "401": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Nieprawidłowy email lub hasło",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Nieprawidłowy email lub hasło"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Zalogowanie nie powiodło się"
           }
         }
       }
