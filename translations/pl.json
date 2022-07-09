@@ -8,7 +8,8 @@
 		"mustBeDate": "%s musi być datą",
 		"mustBeEmail": "%s jest nieprawidłowym adresem",
 		"notFound": "Nie znaleziono",
-		"alreadyExist": "juz istnieje"
+		"alreadyExist": "juz istnieje",
+		"invalidEmailOrPassword": "Nieprawidłowy email lub hasło"
 	},
 	"orders": {
 		"orderField": {
@@ -36,6 +37,7 @@
 			"userId": "Numer id użytkownika"
 		},
 		"deleteConfirmation": "Konto użytkownika zostało usunięte",
-		"emailIsValid": "Podany email jest poprawny"
+		"emailIsValid": "Podany email jest poprawny",
+		"loginSuccess": "logowanie przebiegło pomyślnie"
 	}
 }

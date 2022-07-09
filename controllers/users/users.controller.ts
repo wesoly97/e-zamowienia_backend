@@ -2,9 +2,14 @@ import User from "../../models/users"
 import mongoose from "mongoose"
 import { Request, Response } from "express"
 import { USER_TYPES } from "./users.consts"
-import { onError, onNotFound, onSuccess } from "../../utils/handleRequestStatus"
+import {
+    invalidLoginOrPassword,
+    onError,
+    onNotFound,
+    onSuccess
+} from "../../utils/handleRequestStatus"
 import { getTranslation } from "../../utils/getTranslation"
-import { encryptPassword } from '../../middlewares/passwordEncryption'
+import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
 
 export const createUser = (req: Request, res: Response) => {
     const { name, surname, mail, password, phoneNumber } = req.body
@@ -56,3 +61,18 @@ export const getUsers = (req: Request, res: Response) => User.find().select(['-p
 export const emailIsValid = (req: Request, res: Response) => onSuccess({
     message: getTranslation({ key: 'users.emailIsValid' })
     },200, res)
+
+export const logIn = (req: Request, res: Response) => {
+ const { mail, password } = req.body
+    return User.findOne({ mail }).then(user => {
+        if (user) {
+           const isPasswordMatch = passwordCompare(password, user.password)
+            if(isPasswordMatch)
+                onSuccess({ message: getTranslation({ key: 'users.loginSuccess' })}, 200, res)
+            else
+                invalidLoginOrPassword(res)
+        }
+        else
+            invalidLoginOrPassword(res)
+    }).catch(error => onError(error, res))
+}

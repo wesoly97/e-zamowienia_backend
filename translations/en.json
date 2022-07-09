@@ -7,7 +7,8 @@
         "mustBeDate": "The %s must be an Date",
         "mustBeEmail": "%s is an invalid address",
         "mustBeNumber": "The %s must be an number",
-        "notFound": "Not found"
+        "notFound": "Not found",
+        "invalidEmailOrPassword": "Invalid email Or password"
     },
     "orders": {
         "orderField": {
@@ -35,6 +36,7 @@
             "userId": "User id number"
         },
         "deleteConfirmation": "User account has been deleted",
-        "emailIsValid": "The specified email is valid"
+        "emailIsValid": "The specified email is valid",
+        "loginSuccess": "logowanie przebiegło pomyślnie"
     }
 }
