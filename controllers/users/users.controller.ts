@@ -4,6 +4,7 @@ import { Request, Response } from "express"
 import { USER_TYPES } from "./users.consts"
 import { onError, onNotFound, onSuccess } from "../../utils/handleRequestStatus"
 import { getTranslation } from "../../utils/getTranslation"
+import { encryptPassword } from '../../middlewares/passwordEncryption'
 
 export const createUser = (req: Request, res: Response) => {
     const { name, surname, mail, password, phoneNumber } = req.body
@@ -13,7 +14,7 @@ export const createUser = (req: Request, res: Response) => {
         name,
         surname,
         mail,
-        password,
+        password: encryptPassword(password),
         dateOfCreation: new Date(),
         phoneNumber,
         accountType: USER_TYPES.REGULAR
