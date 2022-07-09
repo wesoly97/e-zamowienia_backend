@@ -1,10 +1,10 @@
-import {NextFunction, Request, Response} from "express"
+import { RequestHandler } from "express"
 import Users from "../../models/users"
 import { fieldAlreadyExist, onError } from "../../utils/handleRequestStatus"
 import { check } from "express-validator"
 import { getTranslation } from "../../utils/getTranslation"
 
-export const checkEmailExist = (req: Request, res: Response, next: NextFunction) => {
+export const checkEmailExist:RequestHandler = (req, res, next) => {
     const { mail } = req.body
 
     if(!mail)

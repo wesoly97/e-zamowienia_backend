@@ -1,3 +1,3 @@
-import { Request, Response } from "express"
+import { RequestHandler } from "express"
 
-export const getDocumentationFile = (req: Request, res: Response) => res.sendFile('./controllers/documentation/swagger.json', { root: '.' })
+export const getDocumentationFile:RequestHandler = (req, res) => res.sendFile('./controllers/documentation/swagger.json', { root: '.' })
