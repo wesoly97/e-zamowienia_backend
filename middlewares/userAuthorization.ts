@@ -18,7 +18,7 @@ export const authorizeUser = (userId: string, res:Response) => {
      res.cookie(userId as string, token, COOKIE_CONFIG)
 }
 
-export const verifyUser:RequestHandler = (req, res, next)  => {
+export const isUserLogged:RequestHandler = (req, res, next)  => {
     const token = req.headers.cookie?.split("=")[1]
     const verifyTokenCallback = (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
         if(err) {

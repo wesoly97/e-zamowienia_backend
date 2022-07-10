@@ -21,7 +21,7 @@ import {
     userValidator
 } from "./controllers/users/users.validators"
 import { getDocumentationFile } from "./controllers/documentation/documentation.controller"
-import { verifyUser } from "./middlewares/userAuthorization"
+import { isUserLogged } from "./middlewares/userAuthorization"
 
 const PATHS = {
     ORDERS: '/orders',
@@ -33,7 +33,7 @@ const routes = (app: Express) => {
     app.get(PATHS.DOCUMENTATION, redoc({ title: 'E-Zamówienia - Api dokumentacja', specUrl: `${PATHS.DOCUMENTATION}/file` }))
     app.get(`${PATHS.DOCUMENTATION}/file`, getDocumentationFile)
 
-    app.post(PATHS.ORDERS, orderValidator, checkValidationResult, verifyUser, createOrder)
+    app.post(PATHS.ORDERS, orderValidator, checkValidationResult, isUserLogged, createOrder)
     app.get(PATHS.ORDERS, getOrders)
     app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
     app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, updateOrder)
@@ -46,7 +46,7 @@ const routes = (app: Express) => {
     app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, getUserData)
     app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
     app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
-    app.post(`${PATHS.USERS}/logout`, verifyUser, logOut)
+    app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
 }
 
 export default routes
