@@ -132,6 +132,12 @@
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
           "500": {
             "schema": {
               "$ref": "#/databaseError"
@@ -604,6 +610,33 @@
           }
         }
       }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Wylogowanie się",
+        "summary": "logout",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Wylogowanie zakończone sukcesem",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -822,6 +855,14 @@
       },
       "phoneNumber": {
         "example": "+48 123 123 123",
+        "type": "string"
+      }
+    }
+  },
+  "userMustBeLogged": {
+    "properties": {
+      "message": {
+        "example": "Musisz być zalogowany!",
         "type": "string"
       }
     }
