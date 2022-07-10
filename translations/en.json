@@ -7,7 +7,10 @@
         "mustBeDate": "The %s must be an Date",
         "mustBeEmail": "%s is an invalid address",
         "mustBeNumber": "The %s must be an number",
-        "notFound": "Not found"
+        "notFound": "Not found",
+        "invalidEmailOrPassword": "Invalid email Or password",
+        "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character",
+        "mustBeLogged": "You must be logged in"
     },
     "orders": {
         "orderField": {
@@ -35,6 +38,8 @@
             "userId": "User id number"
         },
         "deleteConfirmation": "User account has been deleted",
-        "emailIsValid": "The specified email is valid"
+        "emailIsValid": "The specified email is valid",
+        "loginSuccess": "login successful",
+        "logOutSuccess": "logout successfully"
     }
 }

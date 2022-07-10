@@ -1,10 +1,10 @@
-import {NextFunction, Request, Response} from "express"
+import { RequestHandler } from "express"
 import Users from "../../models/users"
-import { fieldAlreadyExist } from "../../utils/handleRequestStatus"
+import { fieldAlreadyExist, onError } from "../../utils/handleRequestStatus"
 import { check } from "express-validator"
 import { getTranslation } from "../../utils/getTranslation"
 
-export const checkEmailExist = (req: Request, res: Response, next: NextFunction) => {
+export const checkEmailExist:RequestHandler = (req, res, next) => {
     const { mail } = req.body
 
     if(!mail)
@@ -16,7 +16,7 @@ export const checkEmailExist = (req: Request, res: Response, next: NextFunction)
             }
             else
                 return next()
-        })
+        }).catch(error => onError(error, res))
 }
 
 export const checkUserId = [
@@ -49,6 +49,20 @@ export const checkEmail = [
     ),
 ]
 
+export const checkPassword = [
+    check('password')
+        .notEmpty().withMessage(
+        getTranslation({
+            key: 'errors.isEmpty',
+            arg: getTranslation({ key: 'users.userField.password' })
+        })
+    ).isStrongPassword().withMessage(
+        getTranslation({
+            key: 'errors.invalidPasswordFormat',
+        })
+    ),
+]
+
 export const userValidator = [
     check('name')
         .notEmpty().withMessage(
@@ -72,18 +86,6 @@ export const userValidator = [
         getTranslation({
             key: 'errors.mustBeString',
             arg: getTranslation({ key: 'users.userField.surname' })
-        })
-    ),
-    check('password')
-        .notEmpty().withMessage(
-        getTranslation({
-            key: 'errors.isEmpty',
-            arg: getTranslation({ key: 'users.userField.password' })
-        })
-    ).isString().withMessage(
-        getTranslation({
-            key: 'errors.mustBeString',
-            arg: getTranslation({ key: 'users.userField.password' })
         })
     ),
     check('phoneNumber')
@@ -119,10 +121,9 @@ export const userUpdateValidator = [
             arg: getTranslation({ key: 'users.userField.mail' })
         })
     ),
-    check('password').optional().isString().withMessage(
+    check('password').optional().isStrongPassword().withMessage(
         getTranslation({
-            key: 'errors.mustBeString',
-            arg: getTranslation({ key: 'users.userField.password' })
+            key: 'errors.invalidPasswordFormat',
         })
     ),
     check('phoneNumber').optional().isString().withMessage(

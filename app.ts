@@ -2,7 +2,7 @@ import express from 'express'
 import routes from './routes'
 import { config } from "./config/config"
 import mongoose from 'mongoose'
-import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
@@ -13,7 +13,8 @@ mongoose.connect(config.mongo.url,{ retryWrites: true, w: 'majority' }).then(onS
 
 app.listen(config.server.port, () => {
     console.log(`server is running at localhost:${config.server.port}`)
-    app.use(bodyParser.urlencoded({ extended: false }))
-    app.use(bodyParser.json())
+    app.use(cookieParser())
+    app.use(express.urlencoded({ extended: false }))
+    app.use(express.json())
     routes(app)
 })

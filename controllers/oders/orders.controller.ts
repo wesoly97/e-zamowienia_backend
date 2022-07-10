@@ -1,10 +1,10 @@
-import { Request, Response } from "express"
+import { RequestHandler } from "express"
 import Order from '../../models/orders'
 import mongoose from "mongoose"
 import { getTranslation } from "../../utils/getTranslation"
 import { onError, onNotFound, onSuccess } from "../../utils/handleRequestStatus"
 
-export const createOrder = (req: Request, res: Response) => {
+export const createOrder:RequestHandler = (req, res) => {
     const { procedureIdentifier, category, mode, title, expirationDate, description, files, customerName, price } = req.body
 
     const order = new Order({
@@ -23,7 +23,7 @@ export const createOrder = (req: Request, res: Response) => {
     return order.save().then(order => onSuccess(order,201, res)).catch(error => onError(error, res))
 }
 
-export const getOrders = (req: Request, res: Response) => Order.find().select({
+export const getOrders:RequestHandler = (req, res) => Order.find().select({
     _id: 1,
     title: 1,
     mode: 1,
@@ -36,14 +36,14 @@ export const getOrders = (req: Request, res: Response) => Order.find().select({
     .then(orders => onSuccess(orders,200, res))
     .catch(error => onError(error, res))
 
-export const getOrder = (req: Request, res: Response) => {
+export const getOrder:RequestHandler = (req, res) => {
     const orderId = req.params.orderId
     return Order.findById(orderId).then(
         order => order ? onSuccess(order,200, res) : onNotFound(res)
     ).catch(error => onError(error, res))
 }
 
-export const updateOrder = (req: Request, res: Response) => {
+export const updateOrder:RequestHandler = (req, res) => {
     const orderId = req.params.orderId
     return Order.findById(orderId).then(order => {
         if (order) {
@@ -55,7 +55,7 @@ export const updateOrder = (req: Request, res: Response) => {
     })
 }
 
-export const deleteOrder = (req: Request, res: Response) => {
+export const deleteOrder:RequestHandler = (req, res) => {
     const orderId = req.params.orderId
     return Order.findByIdAndDelete(orderId).then(order => order ?
         onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' })},200, res)
