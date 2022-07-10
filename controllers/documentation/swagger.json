@@ -184,6 +184,12 @@
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
           "404": {
             "schema": {
               "properties": {
@@ -218,6 +224,12 @@
               }
             },
             "description": "Ok"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
           },
           "404": {
             "schema": {
@@ -289,6 +301,12 @@
                   "$ref": "#/definitions/user"
               }
             }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
           },
           "500": {
             "schema": {
@@ -383,6 +401,12 @@
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
           "404": {
             "schema": {
               "properties": {
@@ -435,6 +459,12 @@
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
           "404": {
             "schema": {
               "properties": {
@@ -470,6 +500,12 @@
               "$ref": "#/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
           },
           "404": {
             "schema": {
