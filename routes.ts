@@ -20,6 +20,7 @@ import {
     userValidator
 } from "./controllers/users/users.validators"
 import { getDocumentationFile } from "./controllers/documentation/documentation.controller"
+import { verifyUser } from "./middlewares/userAuthorization"
 
 const PATHS = {
     ORDERS: '/orders',
@@ -31,7 +32,7 @@ const routes = (app: Express) => {
     app.get(PATHS.DOCUMENTATION, redoc({ title: 'E-Zamówienia - Api dokumentacja', specUrl: `${PATHS.DOCUMENTATION}/file` }))
     app.get(`${PATHS.DOCUMENTATION}/file`, getDocumentationFile)
 
-    app.post(PATHS.ORDERS, orderValidator, checkValidationResult, createOrder)
+    app.post(PATHS.ORDERS, orderValidator, checkValidationResult, verifyUser, createOrder)
     app.get(PATHS.ORDERS, getOrders)
     app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
     app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, updateOrder)

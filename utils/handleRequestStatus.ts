@@ -8,3 +8,4 @@ export const fieldAlreadyExist = (key: string, res: Response) => res.status(409)
 export const invalidLoginOrPassword = (res: Response) => res.status(401).json({
     message: getTranslation({ key: 'errors.invalidEmailOrPassword' })
 })
+export const notLogged = (res: Response) => res.status(401).json({ message: getTranslation({ key: 'errors.mustBeLogged' })})

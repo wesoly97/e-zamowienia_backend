@@ -10,6 +10,7 @@ import {
 } from "../../utils/handleRequestStatus"
 import { getTranslation } from "../../utils/getTranslation"
 import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
+import { authorizeUser } from '../../middlewares/userAuthorization'
 
 export const createUser:RequestHandler = (req, res) => {
     const { name, surname, mail, password, phoneNumber } = req.body
@@ -67,8 +68,10 @@ export const logIn:RequestHandler = (req, res) => {
     return User.findOne({ mail }).then(user => {
         if (user) {
            const isPasswordMatch = passwordCompare(password, user.password)
-            if(isPasswordMatch)
-                onSuccess({ message: getTranslation({ key: 'users.loginSuccess' })}, 200, res)
+            if(isPasswordMatch) {
+                authorizeUser(user._id, res)
+                onSuccess({ message: getTranslation({key: 'users.loginSuccess'}) }, 200, res)
+            }
             else
                 invalidLoginOrPassword(res)
         }
