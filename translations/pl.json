@@ -40,6 +40,7 @@
 		},
 		"deleteConfirmation": "Konto użytkownika zostało usunięte",
 		"emailIsValid": "Podany email jest poprawny",
-		"loginSuccess": "logowanie przebiegło pomyślnie"
+		"loginSuccess": "logowanie przebiegło pomyślnie",
+		"logOutSuccess": "Wylogowanie zakończone sukcesem"
 	}
 }

@@ -39,6 +39,7 @@
         },
         "deleteConfirmation": "User account has been deleted",
         "emailIsValid": "The specified email is valid",
-        "loginSuccess": "login successful"
+        "loginSuccess": "login successful",
+        "logOutSuccess": "logout successfully"
     }
 }

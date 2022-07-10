@@ -10,6 +10,7 @@ import {
     getUserData,
     getUsers,
     logIn,
+    logOut,
     updateUser
 } from "./controllers/users/users.controller"
 import {
@@ -45,6 +46,7 @@ const routes = (app: Express) => {
     app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, getUserData)
     app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
     app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
+    app.post(`${PATHS.USERS}/logout`, verifyUser, logOut)
 }
 
 export default routes

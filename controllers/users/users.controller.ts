@@ -79,3 +79,10 @@ export const logIn:RequestHandler = (req, res) => {
             invalidLoginOrPassword(res)
     }).catch(error => onError(error, res))
 }
+
+export const logOut:RequestHandler = (req, res) => {
+    const { sessionUserId } = req.body
+    res.clearCookie(`${sessionUserId}`)
+    req.cookies['${sessionUserId}'] = ""
+    return onSuccess({ message: getTranslation({key: 'users.logOutSuccess'}) }, 200, res)
+}
