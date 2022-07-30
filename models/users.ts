@@ -15,18 +15,18 @@ export interface IUser {
 export interface IUserModel extends IUser, Document {}
 
 const userSchema: Schema = new Schema(
-    {
-        name: { type: String, required: true },
-        surname: { type: String, required: true },
-        accountType: { type: String, required: true },
-        mail: { type: String, required: true },
-        password: { type: String, required: true },
-        phoneNumber: { type: String, required: true },
-        dateOfCreation: { type: Date, required: true },
-    },
-    {
-        versionKey: false
-    }
+	{
+		name: { type: String, required: true },
+		surname: { type: String, required: true },
+		accountType: { type: String, required: true },
+		mail: { type: String, required: true },
+		password: { type: String, required: true },
+		phoneNumber: { type: String, required: true },
+		dateOfCreation: { type: Date, required: true },
+	},
+	{
+		versionKey: false
+	}
 )
 
 export default mongoose.model<IUserModel>(COLLECTION_NAME, userSchema)

@@ -8,10 +8,10 @@ const MONGO_PASSWORD = process.env.MONGODB_PASSWORD || ''
 const MONGODB_PATH = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@e-zamowienia.h47d0.mongodb.net/e-zamowienia`
 
 export const config = {
-    mongo: {
-        url: MONGODB_PATH
-    },
-    server: {
-     port:  SERVER_PORT
-    }
+	mongo: {
+		url: MONGODB_PATH
+	},
+	server: {
+		port:  SERVER_PORT
+	}
 }
