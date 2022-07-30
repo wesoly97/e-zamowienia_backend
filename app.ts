@@ -1,6 +1,6 @@
 import express from 'express'
 import routes from './routes'
-import { config } from "./config/config"
+import { config } from './config/config'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 
@@ -12,9 +12,9 @@ const onErrorConnect = (error: object) => console.log(error)
 mongoose.connect(config.mongo.url,{ retryWrites: true, w: 'majority' }).then(onSuccessConnect).catch(onErrorConnect)
 
 app.listen(config.server.port, () => {
-    console.log(`server is running at localhost:${config.server.port}`)
-    app.use(cookieParser())
-    app.use(express.urlencoded({ extended: false }))
-    app.use(express.json())
-    routes(app)
+	console.log(`server is running at localhost:${config.server.port}`)
+	app.use(cookieParser())
+	app.use(express.urlencoded({ extended: false }))
+	app.use(express.json())
+	routes(app)
 })

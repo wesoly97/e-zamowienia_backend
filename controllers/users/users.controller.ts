@@ -1,88 +1,88 @@
-import User from "../../models/users"
-import mongoose from "mongoose"
-import { RequestHandler  } from "express"
-import { USER_TYPES } from "./users.consts"
+import User from '../../models/users'
+import mongoose from 'mongoose'
+import { RequestHandler  } from 'express'
+import { USER_TYPES } from './users.consts'
 import {
-    invalidLoginOrPassword,
-    onError,
-    onNotFound,
-    onSuccess
-} from "../../utils/handleRequestStatus"
-import { getTranslation } from "../../utils/getTranslation"
+	invalidLoginOrPassword,
+	onError,
+	onNotFound,
+	onSuccess
+} from '../../utils/handleRequestStatus'
+import { getTranslation } from '../../utils/getTranslation'
 import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
 import { authorizeUser } from '../../middlewares/userAuthorization'
 
 export const createUser:RequestHandler = (req, res) => {
-    const { name, surname, mail, password, phoneNumber } = req.body
+	const { name, surname, mail, password, phoneNumber } = req.body
 
-    const user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        name,
-        surname,
-        mail,
-        password: encryptPassword(password),
-        dateOfCreation: new Date(),
-        phoneNumber,
-        accountType: USER_TYPES.REGULAR
-    })
-    return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
+	const user = new User({
+		_id: new mongoose.Types.ObjectId(),
+		name,
+		surname,
+		mail,
+		password: encryptPassword(password),
+		dateOfCreation: new Date(),
+		phoneNumber,
+		accountType: USER_TYPES.REGULAR
+	})
+	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
 }
 
 export const updateUser:RequestHandler = (req, res) => {
-    const userId = req.params.userId
+	const userId = req.params.userId
 
-    return User.findById(userId).select(['-password']).then(user => {
-        if (user) {
-            user.set(req.body)
-            return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-        }
-        else
-            onNotFound(res)
-    })
+	return User.findById(userId).select(['-password']).then(user => {
+		if (user) {
+			user.set(req.body)
+			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
+		}
+		else
+			onNotFound(res)
+	})
 }
 
 export const deleteUser:RequestHandler = (req, res) => {
-    const userId = req.params.userId
+	const userId = req.params.userId
 
-    return User.findByIdAndDelete(userId).then(user => user ?
-        onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' })},200, res)
-        : onNotFound(res)).catch(error => onError(error, res))
+	return User.findByIdAndDelete(userId).then(user => user ?
+		onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' }) },200, res)
+		: onNotFound(res)).catch(error => onError(error, res))
 }
 
 export const getUserData:RequestHandler = (req, res) => {
-    const userId = req.params.userId
-    return User.findById(userId).select(['-password']).then(
-        user => user ? onSuccess(user, 200, res) : onNotFound(res)
-    ).catch(error => onError(error, res))
+	const userId = req.params.userId
+	return User.findById(userId).select(['-password']).then(
+		user => user ? onSuccess(user, 200, res) : onNotFound(res)
+	).catch(error => onError(error, res))
 }
 
 export const getUsers:RequestHandler = (req, res) => User.find().select(['-password'])
-    .then(users => onSuccess(users,200, res)).catch(error => onError(error, res))
+	.then(users => onSuccess(users,200, res)).catch(error => onError(error, res))
 
 export const emailIsValid:RequestHandler = (req, res) => onSuccess({
-    message: getTranslation({ key: 'users.emailIsValid' })
-    },200, res)
+	message: getTranslation({ key: 'users.emailIsValid' })
+},200, res)
 
 export const logIn:RequestHandler = (req, res) => {
- const { mail, password } = req.body
-    return User.findOne({ mail }).then(user => {
-        if (user) {
-           const isPasswordMatch = passwordCompare(password, user.password)
-            if(isPasswordMatch) {
-                authorizeUser(user._id, res)
-                onSuccess({ message: getTranslation({key: 'users.loginSuccess'}) }, 200, res)
-            }
-            else
-                invalidLoginOrPassword(res)
-        }
-        else
-            invalidLoginOrPassword(res)
-    }).catch(error => onError(error, res))
+	const { mail, password } = req.body
+	return User.findOne({ mail }).then(user => {
+		if (user) {
+			const isPasswordMatch = passwordCompare(password, user.password)
+			if(isPasswordMatch) {
+				authorizeUser(user._id, res)
+				onSuccess({ message: getTranslation({ key: 'users.loginSuccess' }) }, 200, res)
+			}
+			else
+				invalidLoginOrPassword(res)
+		}
+		else
+			invalidLoginOrPassword(res)
+	}).catch(error => onError(error, res))
 }
 
 export const logOut:RequestHandler = (req, res) => {
-    const { sessionUserId } = req.body
-    res.clearCookie(`${sessionUserId}`)
-    req.cookies['${sessionUserId}'] = ""
-    return onSuccess({ message: getTranslation({key: 'users.logOutSuccess'}) }, 200, res)
+	const { sessionUserId } = req.body
+	res.clearCookie(`${sessionUserId}`)
+	req.cookies['${sessionUserId}'] = ''
+	return onSuccess({ message: getTranslation({ key: 'users.logOutSuccess' }) }, 200, res)
 }
