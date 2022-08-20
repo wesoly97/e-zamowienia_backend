@@ -11,7 +11,9 @@
 		"alreadyExist": "juz istnieje",
 		"invalidEmailOrPassword": "Nieprawidłowy email lub hasło",
 		"invalidPasswordFormat": "Hasło musi zawierać co najmniej 8 znaków, jedną wielką literę, jedną małą literę, liczbę oraz znak specjalny",
-		"mustBeLogged": "Musisz być zalogowany!"
+		"mustBeLogged": "Musisz być zalogowany!",
+		"invalidFileFormat": "%s musi być w formacie: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
+		"invalidFileSize": "%s nie może przekraczać 20 Mb"
 	},
 	"orders": {
 		"orderField": {

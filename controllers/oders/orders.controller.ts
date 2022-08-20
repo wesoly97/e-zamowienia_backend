@@ -3,9 +3,25 @@ import Order from '../../models/orders'
 import mongoose from 'mongoose'
 import { getTranslation } from '../../utils/getTranslation'
 import { onError, onNotFound, onSuccess } from '../../utils/handleRequestStatus'
+import { deleteFiles, fileUpload } from '../../middlewares/amazonS3'
+import { PATHS } from '../../routes'
+import { getServerDomain } from '../../utils/getServerDomain'
 
-export const createOrder:RequestHandler = (req, res) => {
-	const { procedureIdentifier, category, mode, title, expirationDate, description, files, customerName, price } = req.body
+export const createOrder:RequestHandler = async (req, res) => {
+	const { procedureIdentifier, category, mode, title, expirationDate, description, customerName, price } = req.body
+	const files = req.files as Express.Multer.File[] || []
+	const filesArray: object[] = []
+
+	const promises = files.map((file: Express.Multer.File) => fileUpload(file).then(
+		fileKey => filesArray.push(
+			{
+				url: `${getServerDomain()}${PATHS.FILES}/${fileKey}`,
+				fileName: file.originalname,
+				key: fileKey
+			}
+		)))
+
+	await Promise.all(promises)
 
 	const order = new Order({
 		_id: new mongoose.Types.ObjectId(),
@@ -14,7 +30,7 @@ export const createOrder:RequestHandler = (req, res) => {
 		category,
 		dateOfPublication: new Date(),
 		description,
-		files: [],
+		files: filesArray,
 		price,
 		customerName,
 		expirationDate,
@@ -57,7 +73,15 @@ export const updateOrder:RequestHandler = (req, res) => {
 
 export const deleteOrder:RequestHandler = (req, res) => {
 	const orderId = req.params.orderId
-	return Order.findByIdAndDelete(orderId).then(order => order ?
-		onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' }) },200, res)
-		: onNotFound(res)).catch(error => onError(error, res))
+	Order.findById(orderId).then(order => {
+		if(order) {
+			const filesToDelete: object[] = []
+			order.files.map(file => filesToDelete.push({ Key: file.key }))
+			deleteFiles(filesToDelete).then(() => order?.delete().then(
+				onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' }) },200, res)
+			)).catch(error => onError(error, res))
+		}
+		else
+			onNotFound(res)
+	}).catch(error => onError(error, res))
 }

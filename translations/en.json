@@ -10,7 +10,9 @@
         "notFound": "Not found",
         "invalidEmailOrPassword": "Invalid email Or password",
         "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character",
-        "mustBeLogged": "You must be logged in"
+        "mustBeLogged": "You must be logged in",
+        "invalidFileFormat": "%s must be in the format: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
+        "invalidFileSize": "%s must not exceed 20 Mb"
     },
     "orders": {
         "orderField": {
