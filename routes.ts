@@ -1,5 +1,6 @@
 import { Express } from 'express'
 import redoc from 'redoc-express'
+import multer from 'multer'
 import { createOrder, deleteOrder, getOrder, getOrders, updateOrder } from './controllers/oders/orders.controller'
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
 import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
@@ -22,18 +23,24 @@ import {
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
 import { isUserLogged } from './middlewares/userAuthorization'
+import { getFile } from './controllers/files/files.controller'
 
-const PATHS = {
+export const PATHS = {
 	ORDERS: '/orders',
 	DOCUMENTATION: '/documentation',
-	USERS: '/users'
+	USERS: '/users',
+	FILES: '/files'
 }
+
+const upload = multer()
 
 const routes = (app: Express) => {
 	app.get(PATHS.DOCUMENTATION, redoc({ title: 'E-Zamówienia - Api dokumentacja', specUrl: `${PATHS.DOCUMENTATION}/file` }))
 	app.get(`${PATHS.DOCUMENTATION}/file`, getDocumentationFile)
 
-	app.post(PATHS.ORDERS, orderValidator, checkValidationResult, isUserLogged, createOrder)
+	app.get(`${PATHS.FILES}/:key`, getFile)
+
+	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, createOrder)
 	app.get(PATHS.ORDERS, getOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, updateOrder)

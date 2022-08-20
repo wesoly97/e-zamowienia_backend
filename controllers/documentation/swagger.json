@@ -71,6 +71,7 @@
         "tags": ["Orders"],
         "description": "Dodwanie nowego zamówienia publicznego",
         "summary": "addOrder",
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "name": "order",
@@ -108,7 +109,11 @@
                 },
                 "files": {
                   "example": [],
-                  "type": "array"
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "binary"
+                  }
                 },
                 "expirationDate": {
                   "type": "string",
@@ -746,7 +751,23 @@
         },
         "files": {
           "type": "array",
-          "example": "[]"
+          "items": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "example": "http://localhost:5000/files/1661001524__nazwa.pdf",
+                "type": "string"
+              },
+              "fileName": {
+                "example": "nazwa.pdf",
+                "type": "string"
+              },
+              "key": {
+                "example": "1661001524__nazwa.pdf",
+                "type": "string"
+              }
+            }
+          }
         },
         "dateOfPublication": {
           "type": "string",

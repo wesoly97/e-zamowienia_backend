@@ -1,21 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
+import { IOrderModel } from './orders.types'
 
 const COLLECTION_NAME = 'Orders'
-
-export interface IOrder {
-    procedureIdentifier: string,
-    category: string,
-    mode: string,
-    title: string,
-    customerName: string,
-    description: string,
-    price: number,
-    files: string[],
-    dateOfPublication: Date,
-    expirationDate: Date,
-}
-
-export interface IOrderModel extends IOrder, Document {}
 
 const orderSchema: Schema = new Schema(
 	{

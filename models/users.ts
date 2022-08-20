@@ -1,18 +1,7 @@
-import mongoose, { Document, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
+import { IUserModel } from './users.types'
 
 const COLLECTION_NAME = 'Users'
-
-export interface IUser {
-    name: string,
-    surname: string,
-    accountType: string,
-    mail: string,
-    password: string,
-    phoneNumber: string,
-    dateOfCreation: Date,
-}
-
-export interface IUserModel extends IUser, Document {}
 
 const userSchema: Schema = new Schema(
 	{

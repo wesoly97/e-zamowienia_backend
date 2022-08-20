@@ -1,5 +1,6 @@
 import { check } from 'express-validator'
 import { getTranslation } from '../../utils/getTranslation'
+import { isFileDocumentFormatValid, isFileDocumentSizeValid } from '../../middlewares/customValidators'
 
 export const orderValidator = [
 	check('title')
@@ -74,15 +75,17 @@ export const orderValidator = [
 				arg: getTranslation({ key: 'orders.orderField.procedureIdentifier' })
 			})
 		),
-	check('files')
-		.optional().isArray().withMessage(
-			getTranslation({
-				key: 'errors.mustBeArray',
-				arg: getTranslation({ key: 'orders.orderField.files' })
-			})
-		),
+	check('files').custom(isFileDocumentFormatValid).withMessage(
+		getTranslation({
+			key: 'errors.invalidFileFormat',
+			arg: getTranslation({ key: 'orders.orderField.files' })
+		})).custom(isFileDocumentSizeValid).withMessage(
+		getTranslation({
+			key: 'errors.invalidFileSize',
+			arg: getTranslation({ key: 'orders.orderField.files' })
+		})),
 	check('price')
-		.optional().isNumeric().withMessage(
+		.notEmpty().isNumeric().withMessage(
 			getTranslation({
 				key: 'errors.mustBeNumber',
 				arg: getTranslation({ key: 'orders.orderField.price' })
@@ -153,15 +156,17 @@ export const orderUpdateValidator = [
 			arg: getTranslation({ key: 'orders.orderField.procedureIdentifier' })
 		})
 	),
-	check('files')
-		.optional().isArray().withMessage(
-			getTranslation({
-				key: 'errors.mustBeArray',
-				arg: getTranslation({ key: 'orders.orderField.files' })
-			})
-		),
+	check('files').optional().custom(isFileDocumentFormatValid).withMessage(
+		getTranslation({
+			key: 'errors.invalidFileFormat',
+			arg: getTranslation({ key: 'orders.orderField.files' })
+		})).custom(isFileDocumentSizeValid).withMessage(
+		getTranslation({
+			key: 'errors.invalidFileSize',
+			arg: getTranslation({ key: 'orders.orderField.files' })
+		})),
 	check('price')
-		.optional().isNumeric().withMessage(
+		.isNumeric().withMessage(
 			getTranslation({
 				key: 'errors.mustBeNumber',
 				arg: getTranslation({ key: 'orders.orderField.price' })
