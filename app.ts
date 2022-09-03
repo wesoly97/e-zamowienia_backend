@@ -4,6 +4,7 @@ import { config } from './config/config'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import { getServerDomain } from './utils/getServerDomain'
+import cors from 'cors'
 
 const app = express()
 
@@ -14,6 +15,7 @@ mongoose.connect(config.mongo.url,{ retryWrites: true, w: 'majority' }).then(onS
 
 app.listen(config.server.port, () => {
 	console.log(`server is running at ${getServerDomain()}/documentation`)
+	app.use(cors())
 	app.use(cookieParser())
 	app.use(express.urlencoded({ extended: false }))
 	app.use(express.json())
