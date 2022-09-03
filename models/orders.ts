@@ -14,7 +14,11 @@ const orderSchema: Schema = new Schema(
 		price:{ type: Number, required: true },
 		files: { type: Array, required: true },
 		dateOfPublication: { type: Date, required: true },
-		expirationDate: { type: Date, required: true }
+		expirationDate: { type: Date, required: true },
+		ownerId:{
+			type: Schema.Types.ObjectId,
+			ref: 'users'
+		}
 	},
 	{
 		versionKey: false
