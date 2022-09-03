@@ -11,7 +11,7 @@ const s3Bucket = () => new S3(
 export const fileUpload = async (file: Express.Multer.File) => {
 	const uploadedFileData = await s3Bucket().upload({
 		Bucket: process.env.AWS_BUCKET_NAME || '',
-		Key: `${Math.floor(Date.now()/1000)}__${file.originalname}`.replace(/\s+/g,'_'),
+		Key: `${Math.floor(Date.now()/1000)}__${file.originalname.replace('__','_')}`.replace(/\s+/g,'_'),
 		Body: file.buffer,
 	}).promise()
 
