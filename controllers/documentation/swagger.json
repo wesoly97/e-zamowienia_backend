@@ -845,21 +845,9 @@
         "type": "array",
         "items": {
           "properties": {
-            "value": {
-              "type": "string",
-              "example": "3 tysiace"
-            },
-            "msg": {
+            "message": {
               "type": "string",
               "example": "Cena musi być liczbą"
-            },
-            "param":{
-              "type": "string",
-              "example": "price"
-            },
-            "location": {
-              "type": "string",
-              "example": "body"
             }
           }
         }
@@ -872,21 +860,9 @@
         "type": "array",
         "items": {
           "properties": {
-            "value": {
-              "type": "string",
-              "example": 123
-            },
-            "msg": {
+            "message": {
               "type": "string",
               "example": "Imie musi być ciągiem znaków"
-            },
-            "param":{
-              "type": "string",
-              "example": "name"
-            },
-            "location": {
-              "type": "string",
-              "example": "body"
             }
           }
         }
