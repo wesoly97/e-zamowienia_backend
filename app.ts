@@ -13,7 +13,7 @@ const onErrorConnect = (error: object) => console.log(error)
 mongoose.connect(config.mongo.url,{ retryWrites: true, w: 'majority' }).then(onSuccessConnect).catch(onErrorConnect)
 
 app.listen(config.server.port, () => {
-	console.log(`server is running at ${getServerDomain()}`)
+	console.log(`server is running at ${getServerDomain()}/documentation`)
 	app.use(cookieParser())
 	app.use(express.urlencoded({ extended: false }))
 	app.use(express.json())
