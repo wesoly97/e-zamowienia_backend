@@ -40,7 +40,7 @@ const routes = (app: Express) => {
 
 	app.get(`${PATHS.FILES}/:key`, getFile)
 
-	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, createOrder)
+	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, isUserLogged, createOrder)
 	app.get(PATHS.ORDERS, getOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, updateOrder)

@@ -8,7 +8,7 @@ import { PATHS } from '../../routes'
 import { getServerDomain } from '../../utils/getServerDomain'
 
 export const createOrder:RequestHandler = async (req, res) => {
-	const { procedureIdentifier, category, mode, title, expirationDate, description, customerName, price } = req.body
+	const { procedureIdentifier, category, mode, title, expirationDate, description, customerName, price, sessionUserId } = req.body
 	const files = req.files as Express.Multer.File[] || []
 	const filesArray: object[] = []
 
@@ -35,6 +35,7 @@ export const createOrder:RequestHandler = async (req, res) => {
 		customerName,
 		expirationDate,
 		procedureIdentifier,
+		ownerId: sessionUserId,
 	})
 	return order.save().then(order => onSuccess(order,201, res)).catch(error => onError(error, res))
 }
@@ -48,6 +49,7 @@ export const getOrders:RequestHandler = (req, res) => Order.find().select({
 	procedureIdentifier: 1,
 	expirationDate: 1,
 	price: 1,
+	ownerId: 1,
 })
 	.then(orders => onSuccess(orders,200, res))
 	.catch(error => onError(error, res))
