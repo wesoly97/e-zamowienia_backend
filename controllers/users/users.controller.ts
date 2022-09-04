@@ -13,6 +13,8 @@ import { getTranslation } from '../../utils/getTranslation'
 import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
 import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/userAuthorization'
 import { emailExist } from '../../utils/emailExist'
+import { sendEmail } from '../../middlewares/emailSender'
+import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, mail, password, phoneNumber } = req.body
@@ -94,7 +96,7 @@ export const resetPassword:RequestHandler = async (req, res) => {
 
 	if (await emailExist(mail, res)) {
 		const token = resetPasswordGenerateToken(mail)
-		console.log(token)
+		await sendEmail(mail, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
 		onSuccess({ message: getTranslation({ key: 'users.resetPasswordEmailHasBeenSend' }) }, 200, res)
 	} else {
 		emailNotExist(res)

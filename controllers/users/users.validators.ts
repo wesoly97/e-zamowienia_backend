@@ -36,12 +36,12 @@ export const checkEmail = [
 		.notEmpty().withMessage(
 			getTranslation({
 				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.mail' })
+				arg: getTranslation({ key: 'users.userField.emails' })
 			})
 		).isEmail().withMessage(
 			getTranslation({
 				key: 'errors.mustBeEmail',
-				arg: getTranslation({ key: 'users.userField.mail' })
+				arg: getTranslation({ key: 'users.userField.emails' })
 			})
 		),
 ]
@@ -115,7 +115,7 @@ export const userUpdateValidator = [
 	check('mail').optional().isEmail().withMessage(
 		getTranslation({
 			key: 'errors.mustBeEmail',
-			arg: getTranslation({ key: 'users.userField.mail' })
+			arg: getTranslation({ key: 'users.userField.emails' })
 		})
 	),
 	check('password').optional().isStrongPassword().withMessage(
