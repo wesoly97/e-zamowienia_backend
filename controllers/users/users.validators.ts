@@ -1,22 +1,19 @@
 import { RequestHandler } from 'express'
-import Users from '../../models/users'
-import { fieldAlreadyExist, onError } from '../../utils/handleRequestStatus'
+import { fieldAlreadyExist } from '../../utils/handleRequestStatus'
 import { check } from 'express-validator'
 import { getTranslation } from '../../utils/getTranslation'
+import { emailExist } from '../../utils/emailExist'
 
-export const checkEmailExist:RequestHandler = (req, res, next) => {
+export const checkEmailExist:RequestHandler = async (req, res, next) => {
 	const { mail } = req.body
 
-	if(!mail)
+	if (!mail)
 		return next()
 
-	return Users.findOne({ mail }).then(user => {
-		if (user) {
-			return fieldAlreadyExist('users.emailExist', res)
-		}
-		else
-			return next()
-	}).catch(error => onError(error, res))
+	if (await emailExist(mail, res)) {
+		return fieldAlreadyExist('users.emailExist', res)
+	} else
+		return next()
 }
 
 export const checkUserId = [

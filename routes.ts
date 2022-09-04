@@ -11,7 +11,7 @@ import {
 	getUserData,
 	getUsers,
 	logIn,
-	logOut,
+	logOut, resetPassword,
 	updateUser
 } from './controllers/users/users.controller'
 import {
@@ -49,6 +49,7 @@ const routes = (app: Express) => {
 	app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
 	app.get(PATHS.USERS, isUserLogged, getUsers)
 	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, checkEmailExist, updateUser)
+	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, resetPassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
 	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, getUserData)
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
