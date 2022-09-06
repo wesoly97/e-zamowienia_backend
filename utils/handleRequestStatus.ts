@@ -10,3 +10,6 @@ export const invalidLoginOrPassword = (res: Response) => res.status(401).json({
 })
 export const notLogged = (res: Response) => res.status(401).json({ message: getTranslation({ key: 'errors.mustBeLogged' }) })
 export const emailNotExist = (res: Response) => res.status(404).json({ message: getTranslation({ key: 'errors.emailNotExist' }) })
+export const invalidToken = (res: Response) => res.status(401).json({
+	message: getTranslation({ key: 'errors.invalidToken' })
+})

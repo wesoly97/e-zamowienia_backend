@@ -4,7 +4,7 @@ import { RequestHandler  } from 'express'
 import { USER_TYPES } from './users.consts'
 import {
 	emailNotExist,
-	invalidLoginOrPassword,
+	invalidLoginOrPassword, invalidToken,
 	onError,
 	onNotFound,
 	onSuccess
@@ -101,4 +101,17 @@ export const resetPassword:RequestHandler = async (req, res) => {
 	} else {
 		emailNotExist(res)
 	}
+}
+
+export const changePassword:RequestHandler = async (req, res) => {
+	const { mail, password } = req.body
+
+	return User.findOne({ mail }).then(user => {
+		if (user) {
+			user.set({ password: encryptPassword(password) })
+			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
+		}
+		else
+			invalidToken(res)
+	}).catch(error => onError(error, res))
 }

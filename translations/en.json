@@ -13,7 +13,8 @@
         "mustBeLogged": "You must be logged in",
         "invalidFileFormat": "%s must be in the format: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
         "invalidFileSize": "%s must not exceed 20 Mb",
-        "emailNotExist": "The email you provided is not on our site!"
+        "emailNotExist": "The email you provided is not on our site!",
+        "invalidToken": "Unfortunately, the password cannot be changed because the Token provided is incorrect"
     },
     "orders": {
         "orderField": {

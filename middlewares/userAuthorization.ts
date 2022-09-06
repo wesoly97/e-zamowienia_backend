@@ -1,9 +1,9 @@
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { CookieOptions, RequestHandler, Response } from 'express'
-import { notLogged } from '../utils/handleRequestStatus'
+import { invalidToken, notLogged } from '../utils/handleRequestStatus'
 
 const NUMBER_OF_DAYS_COOKIE_EXPIRED = 2
-const RESET_PASSWORD_EXPIRE_TIME = 15
+const RESET_PASSWORD_EXPIRE_TIME = 5
 
 const COOKIE_CONFIG: CookieOptions = {
 	path: '/',
@@ -23,7 +23,7 @@ export const isUserLogged:RequestHandler = (req, res, next) => {
 	const token = req.headers.cookie?.split('=')[1]
 	const verifyTokenCallback = (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
 		if(err) {
-			notLogged(res)
+			return notLogged(res)
 		}
 		req.body.sessionUserId = (<JwtPayload | undefined>decoded)?.id
 		return next()
@@ -36,8 +36,25 @@ export const isUserLogged:RequestHandler = (req, res, next) => {
 }
 
 export const resetPasswordGenerateToken = (mail: string) => {
-	const token = jwt.sign({ mail: mail }, process.env.JWT_SECRET_KEY as string + mail, {
+	const token = jwt.sign({ mail: mail }, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, {
 		expiresIn: `${RESET_PASSWORD_EXPIRE_TIME} min`
 	})
 	return token
+}
+
+export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
+	const { token } = req.body
+	const verifyTokenCallback = (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
+		if(err) {
+			return invalidToken(res)
+		}
+		req.body.mail = (<JwtPayload | undefined>decoded)?.mail
+		return next()
+	}
+
+	if(!token)
+		return invalidToken(res)
+
+	jwt.verify(token as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
+
 }

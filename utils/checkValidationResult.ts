@@ -7,8 +7,7 @@ export const checkValidationResult:RequestHandler = (req, res, next) => {
 	const errorsFormatted = errors.array().map(error => { return { message: error.msg }})
 
 	if (!errors.isEmpty()) {
-		res.status(400).json({ errors: errorsFormatted })
-		return
+		return res.status(400).json({ errors: errorsFormatted })
 	}
 	else
 		next()
