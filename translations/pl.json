@@ -46,6 +46,7 @@
 		"emailIsValid": "Podany email jest poprawny",
 		"loginSuccess": "logowanie przebiegło pomyślnie",
 		"logOutSuccess": "Wylogowanie zakończone sukcesem",
-		"resetPasswordEmailHasBeenSend": "Email z linkiem resetującym hasło został wysłany na podany email!"
+		"resetPasswordEmailHasBeenSend": "Email z linkiem resetującym hasło został wysłany na podany email!",
+		"changePasswordSuccess": "Zmiana hasła przebiegła pomyślnie!"
 	}
 }

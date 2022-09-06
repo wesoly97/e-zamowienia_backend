@@ -7,13 +7,15 @@ import { emailExist } from '../../utils/emailExist'
 export const checkEmailExist:RequestHandler = async (req, res, next) => {
 	const { mail } = req.body
 
-	if (!mail)
+	if (!mail) {
 		return next()
+	}
 
 	if (await emailExist(mail, res)) {
 		return fieldAlreadyExist('users.emailExist', res)
-	} else
+	} else {
 		return next()
+	}
 }
 
 export const checkUserId = [
@@ -36,12 +38,12 @@ export const checkEmail = [
 		.notEmpty().withMessage(
 			getTranslation({
 				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.emails' })
+				arg: getTranslation({ key: 'users.userField.mail' })
 			})
 		).isEmail().withMessage(
 			getTranslation({
 				key: 'errors.mustBeEmail',
-				arg: getTranslation({ key: 'users.userField.emails' })
+				arg: getTranslation({ key: 'users.userField.mail' })
 			})
 		),
 ]
@@ -115,7 +117,7 @@ export const userUpdateValidator = [
 	check('mail').optional().isEmail().withMessage(
 		getTranslation({
 			key: 'errors.mustBeEmail',
-			arg: getTranslation({ key: 'users.userField.emails' })
+			arg: getTranslation({ key: 'users.userField.mail' })
 		})
 	),
 	check('password').optional().isStrongPassword().withMessage(

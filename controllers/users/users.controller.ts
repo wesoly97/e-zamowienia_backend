@@ -109,9 +109,10 @@ export const changePassword:RequestHandler = async (req, res) => {
 	return User.findOne({ mail }).then(user => {
 		if (user) {
 			user.set({ password: encryptPassword(password) })
-			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-		}
-		else
+			return user.save().then(() => onSuccess({ message: getTranslation({ key: 'users.changePasswordSuccess' }) },200, res)).catch(error => onError(error, res))
+		} else {
 			invalidToken(res)
+		}
+
 	}).catch(error => onError(error, res))
 }

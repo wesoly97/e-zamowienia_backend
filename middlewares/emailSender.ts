@@ -11,7 +11,7 @@ export const sendEmail = async (emailTo: string, emailContent: string, subject: 
 			clientId: process.env.CLIENT_ID,
 			clientSecret: process.env.CLIENT_SECRET,
 			refreshToken: process.env.REFRESH_TOKEN,
-			accessToken: await getEmailAccessToken() as string
+			accessToken: await getEmailAccessToken()
 		},
 	}
 	const transporter = createTransport(nodemailerOptions)

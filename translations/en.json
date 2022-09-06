@@ -45,6 +45,7 @@
         "emailIsValid": "The specified email is valid",
         "loginSuccess": "login successful",
         "logOutSuccess": "logout successfully",
-        "resetPasswordEmailHasBeenSend": "An email with a password reset link was sent to the email you provided!"
+        "resetPasswordEmailHasBeenSend": "An email with a password reset link was sent to the email you provided!",
+        "changePasswordSuccess": "Password change was successful!"
     }
 }

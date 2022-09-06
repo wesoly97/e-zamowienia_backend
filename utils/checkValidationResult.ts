@@ -8,9 +8,9 @@ export const checkValidationResult:RequestHandler = (req, res, next) => {
 
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errorsFormatted })
-	}
-	else
+	} else {
 		next()
+	}
 }
 
 export const checkLoginValidationResult:RequestHandler = (req, res, next) => {
@@ -19,6 +19,7 @@ export const checkLoginValidationResult:RequestHandler = (req, res, next) => {
 	if (!errors.isEmpty()) {
 		return invalidLoginOrPassword(res)
 	}
-	else
+	else {
 		next()
+	}
 }
