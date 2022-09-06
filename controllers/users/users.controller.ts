@@ -3,14 +3,18 @@ import mongoose from 'mongoose'
 import { RequestHandler  } from 'express'
 import { USER_TYPES } from './users.consts'
 import {
-	invalidLoginOrPassword,
+	emailNotExist,
+	invalidLoginOrPassword, invalidToken,
 	onError,
 	onNotFound,
 	onSuccess
 } from '../../utils/handleRequestStatus'
 import { getTranslation } from '../../utils/getTranslation'
 import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
-import { authorizeUser } from '../../middlewares/userAuthorization'
+import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/userAuthorization'
+import { emailExist } from '../../utils/emailExist'
+import { sendEmail } from '../../middlewares/emailSender'
+import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, mail, password, phoneNumber } = req.body
@@ -85,4 +89,30 @@ export const logOut:RequestHandler = (req, res) => {
 	res.clearCookie(`${sessionUserId}`)
 	req.cookies['${sessionUserId}'] = ''
 	return onSuccess({ message: getTranslation({ key: 'users.logOutSuccess' }) }, 200, res)
+}
+
+export const resetPassword:RequestHandler = async (req, res) => {
+	const { mail } = req.body
+
+	if (await emailExist(mail, res)) {
+		const token = resetPasswordGenerateToken(mail)
+		await sendEmail(mail, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
+		onSuccess({ message: getTranslation({ key: 'users.resetPasswordEmailHasBeenSend' }) }, 200, res)
+	} else {
+		emailNotExist(res)
+	}
+}
+
+export const changePassword:RequestHandler = async (req, res) => {
+	const { mail, password } = req.body
+
+	return User.findOne({ mail }).then(user => {
+		if (user) {
+			user.set({ password: encryptPassword(password) })
+			return user.save().then(() => onSuccess({ message: getTranslation({ key: 'users.changePasswordSuccess' }) },200, res)).catch(error => onError(error, res))
+		} else {
+			invalidToken(res)
+		}
+
+	}).catch(error => onError(error, res))
 }

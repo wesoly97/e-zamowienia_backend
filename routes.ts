@@ -5,13 +5,14 @@ import { createOrder, deleteOrder, getOrder, getOrders, updateOrder } from './co
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
 import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
 import {
+	changePassword,
 	createUser,
 	deleteUser,
 	emailIsValid,
 	getUserData,
 	getUsers,
 	logIn,
-	logOut,
+	logOut, resetPassword,
 	updateUser
 } from './controllers/users/users.controller'
 import {
@@ -22,7 +23,7 @@ import {
 	userValidator
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
-import { isUserLogged } from './middlewares/userAuthorization'
+import { isResetPasswordTokenValid, isUserLogged } from './middlewares/userAuthorization'
 import { getFile } from './controllers/files/files.controller'
 
 export const PATHS = {
@@ -49,6 +50,8 @@ const routes = (app: Express) => {
 	app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
 	app.get(PATHS.USERS, isUserLogged, getUsers)
 	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, checkEmailExist, updateUser)
+	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, resetPassword)
+	app.post(`${PATHS.USERS}/password`, checkPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
 	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, getUserData)
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)

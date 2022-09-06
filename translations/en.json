@@ -12,7 +12,9 @@
         "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character",
         "mustBeLogged": "You must be logged in",
         "invalidFileFormat": "%s must be in the format: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
-        "invalidFileSize": "%s must not exceed 20 Mb"
+        "invalidFileSize": "%s must not exceed 20 Mb",
+        "emailNotExist": "The email you provided is not on our site!",
+        "invalidToken": "Unfortunately, the password cannot be changed because the Token provided is incorrect"
     },
     "orders": {
         "orderField": {
@@ -42,6 +44,8 @@
         "deleteConfirmation": "User account has been deleted",
         "emailIsValid": "The specified email is valid",
         "loginSuccess": "login successful",
-        "logOutSuccess": "logout successfully"
+        "logOutSuccess": "logout successfully",
+        "resetPasswordEmailHasBeenSend": "An email with a password reset link was sent to the email you provided!",
+        "changePasswordSuccess": "Password change was successful!"
     }
 }

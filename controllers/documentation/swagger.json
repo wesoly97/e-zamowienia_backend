@@ -682,6 +682,129 @@
           }
         }
       }
+    },
+    "/users/password": {
+      "delete": {
+        "tags": ["Users"],
+        "description": "Resetowanie hasła",
+        "summary": "resetPassword",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Email do zresetowania hasła",
+            "schema": {
+              "properties": {
+                "mail": {
+                  "example": "jacusK@gmail.com",
+                  "type": "string",
+                  "uniqueItems": true
+                }
+              },
+              "required": ["mail"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Email z linkiem resetującym hasło został wysłany na podany email!",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Podany email nie znajduje się w naszym serwisie!",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Podany email nie istnieje"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Resetowanie hasła nie powiodło się"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "Zmiana hasła po resecie",
+        "summary": "resetPassword",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Token oraz nowe hasło potrzebne do zresetowania hasła",
+            "schema": {
+              "properties": {
+                "token": {
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoibWlrb2xhanczMUB3cC5wbCIsImlh...",
+                  "type": "string"
+                },
+                "password": {
+                  "example": "Haslo123!",
+                  "type": "string"
+                }
+              },
+              "required": ["token", "password"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Zmiana hasła przebiegła pomylśnie",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Niestety hasło nie może zostać zmienione, ponieważ dostarczony Token jest nieprawidłowy",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Token jest nieprawidłowy"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Resetowanie hasła nie powiodło się"
+          }
+        }
+      }
     }
   },
   "definitions": {

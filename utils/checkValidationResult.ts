@@ -7,11 +7,10 @@ export const checkValidationResult:RequestHandler = (req, res, next) => {
 	const errorsFormatted = errors.array().map(error => { return { message: error.msg }})
 
 	if (!errors.isEmpty()) {
-		res.status(400).json({ errors: errorsFormatted })
-		return
-	}
-	else
+		return res.status(400).json({ errors: errorsFormatted })
+	} else {
 		next()
+	}
 }
 
 export const checkLoginValidationResult:RequestHandler = (req, res, next) => {
@@ -20,6 +19,7 @@ export const checkLoginValidationResult:RequestHandler = (req, res, next) => {
 	if (!errors.isEmpty()) {
 		return invalidLoginOrPassword(res)
 	}
-	else
+	else {
 		next()
+	}
 }
