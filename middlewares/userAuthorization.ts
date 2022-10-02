@@ -1,6 +1,7 @@
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { CookieOptions, RequestHandler, Response } from 'express'
-import { invalidToken, notLogged } from '../utils/handleRequestStatus'
+import { invalidToken, notLogged, notVerified, onError, onNotFound } from '../utils/handleRequestStatus'
+import User from '../models/users'
 
 const NUMBER_OF_DAYS_COOKIE_EXPIRED = 2
 const RESET_PASSWORD_EXPIRE_TIME = 5
@@ -57,4 +58,20 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 
 	jwt.verify(token as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
 
+}
+
+export const isUserVerified:RequestHandler = (req, res, next) => {
+	const { sessionUserId } = req.body
+
+	return User.findById(sessionUserId).select({ isVerified: 1 }).then(user => {
+		if(user) {
+			if(user.isVerified) {
+				next()
+			} else {
+				notVerified(res)
+			}
+		} else {
+			onNotFound(res)
+		}
+	}).catch(error => onError(error, res))
 }

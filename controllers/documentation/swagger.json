@@ -147,6 +147,12 @@
             },
             "description": "Użytkownik nie jest zalogowany"
           },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeVerified"
+            },
+            "description": "Użytkownik nie jest zweryfikowany"
+          },
           "500": {
             "schema": {
               "$ref": "#/databaseError"
@@ -1031,6 +1037,14 @@
     "properties": {
       "message": {
         "example": "Musisz być zalogowany!",
+        "type": "string"
+      }
+    }
+  },
+  "userMustBeVerified": {
+    "properties": {
+      "message": {
+        "example": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
         "type": "string"
       }
     }

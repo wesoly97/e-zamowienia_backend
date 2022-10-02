@@ -23,7 +23,7 @@ import {
 	userValidator
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
-import { isResetPasswordTokenValid, isUserLogged } from './middlewares/userAuthorization'
+import { isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
 import { getFile } from './controllers/files/files.controller'
 
 export const PATHS = {
@@ -41,7 +41,7 @@ const routes = (app: Express) => {
 
 	app.get(`${PATHS.FILES}/:key`, getFile)
 
-	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, isUserLogged, createOrder)
+	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, isUserLogged, isUserVerified, createOrder)
 	app.get(PATHS.ORDERS, getOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, updateOrder)
