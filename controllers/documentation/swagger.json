@@ -872,6 +872,43 @@
           }
         }
       }
+    },
+    "/statistics": {
+      "get": {
+        "description": "Pobieranie statystyk zamówień, wykonawców oraz zamawiających",
+        "summary": "getStatistics",
+        "tags": [
+          "Statistics"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "ordersNumber": {
+                  "example": "3",
+                  "type": "number"
+                },
+                "orderersNumber": {
+                  "example": "11",
+                  "type": "number"
+                },
+                "contractorsNumber": {
+                  "example": "17",
+                  "type": "number"
+                }
+              },
+              "required": ["mail"]
+            },
+            "description": "Ok"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -908,7 +945,7 @@
         },
         "isVerified": {
           "type": "boolean",
-          "example": false
+          "example": true
         }
       }
     },
