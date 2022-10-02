@@ -14,7 +14,9 @@
         "invalidFileFormat": "%s must be in the format: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
         "invalidFileSize": "%s must not exceed 20 Mb",
         "emailNotExist": "The email you provided is not on our site!",
-        "invalidToken": "Unfortunately, the password cannot be changed because the Token provided is incorrect"
+        "invalidToken": "Unfortunately, the password cannot be changed because the Token provided is incorrect",
+        "mustBeVerified": "You must be verified to be able to add public orders",
+        "mustBeAdministrator" : "You must have administrator privileges to use this functionality"
     },
     "orders": {
         "orderField": {

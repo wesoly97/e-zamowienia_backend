@@ -23,7 +23,7 @@ import {
 	userValidator
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
-import { isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
+import { isAdministrator, isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
 import { getFile } from './controllers/files/files.controller'
 
 export const PATHS = {
@@ -57,6 +57,7 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
+	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, updateUser)
 }
 
 export default routes
