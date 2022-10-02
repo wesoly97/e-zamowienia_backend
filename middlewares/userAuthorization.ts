@@ -1,6 +1,9 @@
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { CookieOptions, RequestHandler, Response } from 'express'
-import { invalidToken, notLogged } from '../utils/handleRequestStatus'
+import { invalidToken, notAdministrator, notLogged, notVerified } from '../utils/handleRequestStatus'
+import { IUserModel } from '../models/users.types'
+import { getUserData } from '../controllers/users/users.utils'
+import { USER_TYPES } from '../controllers/users/users.consts'
 
 const NUMBER_OF_DAYS_COOKIE_EXPIRED = 2
 const RESET_PASSWORD_EXPIRE_TIME = 5
@@ -57,4 +60,29 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 
 	jwt.verify(token as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
 
+}
+
+export const isUserVerified:RequestHandler = async (req, res, next) => {
+	const { sessionUserId } = req.body
+	const userProperties = { isVerified: 1 }
+	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
+
+	if(user.isVerified) {
+		next()
+	} else {
+		notVerified(res)
+	}
+}
+
+export const isAdministrator:RequestHandler = async (req, res, next) => {
+	const { sessionUserId } = req.body
+	const userProperties = { accountType: 1 }
+	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
+
+	if(user.accountType === USER_TYPES.ADMIN) {
+		req.body.isVerified = true
+		next()
+	} else {
+		notAdministrator(res)
+	}
 }

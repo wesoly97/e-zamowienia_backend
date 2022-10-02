@@ -8,6 +8,7 @@ interface IUser {
 	password: string,
 	phoneNumber: string,
 	dateOfCreation: Date,
+	isVerified: boolean,
 }
 
 export interface IUserModel extends IUser, Document {}

@@ -27,7 +27,8 @@ export const createUser:RequestHandler = (req, res) => {
 		password: encryptPassword(password),
 		dateOfCreation: new Date(),
 		phoneNumber,
-		accountType: USER_TYPES.REGULAR
+		accountType: USER_TYPES.REGULAR,
+		isVerified: false,
 	})
 	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
 }

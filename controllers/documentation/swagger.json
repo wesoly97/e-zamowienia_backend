@@ -147,6 +147,12 @@
             },
             "description": "Użytkownik nie jest zalogowany"
           },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeVerified"
+            },
+            "description": "Użytkownik nie jest zweryfikowany"
+          },
           "500": {
             "schema": {
               "$ref": "#/databaseError"
@@ -536,6 +542,67 @@
         }
       }
     },
+    "/users/{userId}/verify": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID użytkownika do modyfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "post": {
+        "description": "weryfikowanie użytkownika",
+        "summary": "verifyUser",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
+    },
     "/users/checkEmail": {
       "post": {
         "tags": ["Users"],
@@ -805,6 +872,43 @@
           }
         }
       }
+    },
+    "/statistics": {
+      "get": {
+        "description": "Pobieranie statystyk zamówień, wykonawców oraz zamawiających",
+        "summary": "getStatistics",
+        "tags": [
+          "Statistics"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "ordersNumber": {
+                  "example": "3",
+                  "type": "number"
+                },
+                "orderersNumber": {
+                  "example": "11",
+                  "type": "number"
+                },
+                "contractorsNumber": {
+                  "example": "17",
+                  "type": "number"
+                }
+              },
+              "required": ["mail"]
+            },
+            "description": "Ok"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -838,6 +942,10 @@
         "dateOfCreation": {
           "type": "string",
           "format": "date-time"
+        },
+        "isVerified": {
+          "type": "boolean",
+          "example": true
         }
       }
     },
@@ -1027,6 +1135,22 @@
     "properties": {
       "message": {
         "example": "Musisz być zalogowany!",
+        "type": "string"
+      }
+    }
+  },
+  "userMustBeVerified": {
+    "properties": {
+      "message": {
+        "example": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
+        "type": "string"
+      }
+    }
+  },
+  "userMustBeAdministrator": {
+    "properties": {
+      "message": {
+        "example": "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
         "type": "string"
       }
     }
