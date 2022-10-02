@@ -12,6 +12,7 @@ const userSchema: Schema = new Schema(
 		password: { type: String, required: true },
 		phoneNumber: { type: String, required: true },
 		dateOfCreation: { type: Date, required: true },
+		isVerified: { type: Boolean, required: true },
 	},
 	{
 		versionKey: false

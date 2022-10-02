@@ -838,6 +838,10 @@
         "dateOfCreation": {
           "type": "string",
           "format": "date-time"
+        },
+        "isVerified": {
+          "type": "boolean",
+          "example": false
         }
       }
     },
