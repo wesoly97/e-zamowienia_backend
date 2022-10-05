@@ -75,7 +75,7 @@ export const logIn:RequestHandler = (req, res) => {
 			const isPasswordMatch = passwordCompare(password, user.password)
 			if(isPasswordMatch) {
 				authorizeUser(user._id, res)
-				onSuccess({ message: getTranslation({ key: 'users.loginSuccess' }) }, 200, res)
+				onSuccess({ _id: user._id, role: user.accountType }, 200, res)
 			}
 			else
 				invalidLoginOrPassword(res)
