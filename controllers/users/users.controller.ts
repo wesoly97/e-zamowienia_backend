@@ -28,7 +28,6 @@ export const createUser:RequestHandler = (req, res) => {
 		dateOfCreation: new Date(),
 		phoneNumber,
 		accountType: USER_TYPES.REGULAR,
-		isVerified: false,
 	})
 	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
 }
@@ -116,4 +115,17 @@ export const changePassword:RequestHandler = async (req, res) => {
 		}
 
 	}).catch(error => onError(error, res))
+}
+
+export const verifyUser:RequestHandler = (req, res) => {
+	const userId = req.params.userId
+
+	return User.findById(userId).select(['-password']).then(user => {
+		if (user) {
+			user.set({ accountType: USER_TYPES.ORDERER })
+			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
+		}
+		else
+			onNotFound(res)
+	})
 }
