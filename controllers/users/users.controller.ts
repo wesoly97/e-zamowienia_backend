@@ -39,9 +39,9 @@ export const updateUser:RequestHandler = (req, res) => {
 		if (user) {
 			user.set(req.body)
 			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-		}
-		else
+		} else {
 			onNotFound(res)
+		}
 	})
 }
 
@@ -75,12 +75,12 @@ export const logIn:RequestHandler = (req, res) => {
 			if(isPasswordMatch) {
 				authorizeUser(user._id, res)
 				onSuccess({ _id: user._id, role: user.accountType }, 200, res)
-			}
-			else
+			} else {
 				invalidLoginOrPassword(res)
-		}
-		else
+			}
+		} else {
 			invalidLoginOrPassword(res)
+		}
 	}).catch(error => onError(error, res))
 }
 
@@ -120,12 +120,25 @@ export const changePassword:RequestHandler = async (req, res) => {
 export const verifyUser:RequestHandler = (req, res) => {
 	const userId = req.params.userId
 
-	return User.findById(userId).select(['-password']).then(user => {
+	return User.findById(userId).select({ accountType: 1 }).then(user => {
 		if (user) {
 			user.set({ accountType: USER_TYPES.ORDERER })
 			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-		}
-		else
+		} else {
 			onNotFound(res)
+		}
 	})
+}
+
+export  const getSessionData:RequestHandler = (req, res) => {
+	const { sessionUserId } = req.body
+
+	return User.findById(sessionUserId).select({ accountType: 1 }).then(user => {
+		if (user) {
+			onSuccess(user, 200, res)
+		} else {
+			onNotFound(res)
+		}
+	})
+
 }
