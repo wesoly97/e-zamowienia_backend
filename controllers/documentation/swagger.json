@@ -561,7 +561,7 @@
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/user"
+              "$ref": "#/definitions/sessionData"
             },
             "description": "Ok"
           },
@@ -694,17 +694,7 @@
         "responses": {
           "200": {
             "schema": {
-              "properties": {
-                "_id": {
-                  "uniqueItems": true,
-                  "example": "62af396caa850b80e1eb3e78",
-                  "type": "string"
-                },
-                "role": {
-                  "example": "regular",
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/sessionData"
             },
             "description": "Ok"
           },
@@ -751,6 +741,34 @@
               "$ref": "#/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
+          }
+        }
+      }
+    },
+    "/users/session": {
+      "get": {
+        "tags": ["Users"],
+        "description": "Pobieranie sesji",
+        "summary": "getSession",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+                "$ref": "#/definitions/sessionData"
+            },
+            "description": "Ok"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
           }
         }
       }
@@ -947,6 +965,19 @@
         "dateOfCreation": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "sessionData": {
+      "properties": {
+        "_id": {
+          "uniqueItems": true,
+          "example": "62af396caa850b80e1eb3e78",
+          "type": "string"
+        },
+        "AccountType": {
+          "example": "regular",
+          "type": "string"
         }
       }
     },

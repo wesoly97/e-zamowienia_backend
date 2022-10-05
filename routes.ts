@@ -9,11 +9,14 @@ import {
 	createUser,
 	deleteUser,
 	emailIsValid,
+	getSessionData,
 	getUserData,
 	getUsers,
 	logIn,
-	logOut, resetPassword,
-	updateUser, verifyUser
+	logOut,
+	resetPassword,
+	updateUser,
+	verifyUser
 } from './controllers/users/users.controller'
 import {
 	checkEmail,
@@ -55,12 +58,13 @@ const routes = (app: Express) => {
 	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, resetPassword)
 	app.post(`${PATHS.USERS}/password`, checkPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
+	app.get(`${PATHS.USERS}/session`, isUserLogged, getSessionData)
 	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, getUserData)
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
 	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, verifyUser)
-	
+
 	app.get(`${PATHS.STATISTICS}`, getStatistics)
 }
 
