@@ -695,8 +695,13 @@
           "200": {
             "schema": {
               "properties": {
-                "message": {
-                  "example": "logowanie przebiegło pomyślnie",
+                "_id": {
+                  "uniqueItems": true,
+                  "example": "62af396caa850b80e1eb3e78",
+                  "type": "string"
+                },
+                "role": {
+                  "example": "regular",
                   "type": "string"
                 }
               }
