@@ -13,7 +13,7 @@ import {
 	getUsers,
 	logIn,
 	logOut, resetPassword,
-	updateUser
+	updateUser, verifyUser
 } from './controllers/users/users.controller'
 import {
 	checkEmail,
@@ -59,7 +59,7 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
-	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, updateUser)
+	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, verifyUser)
 	
 	app.get(`${PATHS.STATISTICS}`, getStatistics)
 }

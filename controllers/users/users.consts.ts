@@ -3,4 +3,5 @@ export const USER_TYPES = {
 	REGULAR: 'regular',
 	ANS_ADMIN: 'ANS Administrator',
 	ANS: 'Akademia Nauk Stosowanych',
+	ORDERER: 'orderer',
 }

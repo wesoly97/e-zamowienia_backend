@@ -64,10 +64,10 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 
 export const isUserVerified:RequestHandler = async (req, res, next) => {
 	const { sessionUserId } = req.body
-	const userProperties = { isVerified: 1 }
+	const userProperties = { accountType: 1 }
 	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
-
-	if(user.isVerified) {
+	console.log(user.accountType)
+	if(user.accountType === USER_TYPES.ORDERER) {
 		next()
 	} else {
 		notVerified(res)
@@ -80,7 +80,6 @@ export const isAdministrator:RequestHandler = async (req, res, next) => {
 	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
 
 	if(user.accountType === USER_TYPES.ADMIN) {
-		req.body.isVerified = true
 		next()
 	} else {
 		notAdministrator(res)
