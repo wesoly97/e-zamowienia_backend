@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express'
-import Order from '../../models/orders'
+import { EditedOrder, Order } from '../../models/orders'
 import mongoose from 'mongoose'
 import { getTranslation } from '../../utils/getTranslation'
 import { onError, onNotFound, onSuccess } from '../../utils/handleRequestStatus'
@@ -59,6 +59,33 @@ export const getOrder:RequestHandler = (req, res) => {
 	return Order.findById(orderId).then(
 		order => order ? onSuccess(order,200, res) : onNotFound(res)
 	).catch(error => onError(error, res))
+}
+
+export const createEditedOrder:RequestHandler = (req, res) => {
+	const orderId = req.params.orderId
+	Order.findById(orderId).then(order => {
+		if (order) {
+			order.set(req.body)
+			const editedOrder = new EditedOrder({
+				_id: order._id,
+				title: order.title,
+				mode: order.mode,
+				category: order.category,
+				dateOfPublication: order.dateOfPublication,
+				description: order.description,
+				files: order.files,
+				price: order.price,
+				customerName: order.customerName,
+				expirationDate: order.expirationDate,
+				procedureIdentifier: order.procedureIdentifier,
+				ownerId: order.ownerId,
+			})
+
+			return editedOrder.save().then(editedOrder => onSuccess(editedOrder,200, res)).catch(error => onError(error, res))
+		}
+		else
+			onNotFound(res)
+	})
 }
 
 export const updateOrder:RequestHandler = (req, res) => {

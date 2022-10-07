@@ -1,7 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
-import { IOrderModel } from './orders.types'
+import { IEditedOrderModel, IOrderModel } from './orders.types'
 
-const COLLECTION_NAME = 'Orders'
+const ORDER_COLLECTION_NAME = 'Orders'
+const EDITED_ORDER_COLLECTION_NAME = 'Edited_Orders'
 
 const orderSchema: Schema = new Schema(
 	{
@@ -25,4 +26,7 @@ const orderSchema: Schema = new Schema(
 	}
 )
 
-export default mongoose.model<IOrderModel>(COLLECTION_NAME, orderSchema)
+export const Order = mongoose.model<IOrderModel>(ORDER_COLLECTION_NAME, orderSchema)
+
+export const EditedOrder = mongoose.model<IEditedOrderModel>(EDITED_ORDER_COLLECTION_NAME, orderSchema)
+

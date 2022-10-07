@@ -66,8 +66,8 @@ export const isUserVerified:RequestHandler = async (req, res, next) => {
 	const { sessionUserId } = req.body
 	const userProperties = { accountType: 1 }
 	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
-	console.log(user.accountType)
-	if(user.accountType === USER_TYPES.ORDERER) {
+
+	if([USER_TYPES.ORDERER, USER_TYPES.ADMIN].includes(user.accountType)) {
 		next()
 	} else {
 		notVerified(res)

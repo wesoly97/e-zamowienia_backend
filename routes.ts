@@ -1,7 +1,13 @@
 import { Express } from 'express'
 import redoc from 'redoc-express'
 import multer from 'multer'
-import { createOrder, deleteOrder, getOrder, getOrders, updateOrder } from './controllers/oders/orders.controller'
+import {
+	createEditedOrder,
+	createOrder,
+	deleteOrder,
+	getOrder,
+	getOrders
+} from './controllers/oders/orders.controller'
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
 import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
 import {
@@ -49,7 +55,7 @@ const routes = (app: Express) => {
 	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, isUserLogged, isUserVerified, createOrder)
 	app.get(PATHS.ORDERS, getOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
-	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, updateOrder)
+	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, createEditedOrder)
 	app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, isUserLogged, deleteOrder)
 
 	app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
