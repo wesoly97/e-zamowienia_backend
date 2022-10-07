@@ -5,13 +5,13 @@ import { getTranslation } from '../../utils/getTranslation'
 import { emailExist } from '../../utils/emailExist'
 
 export const checkEmailExist:RequestHandler = async (req, res, next) => {
-	const { mail } = req.body
+	const { email } = req.body
 
-	if (!mail) {
+	if (!email) {
 		return next()
 	}
 
-	if (await emailExist(mail, res)) {
+	if (await emailExist(email, res)) {
 		return fieldAlreadyExist('users.emailExist', res)
 	} else {
 		return next()
@@ -34,16 +34,16 @@ export const checkUserId = [
 ]
 
 export const checkEmail = [
-	check('mail')
+	check('email')
 		.notEmpty().withMessage(
 			getTranslation({
 				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.mail' })
+				arg: getTranslation({ key: 'users.userField.email' })
 			})
 		).isEmail().withMessage(
 			getTranslation({
 				key: 'errors.mustBeEmail',
-				arg: getTranslation({ key: 'users.userField.mail' })
+				arg: getTranslation({ key: 'users.userField.email' })
 			})
 		),
 ]
@@ -114,10 +114,10 @@ export const userUpdateValidator = [
 			arg: getTranslation({ key: 'users.userField.surname' })
 		})
 	),
-	check('mail').optional().isEmail().withMessage(
+	check('email').optional().isEmail().withMessage(
 		getTranslation({
 			key: 'errors.mustBeEmail',
-			arg: getTranslation({ key: 'users.userField.mail' })
+			arg: getTranslation({ key: 'users.userField.email' })
 		})
 	),
 	check('password').optional().isStrongPassword().withMessage(

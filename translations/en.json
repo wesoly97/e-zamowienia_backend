@@ -38,7 +38,7 @@
         "userField": {
             "name": "Name",
             "surname": "Surname",
-            "mail": "Mail",
+            "email": "Email",
             "password": "Password",
             "phoneNumber": "Phone number",
             "userId": "User id number"

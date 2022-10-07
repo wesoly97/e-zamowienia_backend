@@ -17,13 +17,13 @@ import { sendEmail } from '../../middlewares/emailSender'
 import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
 
 export const createUser:RequestHandler = (req, res) => {
-	const { name, surname, mail, password, phoneNumber } = req.body
+	const { name, surname, email, password, phoneNumber } = req.body
 
 	const user = new User({
 		_id: new mongoose.Types.ObjectId(),
 		name,
 		surname,
-		mail,
+		email,
 		password: encryptPassword(password),
 		dateOfCreation: new Date(),
 		phoneNumber,
@@ -68,8 +68,8 @@ export const emailIsValid:RequestHandler = (req, res) => onSuccess({
 },200, res)
 
 export const logIn:RequestHandler = (req, res) => {
-	const { mail, password } = req.body
-	return User.findOne({ mail }).then(user => {
+	const { email, password } = req.body
+	return User.findOne({ email }).then(user => {
 		if (user) {
 			const isPasswordMatch = passwordCompare(password, user.password)
 			if(isPasswordMatch) {
@@ -92,11 +92,11 @@ export const logOut:RequestHandler = (req, res) => {
 }
 
 export const resetPassword:RequestHandler = async (req, res) => {
-	const { mail } = req.body
+	const { email } = req.body
 
-	if (await emailExist(mail, res)) {
-		const token = resetPasswordGenerateToken(mail)
-		await sendEmail(mail, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
+	if (await emailExist(email, res)) {
+		const token = resetPasswordGenerateToken(email)
+		await sendEmail(email, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
 		onSuccess({ message: getTranslation({ key: 'users.resetPasswordEmailHasBeenSend' }) }, 200, res)
 	} else {
 		emailNotExist(res)
@@ -104,9 +104,9 @@ export const resetPassword:RequestHandler = async (req, res) => {
 }
 
 export const changePassword:RequestHandler = async (req, res) => {
-	const { mail, password } = req.body
+	const { email, password } = req.body
 
-	return User.findOne({ mail }).then(user => {
+	return User.findOne({ email }).then(user => {
 		if (user) {
 			user.set({ password: encryptPassword(password) })
 			return user.save().then(() => onSuccess({ message: getTranslation({ key: 'users.changePasswordSuccess' }) },200, res)).catch(error => onError(error, res))
