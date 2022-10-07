@@ -38,8 +38,8 @@ export const isUserLogged:RequestHandler = (req, res, next) => {
 	jwt.verify(token as string, process.env.JWT_SECRET_KEY as string, verifyTokenCallback)
 }
 
-export const resetPasswordGenerateToken = (mail: string) => {
-	const token = jwt.sign({ mail: mail }, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, {
+export const resetPasswordGenerateToken = (email: string) => {
+	const token = jwt.sign({ email: email }, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, {
 		expiresIn: `${RESET_PASSWORD_EXPIRE_TIME} min`
 	})
 	return token
@@ -51,7 +51,7 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 		if(err) {
 			return invalidToken(res)
 		}
-		req.body.mail = (<JwtPayload | undefined>decoded)?.mail
+		req.body.email = (<JwtPayload | undefined>decoded)?.email
 		return next()
 	}
 

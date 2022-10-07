@@ -4,7 +4,7 @@ interface IUser {
 	name: string,
 	surname: string,
 	accountType: string,
-	mail: string,
+	email: string,
 	password: string,
 	phoneNumber: string,
 	dateOfCreation: Date,

@@ -39,7 +39,7 @@
 		"userField": {
 			"name": "Imie",
 			"surname": "Nazwisko",
-			"mail": "Mail",
+			"email": "Email",
 			"password": "Hasło",
 			"phoneNumber": "Numer telefonu",
 			"userId": "Numer id użytkownika"
