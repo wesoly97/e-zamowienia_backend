@@ -15,7 +15,7 @@ mongoose.connect(config.mongo.url,{ retryWrites: true, w: 'majority' }).then(onS
 
 app.listen(config.server.port, () => {
 	console.log(`server is running at ${getServerDomain()}/documentation`)
-	app.use(cors())
+	app.use(cors( { credentials: true, origin: 'http://127.0.0.1:8080' }))
 	app.use(cookieParser())
 	app.use(express.urlencoded({ extended: false }))
 	app.use(express.json())
