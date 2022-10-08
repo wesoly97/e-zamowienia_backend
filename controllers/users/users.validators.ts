@@ -87,18 +87,6 @@ export const userValidator = [
 				arg: getTranslation({ key: 'users.userField.surname' })
 			})
 		),
-	check('phoneNumber')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.phoneNumber' })
-			})
-		).isString().withMessage(
-			getTranslation({
-				key: 'errors.mustBeString',
-				arg: getTranslation({ key: 'users.userField.phoneNumber' })
-			})
-		)
 ]
 
 export const userUpdateValidator = [
