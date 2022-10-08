@@ -17,7 +17,7 @@ import { sendEmail } from '../../middlewares/emailSender'
 import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
 
 export const createUser:RequestHandler = (req, res) => {
-	const { name, surname, email, password, phoneNumber } = req.body
+	const { name, surname, email, password } = req.body
 
 	const user = new User({
 		_id: new mongoose.Types.ObjectId(),
@@ -26,7 +26,7 @@ export const createUser:RequestHandler = (req, res) => {
 		email,
 		password: encryptPassword(password),
 		dateOfCreation: new Date(),
-		phoneNumber,
+		phoneNumber: '',
 		accountType: USER_TYPES.REGULAR,
 	})
 	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))

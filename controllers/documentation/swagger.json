@@ -954,10 +954,6 @@
           "example": "jacusK@gmail.com",
           "type": "string"
         },
-        "phoneNumber": {
-          "example": "+48 123 123 123",
-          "type": "string"
-        },
         "AccountType": {
          "example": "regular",
           "type": "string"
@@ -1155,10 +1151,6 @@
         "type": "string"
       },
       "password": {
-        "type": "string"
-      },
-      "phoneNumber": {
-        "example": "+48 123 123 123",
         "type": "string"
       }
     }
