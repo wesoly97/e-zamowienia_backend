@@ -61,31 +61,38 @@ export const getOrder:RequestHandler = (req, res) => {
 	).catch(error => onError(error, res))
 }
 
-export const createEditedOrder:RequestHandler = (req, res) => {
+export const createEditedOrder:RequestHandler = async (req, res) => {
 	const orderId = req.params.orderId
-	Order.findById(orderId).then(order => {
-		if (order) {
-			order.set(req.body)
-			const editedOrder = new EditedOrder({
-				_id: order._id,
-				title: order.title,
-				mode: order.mode,
-				category: order.category,
-				dateOfPublication: order.dateOfPublication,
-				description: order.description,
-				files: order.files,
-				price: order.price,
-				customerName: order.customerName,
-				expirationDate: order.expirationDate,
-				procedureIdentifier: order.procedureIdentifier,
-				ownerId: order.ownerId,
-			})
+	const order = await Order.findById(orderId)
+	const editedOrder = await EditedOrder.findById(orderId)
 
+	if (order) {
+		order.set(req.body)
+		const updatedOrder = {
+			_id: order?._id,
+			title: order?.title,
+			mode: order?.mode,
+			category: order?.category,
+			dateOfPublication: order?.dateOfPublication,
+			description: order?.description,
+			files: order?.files,
+			price: order?.price,
+			customerName: order?.customerName,
+			expirationDate: order?.expirationDate,
+			procedureIdentifier: order?.procedureIdentifier,
+			ownerId: order?.ownerId,
+		}
+		if(!editedOrder) {
+			const modifiedOrder = new EditedOrder( updatedOrder )
+			return modifiedOrder.save().then(modifiedOrder => onSuccess(modifiedOrder,200, res)).catch(error => onError(error, res))
+		} else {
+			editedOrder.set(updatedOrder)
 			return editedOrder.save().then(editedOrder => onSuccess(editedOrder,200, res)).catch(error => onError(error, res))
 		}
-		else
-			onNotFound(res)
-	})
+	}
+	else {
+		onNotFound(res)
+	}
 }
 
 export const updateOrder:RequestHandler = (req, res) => {
