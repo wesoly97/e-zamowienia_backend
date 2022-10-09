@@ -7,6 +7,18 @@ import { deleteFiles, fileUpload } from '../../middlewares/amazonS3'
 import { PATHS } from '../../routes'
 import { getServerDomain } from '../../utils/getServerDomain'
 
+const orderPropertiesToGet = {
+	_id: 1,
+	title: 1,
+	mode: 1,
+	category: 1,
+	dateOfPublication: 1 ,
+	procedureIdentifier: 1,
+	expirationDate: 1,
+	price: 1,
+	ownerId: 1,
+}
+
 export const createOrder:RequestHandler = async (req, res) => {
 	const { procedureIdentifier, category, mode, title, expirationDate, description, customerName, price, sessionUserId } = req.body
 	const files = req.files as Express.Multer.File[] || []
@@ -40,17 +52,11 @@ export const createOrder:RequestHandler = async (req, res) => {
 	return order.save().then(order => onSuccess(order,201, res)).catch(error => onError(error, res))
 }
 
-export const getOrders:RequestHandler = (req, res) => Order.find().select({
-	_id: 1,
-	title: 1,
-	mode: 1,
-	category: 1,
-	dateOfPublication: 1 ,
-	procedureIdentifier: 1,
-	expirationDate: 1,
-	price: 1,
-	ownerId: 1,
-})
+export const getOrders:RequestHandler = (req, res) => Order.find().select(orderPropertiesToGet)
+	.then(orders => onSuccess(orders,200, res))
+	.catch(error => onError(error, res))
+
+export const getEditedOrders:RequestHandler = (req, res) => EditedOrder.find().select(orderPropertiesToGet)
 	.then(orders => onSuccess(orders,200, res))
 	.catch(error => onError(error, res))
 

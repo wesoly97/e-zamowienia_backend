@@ -5,6 +5,7 @@ import {
 	createEditedOrder,
 	createOrder,
 	deleteOrder,
+	getEditedOrders,
 	getOrder,
 	getOrders, updateOrder
 } from './controllers/oders/orders.controller'
@@ -54,6 +55,7 @@ const routes = (app: Express) => {
 
 	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, isUserLogged, isUserVerified, createOrder)
 	app.get(PATHS.ORDERS, getOrders)
+	app.get(`${PATHS.ORDERS}/edited`, isUserLogged, isAdministrator, getEditedOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, createEditedOrder)
 	app.post(`${PATHS.ORDERS}/:orderId/accept`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, updateOrder)

@@ -19,48 +19,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "type": "array",
-              "items": {
-                "properties": {
-                  "_id": {
-                    "uniqueItems": true,
-                    "example": "62af396caa850b80e1eb3e78",
-                    "type": "string"
-                  },
-                  "procedureIdentifier": {
-                    "example": "ZP/2311/24/901/2022",
-                    "type": "string"
-                  },
-                  "category": {
-                    "example": "Sprzet",
-                    "type": "string"
-                  },
-                  "mode": {
-                    "example": "rozeznanie cenowe",
-                    "type": "string"
-                  },
-                  "title": {
-                    "example": "fajna nazwa",
-                    "type": "string"
-                  },
-                  "price": {
-                    "example": 30001,
-                    "type": "number"
-                  },
-                  "dateOfPublication": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "expirationDate": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "ownerId": {
-                    "type": "string",
-                    "example": "62c9badc3e05ba06a7d5a65b"
-                  }
-                }
-              }
+              "$ref": "#/definitions/orderList"
             }
           },
           "500": {
@@ -158,6 +117,39 @@
               "$ref": "#/databaseError"
             },
             "description": "Dodawanie zamówienia nie powiodło się"
+          }
+        }
+      }
+    },
+    "/orders/edited": {
+      "get": {
+        "tags": ["Orders"],
+        "description": "Pobieranie wszystkich zamówień publicznych do edycji",
+        "summary": "getEditedOrders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/orderList"
+            }
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Pobieranie danych nie powiodło się"
           }
         }
       }
@@ -1037,6 +1029,50 @@
         "AccountType": {
           "example": "regular",
           "type": "string"
+        }
+      }
+    },
+    "orderList": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "_id": {
+            "uniqueItems": true,
+            "example": "62af396caa850b80e1eb3e78",
+            "type": "string"
+          },
+          "procedureIdentifier": {
+            "example": "ZP/2311/24/901/2022",
+            "type": "string"
+          },
+          "category": {
+            "example": "Sprzet",
+            "type": "string"
+          },
+          "mode": {
+            "example": "rozeznanie cenowe",
+            "type": "string"
+          },
+          "title": {
+            "example": "fajna nazwa",
+            "type": "string"
+          },
+          "price": {
+            "example": 30001,
+            "type": "number"
+          },
+          "dateOfPublication": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expirationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "string",
+            "example": "62c9badc3e05ba06a7d5a65b"
+          }
         }
       }
     },
