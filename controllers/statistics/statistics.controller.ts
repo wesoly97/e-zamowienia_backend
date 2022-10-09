@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express'
-import Order from '../../models/orders'
+import { Order } from '../../models/orders'
 import { onError } from '../../utils/handleRequestStatus'
 import User from '../../models/users'
 import { IUserModel } from '../../models/users.types'

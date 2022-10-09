@@ -51,18 +51,6 @@ export const orderValidator = [
 				arg: getTranslation({ key: 'orders.orderField.category' })
 			})
 		),
-	check('customerName')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'orders.orderField.customerName' })
-			})
-		).isString().withMessage(
-			getTranslation({
-				key: 'errors.mustBeString',
-				arg: getTranslation({ key: 'orders.orderField.customerName' })
-			})
-		),
 	check('procedureIdentifier')
 		.notEmpty().withMessage(
 			getTranslation({
@@ -142,12 +130,6 @@ export const orderUpdateValidator = [
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'orders.orderField.category' })
-		})
-	),
-	check('customerName').optional().isString().withMessage(
-		getTranslation({
-			key: 'errors.mustBeString',
-			arg: getTranslation({ key: 'orders.orderField.customerName' })
 		})
 	),
 	check('procedureIdentifier').optional().isString().withMessage(

@@ -8,6 +8,9 @@ interface IUser {
 	password: string,
 	phoneNumber: string,
 	dateOfCreation: Date,
+	country: string,
+	nip: string,
+	companyName: string,
 }
 
 export interface IUserModel extends IUser, Document {}

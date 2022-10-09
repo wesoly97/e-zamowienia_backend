@@ -66,10 +66,6 @@
                   "example": "fajny opis",
                   "type": "string"
                 },
-                "customerName": {
-                  "example": "ANS",
-                  "type": "string"
-                },
                 "files": {
                   "example": [],
                   "type": "array",
@@ -264,7 +260,7 @@
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/order"
+              "$ref": "#/definitions/orderDetails"
             },
             "description": "Ok"
           },
@@ -1012,6 +1008,18 @@
         "dateOfCreation": {
           "type": "string",
           "format": "date-time"
+        },
+        "nip": {
+          "example": "6802739530",
+          "type": "string"
+        },
+        "country": {
+          "example": "Polska",
+          "type": "string"
+        },
+        "companyName": {
+          "example": "ANS",
+          "type": "string"
         }
       }
     },
@@ -1140,6 +1148,30 @@
           "format": "date-time"
         }
       }
+    },
+    "orderDetails": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/order"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "phoneNumber": {
+              "type": "string",
+              "example": "123-123-123"
+            },
+            "country": {
+              "type": "string",
+              "example": "Polska"
+            },
+            "email": {
+              "type": "string",
+              "example": "xd@wp.pl"
+            }
+          }
+        }
+      ]
     }
   },
   "databaseError": {

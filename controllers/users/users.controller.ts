@@ -4,7 +4,8 @@ import { RequestHandler  } from 'express'
 import { USER_TYPES } from './users.consts'
 import {
 	emailNotExist,
-	invalidLoginOrPassword, invalidToken,
+	invalidLoginOrPassword,
+	invalidToken,
 	onError,
 	onNotFound,
 	onSuccess
@@ -26,8 +27,11 @@ export const createUser:RequestHandler = (req, res) => {
 		email,
 		password: encryptPassword(password),
 		dateOfCreation: new Date(),
-		phoneNumber: '',
 		accountType: USER_TYPES.REGULAR,
+		phoneNumber: '',
+		country: '',
+		nip: '',
+		companyName: '',
 	})
 	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
 }

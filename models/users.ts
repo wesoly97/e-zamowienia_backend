@@ -12,6 +12,9 @@ const userSchema: Schema = new Schema(
 		password: { type: String, required: true },
 		phoneNumber: { type: String, required: true },
 		dateOfCreation: { type: Date, required: true },
+		country: { type: String, required: true },
+		nip: { type: String, required: true },
+		companyName: { type: String, required: true },
 	},
 	{
 		versionKey: false
