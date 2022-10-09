@@ -302,6 +302,65 @@
         }
       }
     },
+    "/orders/{orderId}/accept": {
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "ID zamówienia publicznego do zaakceptowania modyfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "post": {
+        "description": "Akceptowanie modyfikacji zamówienia publicznego",
+        "summary": "acceptEditionOrder",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "tags": ["Users"],

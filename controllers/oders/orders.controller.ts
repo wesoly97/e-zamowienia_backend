@@ -95,16 +95,18 @@ export const createEditedOrder:RequestHandler = async (req, res) => {
 	}
 }
 
-export const updateOrder:RequestHandler = (req, res) => {
+export const updateOrder:RequestHandler = async (req, res) => {
 	const orderId = req.params.orderId
-	return Order.findById(orderId).then(order => {
-		if (order) {
-			order.set(req.body)
-			return order.save().then(order => onSuccess(order,200, res)).catch(error => onError(error, res))
-		}
-		else
-			onNotFound(res)
-	})
+	const order = await Order.findById(orderId)
+	const editedOrder = await EditedOrder.findById(orderId)
+
+	if (editedOrder && order) {
+		order.set(editedOrder)
+		editedOrder.delete()
+		return order.save().then(order => onSuccess(order,200, res)).catch(error => onError(error, res))
+	} else {
+		onNotFound(res)
+	}
 }
 
 export const deleteOrder:RequestHandler = (req, res) => {

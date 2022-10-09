@@ -6,7 +6,7 @@ import {
 	createOrder,
 	deleteOrder,
 	getOrder,
-	getOrders
+	getOrders, updateOrder
 } from './controllers/oders/orders.controller'
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
 import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
@@ -56,7 +56,8 @@ const routes = (app: Express) => {
 	app.get(PATHS.ORDERS, getOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, createEditedOrder)
-	app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, isUserLogged, deleteOrder)
+	app.post(`${PATHS.ORDERS}/:orderId/accept`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, updateOrder)
+	app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, deleteOrder)
 
 	app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
 	app.get(PATHS.USERS, isUserLogged, getUsers)
