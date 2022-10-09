@@ -17,6 +17,8 @@ interface IOrder {
 	files: fileObject[],
 	dateOfPublication: Date,
 	expirationDate: Date,
+	ownerId: string,
 }
 
 export interface IOrderModel extends IOrder, Document {}
+export interface IEditedOrderModel extends IOrder, Document {}
