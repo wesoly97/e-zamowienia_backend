@@ -1210,6 +1210,10 @@
             "message": {
               "type": "string",
               "example": "Cena musi być liczbą"
+            },
+            "key": {
+              "type": "string",
+              "example": "price"
             }
           }
         }

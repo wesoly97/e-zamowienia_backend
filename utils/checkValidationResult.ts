@@ -4,7 +4,7 @@ import { invalidLoginOrPassword } from './handleRequestStatus'
 
 export const checkValidationResult:RequestHandler = (req, res, next) => {
 	const errors = validationResult(req)
-	const errorsFormatted = errors.array().map(error => { return { message: error.msg }})
+	const errorsFormatted = errors.array().map(error => ({ message: error.msg, key: error.param }))
 
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errorsFormatted })
