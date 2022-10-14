@@ -10,7 +10,12 @@ import {
 	getOrders, updateOrder
 } from './controllers/oders/orders.controller'
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
-import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
+import {
+	checkOrderId,
+	getOrdersValidator,
+	orderUpdateValidator,
+	orderValidator
+} from './controllers/oders/orders.validators'
 import {
 	changePassword,
 	createUser,
@@ -54,7 +59,7 @@ const routes = (app: Express) => {
 	app.get(`${PATHS.FILES}/:key`, getFile)
 
 	app.post(PATHS.ORDERS, upload.array('files'), orderValidator, checkValidationResult, isUserLogged, isUserVerified, createOrder)
-	app.get(PATHS.ORDERS, getOrders)
+	app.get(PATHS.ORDERS, getOrdersValidator, checkValidationResult, getOrders)
 	app.get(`${PATHS.ORDERS}/edited`, isUserLogged, isAdministrator, getEditedOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, createEditedOrder)
