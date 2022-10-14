@@ -1,6 +1,10 @@
 import { check } from 'express-validator'
 import { getTranslation } from '../../utils/getTranslation'
-import { isFileDocumentFormatValid, isFileDocumentSizeValid } from '../../middlewares/customValidators'
+import {
+	isFileDocumentFormatValid,
+	isFileDocumentSizeValid,
+	isFirstCharNumberOrLetter
+} from '../../middlewares/customValidators'
 
 export const orderValidator = [
 	check('title')
@@ -178,4 +182,31 @@ export const orderUpdateValidator = [
 			arg: getTranslation({ key: 'orders.orderField.expirationDate' })
 		})
 	)
+]
+
+export const getOrdersValidator = [
+	check('filterOption.title')
+		.optional().isString().withMessage(
+			getTranslation({
+				key: 'errors.mustBeString',
+				arg: getTranslation({ key: 'orders.orderField.title' })
+			})
+		).custom(isFirstCharNumberOrLetter).withMessage(
+			getTranslation({ key: 'errors.mustStartWithLetterOrNumber' })),
+	check('filterOption.mode')
+		.optional().isString().withMessage(
+			getTranslation({
+				key: 'errors.mustBeString',
+				arg: getTranslation({ key: 'orders.orderField.mode' })
+			})
+		).custom(isFirstCharNumberOrLetter).withMessage(
+			getTranslation({ key: 'errors.mustStartWithLetterOrNumber' })),
+	check('filterOption.category')
+		.optional().isString().withMessage(
+			getTranslation({
+				key: 'errors.mustBeString',
+				arg: getTranslation({ key: 'orders.orderField.category' })
+			})
+		).custom(isFirstCharNumberOrLetter).withMessage(
+			getTranslation({ key: 'errors.mustStartWithLetterOrNumber' })),
 ]
