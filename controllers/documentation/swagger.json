@@ -608,7 +608,68 @@
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/sessionData"
+              "$ref": "#/definitions/verificationData"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
+    },
+    "/users/{userId}/deny": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID użytkownika do odmowy weryfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "post": {
+        "description": "weryfikowanie użytkownika",
+        "summary": "verifyUser",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/verificationData"
             },
             "description": "Ok"
           },
@@ -827,6 +888,17 @@
               "$ref": "#/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
           },
           "500": {
             "schema": {

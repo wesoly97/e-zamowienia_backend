@@ -48,6 +48,7 @@
 			"companyName":"Nazwa firmy"
 		},
 		"deleteConfirmation": "Konto użytkownika zostało usunięte",
+		"denyVerificationConfirmation": "Prośba o zweryfikowanie została odrzucona",
 		"emailIsValid": "Podany email jest poprawny",
 		"loginSuccess": "logowanie przebiegło pomyślnie",
 		"logOutSuccess": "Wylogowanie zakończone sukcesem",

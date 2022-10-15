@@ -13,8 +13,10 @@ import { checkLoginValidationResult, checkValidationResult } from './utils/check
 import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
 import {
 	changePassword,
-	createUser, createVerifyRequest,
+	createUser,
+	createVerifyRequest,
 	deleteUser,
+	denyVerifyUser,
 	emailIsValid,
 	getSessionData,
 	getUserData,
@@ -76,6 +78,7 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
 	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, verifyUser)
+	app.post(`${PATHS.USERS}/:userId/deny`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, denyVerifyUser)
 	app.post(`${PATHS.USERS}/verify`, userVerificationValidator, checkValidationResult, isUserLogged, createVerifyRequest)
 
 	app.get(`${PATHS.STATISTICS}`, getStatistics)

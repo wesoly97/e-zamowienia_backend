@@ -136,6 +136,14 @@ export const verifyUser:RequestHandler = async (req, res) => {
 	}
 }
 
+export const denyVerifyUser:RequestHandler = async (req, res) => {
+	const userId = req.params.userId
+
+	return UserVerification.findByIdAndDelete(userId).then(user => user ?
+		onSuccess({ message: getTranslation({ key: 'users.denyVerificationConfirmation' }) },200, res)
+		: onNotFound(res)).catch(error => onError(error, res))
+}
+
 export const createVerifyRequest:RequestHandler = async (req, res) => {
 	const { nip, phoneNumber, country, companyName, sessionUserId } = req.body
 	const userVerification = await UserVerification.findById(sessionUserId).catch(error => onError(error, res)) as IUserVerificationModel
