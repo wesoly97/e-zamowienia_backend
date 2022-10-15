@@ -19,11 +19,13 @@ import {
 import {
 	changePassword,
 	createUser,
+	createVerifyRequest,
 	deleteUser,
+	denyVerifyUser,
 	emailIsValid,
 	getSessionData,
 	getUserData,
-	getUsers,
+	getUsers, getUsersVerificationList,
 	logIn,
 	logOut,
 	resetPassword,
@@ -32,10 +34,12 @@ import {
 } from './controllers/users/users.controller'
 import {
 	checkEmail,
-	checkEmailExist, checkPassword,
+	checkEmailExist,
+	checkPassword,
 	checkUserId,
 	userUpdateValidator,
-	userValidator
+	userValidator,
+	userVerificationValidator
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
 import { isAdministrator, isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
@@ -73,11 +77,14 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/password`, checkPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
 	app.get(`${PATHS.USERS}/session`, isUserLogged, getSessionData)
+	app.get(`${PATHS.USERS}/verify`, isUserLogged, isAdministrator, getUsersVerificationList)
 	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, getUserData)
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
 	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, verifyUser)
+	app.post(`${PATHS.USERS}/:userId/deny`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, denyVerifyUser)
+	app.post(`${PATHS.USERS}/verify`, userVerificationValidator, checkValidationResult, isUserLogged, createVerifyRequest)
 
 	app.get(`${PATHS.STATISTICS}`, getStatistics)
 }

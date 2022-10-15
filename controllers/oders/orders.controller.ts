@@ -7,6 +7,8 @@ import { deleteFiles, fileUpload } from '../../middlewares/amazonS3'
 import { PATHS } from '../../routes'
 import { getServerDomain } from '../../utils/getServerDomain'
 import { getFilteredText } from '../../utils/getFilters'
+import User from '../../models/users'
+import { IOrderModel } from '../../models/orders.types'
 
 const orderPropertiesToGet = {
 	_id: 1,
@@ -21,7 +23,7 @@ const orderPropertiesToGet = {
 }
 
 export const createOrder:RequestHandler = async (req, res) => {
-	const { procedureIdentifier, category, mode, title, expirationDate, description, customerName, price, sessionUserId } = req.body
+	const { procedureIdentifier, category, mode, title, expirationDate, description, price, userData } = req.body
 	const files = req.files as Express.Multer.File[] || []
 	const filesArray: object[] = []
 
@@ -45,10 +47,10 @@ export const createOrder:RequestHandler = async (req, res) => {
 		description,
 		files: filesArray,
 		price,
-		customerName,
+		customerName: userData.companyName,
 		expirationDate,
 		procedureIdentifier,
-		ownerId: sessionUserId,
+		ownerId: userData._id,
 	})
 	return order.save().then(order => onSuccess(order,201, res)).catch(error => onError(error, res))
 }
@@ -74,11 +76,24 @@ export const getEditedOrders:RequestHandler = (req, res) => EditedOrder.find().s
 	.then(orders => onSuccess(orders,200, res))
 	.catch(error => onError(error, res))
 
-export const getOrder:RequestHandler = (req, res) => {
+export const getOrder:RequestHandler = async (req, res) => {
 	const orderId = req.params.orderId
-	return Order.findById(orderId).then(
-		order => order ? onSuccess(order,200, res) : onNotFound(res)
-	).catch(error => onError(error, res))
+	const order = await Order.findById(orderId).catch(error => onError(error, res)) as IOrderModel
+	const userData = await User.findById(order?.ownerId).select({ phoneNumber: 1, email: 1, country: 1 })
+
+	if(order && userData) {
+		const orderDetails = {
+			...order.toObject(),
+			phoneNumber: userData.phoneNumber,
+			email: userData.email,
+			country: userData.country,
+		}
+
+		onSuccess(orderDetails,200, res)
+	}
+	else {
+		onNotFound(res)
+	}
 }
 
 export const createEditedOrder:RequestHandler = async (req, res) => {

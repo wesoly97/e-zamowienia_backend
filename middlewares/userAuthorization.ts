@@ -12,8 +12,8 @@ const COOKIE_CONFIG: CookieOptions = {
 	path: '/',
 	expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * NUMBER_OF_DAYS_COOKIE_EXPIRED),
 	httpOnly: true,
-	sameSite: 'none',
-	secure: true
+	// sameSite: 'none',
+	// secure: true
 }
 
 export const authorizeUser = (userId: string, res:Response) => {
@@ -25,6 +25,7 @@ export const authorizeUser = (userId: string, res:Response) => {
 
 export const isUserLogged:RequestHandler = (req, res, next) => {
 	const token = req.headers.cookie?.split('=')[1]
+
 	const verifyTokenCallback = (err: VerifyErrors | null, decoded: JwtPayload | string | undefined) => {
 		if(err) {
 			return notLogged(res)
@@ -65,10 +66,11 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 
 export const isUserVerified:RequestHandler = async (req, res, next) => {
 	const { sessionUserId } = req.body
-	const userProperties = { accountType: 1 }
+	const userProperties = { accountType: 1, companyName: 1 }
 	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
 
 	if([USER_TYPES.ORDERER, USER_TYPES.ADMIN].includes(user.accountType)) {
+		req.body.userData = user
 		next()
 	} else {
 		notVerified(res)

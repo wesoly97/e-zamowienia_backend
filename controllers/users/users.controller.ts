@@ -4,7 +4,8 @@ import { RequestHandler  } from 'express'
 import { USER_TYPES } from './users.consts'
 import {
 	emailNotExist,
-	invalidLoginOrPassword, invalidToken,
+	invalidLoginOrPassword,
+	invalidToken,
 	onError,
 	onNotFound,
 	onSuccess
@@ -15,6 +16,8 @@ import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/use
 import { emailExist } from '../../utils/emailExist'
 import { sendEmail } from '../../middlewares/emailSender'
 import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
+import UserVerification from '../../models/userVerification'
+import { IUserVerificationModel } from '../../models/userVerification.types'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, email, password } = req.body
@@ -26,8 +29,11 @@ export const createUser:RequestHandler = (req, res) => {
 		email,
 		password: encryptPassword(password),
 		dateOfCreation: new Date(),
-		phoneNumber: '',
 		accountType: USER_TYPES.REGULAR,
+		phoneNumber: '',
+		country: '',
+		nip: '',
+		companyName: '',
 	})
 	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
 }
@@ -116,17 +122,39 @@ export const changePassword:RequestHandler = async (req, res) => {
 	}).catch(error => onError(error, res))
 }
 
-export const verifyUser:RequestHandler = (req, res) => {
+export const verifyUser:RequestHandler = async (req, res) => {
+	const userId = req.params.userId
+	const userVerification = await UserVerification.findById(userId).catch(error => onError(error, res)) as IUserVerificationModel
+	const user = await User.findById(userId).select({ accountType: 1, phoneNumber: 1, country: 1, nip: 1, companyName: 1 })
+	if (user && userVerification) {
+		user.set({ ...userVerification.toObject(), accountType: USER_TYPES.ORDERER })
+		userVerification.delete()
+		return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
+	} else {
+		onNotFound(res)
+	}
+}
+
+export const denyVerifyUser:RequestHandler = async (req, res) => {
 	const userId = req.params.userId
 
-	return User.findById(userId).select({ accountType: 1 }).then(user => {
-		if (user) {
-			user.set({ accountType: USER_TYPES.ORDERER })
-			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-		} else {
-			onNotFound(res)
-		}
-	})
+	return UserVerification.findByIdAndDelete(userId).then(user => user ?
+		onSuccess({ message: getTranslation({ key: 'users.denyVerificationConfirmation' }) },200, res)
+		: onNotFound(res)).catch(error => onError(error, res))
+}
+
+export const createVerifyRequest:RequestHandler = async (req, res) => {
+	const { nip, phoneNumber, country, companyName, sessionUserId } = req.body
+	const userVerification = await UserVerification.findById(sessionUserId).catch(error => onError(error, res)) as IUserVerificationModel
+	const userVerificationData = { _id: sessionUserId, nip, phoneNumber, country, companyName }
+
+	if(!userVerification) {
+		const newUserVerification = new UserVerification(userVerificationData)
+		newUserVerification.save().then(UserVerificationData => onSuccess(UserVerificationData,200, res)).catch(error => onError(error, res))
+	} else {
+		userVerification.set(userVerificationData)
+		userVerification.save().then(() => onSuccess(userVerificationData,200, res)).catch(error => onError(error, res))
+	}
 }
 
 export  const getSessionData:RequestHandler = (req, res) => {
@@ -139,5 +167,7 @@ export  const getSessionData:RequestHandler = (req, res) => {
 			onNotFound(res)
 		}
 	})
-
 }
+
+export const getUsersVerificationList:RequestHandler = (req, res) => UserVerification.find()
+	.then(users => onSuccess(users,200, res)).catch(error => onError(error, res))

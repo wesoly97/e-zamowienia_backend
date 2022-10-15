@@ -120,3 +120,30 @@ export const userUpdateValidator = [
 		})
 	)
 ]
+
+export const userVerificationValidator = [
+	check('phoneNumber').isString().withMessage(
+		getTranslation({
+			key: 'errors.mustBeString',
+			arg: getTranslation({ key: 'users.userField.phoneNumber' })
+		})
+	),
+	check('country').isString().withMessage(
+		getTranslation({
+			key: 'errors.mustBeString',
+			arg: getTranslation({ key: 'users.userField.country' })
+		})
+	),
+	check('companyName').isString().withMessage(
+		getTranslation({
+			key: 'errors.mustBeString',
+			arg: getTranslation({ key: 'users.userField.companyName' })
+		})
+	),
+	check('nip').isString().withMessage(
+		getTranslation({
+			key: 'errors.mustBeString',
+			arg: getTranslation({ key: 'users.userField.nip' })
+		})
+	)
+]

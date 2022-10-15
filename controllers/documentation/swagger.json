@@ -100,10 +100,6 @@
                   "example": "fajny opis",
                   "type": "string"
                 },
-                "customerName": {
-                  "example": "ANS",
-                  "type": "string"
-                },
                 "files": {
                   "example": [],
                   "type": "array",
@@ -298,7 +294,7 @@
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/order"
+              "$ref": "#/definitions/orderDetails"
             },
             "description": "Ok"
           },
@@ -646,7 +642,68 @@
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/sessionData"
+              "$ref": "#/definitions/verificationData"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
+    },
+    "/users/{userId}/deny": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID użytkownika do odmowy weryfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "post": {
+        "description": "weryfikowanie użytkownika",
+        "summary": "verifyUser",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/verificationData"
             },
             "description": "Ok"
           },
@@ -826,6 +883,97 @@
               "$ref": "#/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
+          }
+        }
+      }
+    },
+    "/users/verify": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Wysłanie prośby o weryfikacje",
+        "summary": "sendVerificationRequest",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Dane potrzebne do weryfikacji",
+            "schema": {
+              "$ref": "#/definitions/verificationData",
+              "required": ["country", "nip", "phoneNumber","companyName"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/verificationData"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "description": "Pobranie listy użytkowników do zweryfikowania",
+        "summary": "getVerificationList",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/verificationData"
+              }
+            },
+            "description": "Ok"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
           }
         }
       }
@@ -1046,6 +1194,39 @@
         "dateOfCreation": {
           "type": "string",
           "format": "date-time"
+        },
+        "nip": {
+          "example": "6802739530",
+          "type": "string"
+        },
+        "country": {
+          "example": "Polska",
+          "type": "string"
+        },
+        "companyName": {
+          "example": "ANS",
+          "type": "string"
+        }
+      }
+    },
+    "verificationData": {
+      "properties": {
+        "phoneNumber": {
+          "example": "123123123",
+          "type": "string"
+        },
+        "nip": {
+          "uniqueItems": true,
+          "example": "6802739530",
+          "type": "string"
+        },
+        "country": {
+          "example": "Polska",
+          "type": "string"
+        },
+        "companyName": {
+          "example": "ANS",
+          "type": "string"
         }
       }
     },
@@ -1183,6 +1364,30 @@
           "format": "date-time"
         }
       }
+    },
+    "orderDetails": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/order"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "phoneNumber": {
+              "type": "string",
+              "example": "123-123-123"
+            },
+            "country": {
+              "type": "string",
+              "example": "Polska"
+            },
+            "email": {
+              "type": "string",
+              "example": "xd@wp.pl"
+            }
+          }
+        }
+      ]
     },
     "orderPaginationRequestBody": {
       "properties": {
