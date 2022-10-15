@@ -5,6 +5,7 @@ import {
 	createEditedOrder,
 	createOrder,
 	deleteOrder,
+	denyEditOrder,
 	getEditedOrders,
 	getOrder,
 	getOrders, updateOrder
@@ -68,6 +69,7 @@ const routes = (app: Express) => {
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
 	app.patch(`${PATHS.ORDERS}/:orderId`, checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, createEditedOrder)
 	app.post(`${PATHS.ORDERS}/:orderId/accept`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, updateOrder)
+	app.post(`${PATHS.ORDERS}/:orderId/deny`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, denyEditOrder)
 	app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, deleteOrder)
 
 	app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)

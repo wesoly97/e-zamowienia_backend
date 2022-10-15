@@ -33,7 +33,8 @@
 			"orderId": "Numer id zamówienia publicznego",
 			"price": "Cena"
 		},
-		"deleteConfirmation": "Zamówienie publiczne zostało usunięte"
+		"deleteConfirmation": "Zamówienie publiczne zostało usunięte",
+		"denyEditOrderConfirmation": "Prośba o edycję zamówienia została odrzucona"
 	},
 	"users": {
 		"emailExist": "Konto z podanym e-mailem już istnieje!",

@@ -144,6 +144,13 @@ export const updateOrder:RequestHandler = async (req, res) => {
 	}
 }
 
+export const denyEditOrder:RequestHandler = async (req, res) => {
+	const orderId = req.params.orderId
+	return EditedOrder.findByIdAndDelete(orderId).then(user => user ?
+		onSuccess({ message: getTranslation({ key: 'orders.denyEditOrderConfirmation' }) },200, res)
+		: onNotFound(res)).catch(error => onError(error, res))
+}
+
 export const deleteOrder:RequestHandler = (req, res) => {
 	const orderId = req.params.orderId
 	Order.findById(orderId).then(order => {

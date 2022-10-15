@@ -32,7 +32,8 @@
             "orderId": "Public order id number",
             "price": "Price"
         },
-        "deleteConfirmation": "The public order has been deleted"
+        "deleteConfirmation": "The public order has been deleted",
+        "denyEditOrderConfirmation": "Request to edit order has been denied"
     },
     "users": {
         "emailExist": "The account with the email you provided already exists!",
