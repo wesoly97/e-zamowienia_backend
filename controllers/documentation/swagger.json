@@ -835,6 +835,41 @@
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
         }
+      },
+      "get": {
+        "tags": ["Users"],
+        "description": "Pobranie listy użytkowników do zweryfikowania",
+        "summary": "getVerificationList",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/verificationData"
+              }
+            },
+            "description": "Ok"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
       }
     },
     "/users/session": {

@@ -18,7 +18,7 @@ import {
 	emailIsValid,
 	getSessionData,
 	getUserData,
-	getUsers,
+	getUsers, getUsersVerificationList,
 	logIn,
 	logOut,
 	resetPassword,
@@ -70,6 +70,7 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/password`, checkPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
 	app.get(`${PATHS.USERS}/session`, isUserLogged, getSessionData)
+	app.get(`${PATHS.USERS}/verify`, isUserLogged, isAdministrator, getUsersVerificationList)
 	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, getUserData)
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)

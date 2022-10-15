@@ -160,5 +160,7 @@ export  const getSessionData:RequestHandler = (req, res) => {
 			onNotFound(res)
 		}
 	})
-
 }
+
+export const getUsersVerificationList:RequestHandler = (req, res) => UserVerification.find()
+	.then(users => onSuccess(users,200, res)).catch(error => onError(error, res))
