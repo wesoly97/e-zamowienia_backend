@@ -41,7 +41,10 @@
             "email": "Email",
             "password": "Password",
             "phoneNumber": "Phone number",
-            "userId": "User id number"
+            "userId": "User id number",
+            "nip": "NIP,",
+            "country": "Country",
+            "companyName":"Company Name"
         },
         "deleteConfirmation": "User account has been deleted",
         "emailIsValid": "The specified email is valid",

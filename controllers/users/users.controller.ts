@@ -16,6 +16,8 @@ import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/use
 import { emailExist } from '../../utils/emailExist'
 import { sendEmail } from '../../middlewares/emailSender'
 import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
+import UserVerification from '../../models/userVerification'
+import { IUserVerificationModel } from '../../models/userVerification.types'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, email, password } = req.body
@@ -132,6 +134,20 @@ export const verifyUser:RequestHandler = (req, res) => {
 			onNotFound(res)
 		}
 	})
+}
+
+export const createVerifyRequest:RequestHandler = async (req, res) => {
+	const { nip, phoneNumber, country, companyName, sessionUserId } = req.body
+	const UserVerificationExisted = await UserVerification.findById(sessionUserId).catch(error => onError(error, res)) as IUserVerificationModel
+	const UserVerificationData = { _id: sessionUserId, nip, phoneNumber, country, companyName }
+
+	if(!UserVerificationExisted) {
+		const newUserVerification = new UserVerification(UserVerificationData)
+		newUserVerification.save().then(UserVerificationData => onSuccess(UserVerificationData,200, res)).catch(error => onError(error, res))
+	} else {
+		UserVerificationExisted.set(UserVerificationData)
+		UserVerificationExisted.save().then(UserVerificationData => onSuccess(UserVerificationData,200, res)).catch(error => onError(error, res))
+	}
 }
 
 export  const getSessionData:RequestHandler = (req, res) => {

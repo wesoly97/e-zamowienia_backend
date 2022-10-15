@@ -13,7 +13,7 @@ import { checkLoginValidationResult, checkValidationResult } from './utils/check
 import { checkOrderId, orderUpdateValidator, orderValidator } from './controllers/oders/orders.validators'
 import {
 	changePassword,
-	createUser,
+	createUser, createVerifyRequest,
 	deleteUser,
 	emailIsValid,
 	getSessionData,
@@ -27,10 +27,12 @@ import {
 } from './controllers/users/users.controller'
 import {
 	checkEmail,
-	checkEmailExist, checkPassword,
+	checkEmailExist,
+	checkPassword,
 	checkUserId,
 	userUpdateValidator,
-	userValidator
+	userValidator,
+	userVerificationValidator
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
 import { isAdministrator, isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
@@ -73,6 +75,7 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)
 	app.post(`${PATHS.USERS}/:userId/verify`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, verifyUser)
+	app.post(`${PATHS.USERS}/verify`, userVerificationValidator, checkValidationResult, isUserLogged, createVerifyRequest)
 
 	app.get(`${PATHS.STATISTICS}`, getStatistics)
 }

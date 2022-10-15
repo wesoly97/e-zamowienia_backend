@@ -792,6 +792,51 @@
         }
       }
     },
+    "/users/verify": {
+      "post": {
+        "tags": ["Users"],
+        "description": "Wysłanie prośby o weryfikacje",
+        "summary": "sendVerificationRequest",
+        "parameters": [
+          {
+            "name": "order",
+            "in": "body",
+            "description": "Dane potrzebne do weryfikacji",
+            "schema": {
+              "$ref": "#/definitions/verificationData",
+              "required": ["country", "nip", "phoneNumber","companyName"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/verificationData"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
+    },
     "/users/session": {
       "get": {
         "tags": ["Users"],
@@ -1010,6 +1055,27 @@
           "format": "date-time"
         },
         "nip": {
+          "example": "6802739530",
+          "type": "string"
+        },
+        "country": {
+          "example": "Polska",
+          "type": "string"
+        },
+        "companyName": {
+          "example": "ANS",
+          "type": "string"
+        }
+      }
+    },
+    "verificationData": {
+      "properties": {
+        "phoneNumber": {
+          "example": "123123123",
+          "type": "string"
+        },
+        "nip": {
+          "uniqueItems": true,
           "example": "6802739530",
           "type": "string"
         },

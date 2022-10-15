@@ -42,7 +42,10 @@
 			"email": "Email",
 			"password": "Hasło",
 			"phoneNumber": "Numer telefonu",
-			"userId": "Numer id użytkownika"
+			"userId": "Numer id użytkownika",
+			"nip": "NIP,",
+			"country": "Kraj",
+			"companyName":"Nazwa firmy"
 		},
 		"deleteConfirmation": "Konto użytkownika zostało usunięte",
 		"emailIsValid": "Podany email jest poprawny",
