@@ -123,30 +123,30 @@ export const changePassword:RequestHandler = async (req, res) => {
 	}).catch(error => onError(error, res))
 }
 
-export const verifyUser:RequestHandler = (req, res) => {
+export const verifyUser:RequestHandler = async (req, res) => {
 	const userId = req.params.userId
-
-	return User.findById(userId).select({ accountType: 1 }).then(user => {
-		if (user) {
-			user.set({ accountType: USER_TYPES.ORDERER })
-			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-		} else {
-			onNotFound(res)
-		}
-	})
+	const userVerification = await UserVerification.findById(userId).catch(error => onError(error, res)) as IUserVerificationModel
+	const user = await User.findById(userId).select({ accountType: 1, phoneNumber: 1, country: 1, nip: 1, companyName: 1 })
+	if (user && userVerification) {
+		user.set({ ...userVerification.toObject(), accountType: USER_TYPES.ORDERER })
+		userVerification.delete()
+		return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
+	} else {
+		onNotFound(res)
+	}
 }
 
 export const createVerifyRequest:RequestHandler = async (req, res) => {
 	const { nip, phoneNumber, country, companyName, sessionUserId } = req.body
-	const UserVerificationExisted = await UserVerification.findById(sessionUserId).catch(error => onError(error, res)) as IUserVerificationModel
-	const UserVerificationData = { _id: sessionUserId, nip, phoneNumber, country, companyName }
+	const userVerification = await UserVerification.findById(sessionUserId).catch(error => onError(error, res)) as IUserVerificationModel
+	const userVerificationData = { _id: sessionUserId, nip, phoneNumber, country, companyName }
 
-	if(!UserVerificationExisted) {
-		const newUserVerification = new UserVerification(UserVerificationData)
+	if(!userVerification) {
+		const newUserVerification = new UserVerification(userVerificationData)
 		newUserVerification.save().then(UserVerificationData => onSuccess(UserVerificationData,200, res)).catch(error => onError(error, res))
 	} else {
-		UserVerificationExisted.set(UserVerificationData)
-		UserVerificationExisted.save().then(UserVerificationData => onSuccess(UserVerificationData,200, res)).catch(error => onError(error, res))
+		userVerification.set(userVerificationData)
+		userVerification.save().then(() => onSuccess(userVerificationData,200, res)).catch(error => onError(error, res))
 	}
 }
 
