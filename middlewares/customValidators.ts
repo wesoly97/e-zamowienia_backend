@@ -1,5 +1,6 @@
 import { CustomValidator } from 'express-validator'
 import { checkDocumentFormat } from '../utils/checkDocumentFormat'
+import { isCharLetterOrNumber } from '../utils/checkVariableType'
 
 const MAX_FILE_SIZE = 20971520
 
@@ -23,4 +24,10 @@ export const isFileDocumentSizeValid: CustomValidator  = (value, { req }) => {
 		}
 	})
 	return validDocumentArray.length === uploadedFiles.length
+}
+
+export const isFirstCharNumberOrLetter: CustomValidator  = (value, { req }) => {
+	if(!value)
+		return true
+	return isCharLetterOrNumber(value[0])
 }

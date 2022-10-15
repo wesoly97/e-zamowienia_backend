@@ -6,6 +6,7 @@ import { onError, onNotFound, onSuccess } from '../../utils/handleRequestStatus'
 import { deleteFiles, fileUpload } from '../../middlewares/amazonS3'
 import { PATHS } from '../../routes'
 import { getServerDomain } from '../../utils/getServerDomain'
+import { getFilteredText } from '../../utils/getFilters'
 import User from '../../models/users'
 import { IOrderModel } from '../../models/orders.types'
 
@@ -54,9 +55,22 @@ export const createOrder:RequestHandler = async (req, res) => {
 	return order.save().then(order => onSuccess(order,201, res)).catch(error => onError(error, res))
 }
 
-export const getOrders:RequestHandler = (req, res) => Order.find().select(orderPropertiesToGet)
-	.then(orders => onSuccess(orders,200, res))
-	.catch(error => onError(error, res))
+export const getOrders:RequestHandler = async (req, res) => {
+	const offset:number = Number(req.query.offset) || 0
+	const limit:number = Number(req.query.limit) || 10
+	const { sortOption, filterOption } = req.body
+	const title = filterOption?.title || ''
+	const mode = filterOption?.mode || ''
+	const category = filterOption?.category || ''
+
+	const filter = { title: getFilteredText(title), mode: getFilteredText(mode), category: getFilteredText(category) }
+
+	const count = await Order.find().countDocuments().catch(error => onError(error, res))
+	const orders = await Order.find(filter).select(orderPropertiesToGet).limit(limit).skip(offset * limit)
+		.sort(sortOption).catch(error => onError(error, res))
+
+	return onSuccess({ orders, count },200, res)
+}
 
 export const getEditedOrders:RequestHandler = (req, res) => EditedOrder.find().select(orderPropertiesToGet)
 	.then(orders => onSuccess(orders,200, res))

@@ -92,8 +92,7 @@ export const logIn:RequestHandler = (req, res) => {
 
 export const logOut:RequestHandler = (req, res) => {
 	const { sessionUserId } = req.body
-	res.clearCookie(`${sessionUserId}`)
-	req.cookies['${sessionUserId}'] = ''
+	res.clearCookie(`${sessionUserId}`, { sameSite: 'none', secure: true })
 	return onSuccess({ message: getTranslation({ key: 'users.logOutSuccess' }) }, 200, res)
 }
 
