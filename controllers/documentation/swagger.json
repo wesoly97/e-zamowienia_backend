@@ -336,12 +336,76 @@
       ],
       "post": {
         "description": "Akceptowanie modyfikacji zamówienia publicznego",
-        "summary": "acceptEditionOrder",
+        "summary": "acceptOrderEdit",
         "tags": ["Orders"],
         "responses": {
           "200": {
             "schema": {
               "$ref": "#/definitions/order"
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/orderValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/userMustBeAdministrator"
+            },
+            "description": "Użytkownik nie posiada uprawnień administratora"
+          },
+          "404": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Nie znaleziono"
+                }
+              }
+            },
+            "description": "Nie znaleziono"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja zamówienia nie powiodła się"
+          }
+        }
+      }
+    },
+    "/orders/{orderId}/deny": {
+      "parameters": [
+        {
+          "name": "orderId",
+          "in": "path",
+          "required": true,
+          "description": "ID zamówienia publicznego do odrzucenia modyfikacji",
+          "type": "ObjectID"
+        }
+      ],
+      "post": {
+        "description": "Odrzucenie edycji zamówienia",
+        "summary": "denyOrderEdit",
+        "tags": ["Orders"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Prośba o edycję zamówienia została odrzucona",
+                  "type": "string"
+                }
+              }
             },
             "description": "Ok"
           },
