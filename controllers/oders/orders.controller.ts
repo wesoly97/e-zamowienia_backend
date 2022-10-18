@@ -79,14 +79,14 @@ export const getEditedOrders:RequestHandler = (req, res) => EditedOrder.find().s
 export const getOrder:RequestHandler = async (req, res) => {
 	const orderId = req.params.orderId
 	const order = await Order.findById(orderId).catch(error => onError(error, res)) as IOrderModel
-	const userData = await User.findById(order?.ownerId).select({ phoneNumber: 1, email: 1, country: 1 })
+	const userData = await User.findById(order?.ownerId)
 
-	if(order && userData) {
+	if(order) {
 		const orderDetails = {
 			...order.toObject(),
-			phoneNumber: userData.phoneNumber,
-			email: userData.email,
-			country: userData.country,
+			phoneNumber: userData?.phoneNumber || '',
+			email: userData?.email || '',
+			country: userData?.country || '',
 		}
 
 		onSuccess(orderDetails,200, res)
