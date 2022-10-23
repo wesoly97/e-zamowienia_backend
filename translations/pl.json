@@ -1,11 +1,11 @@
 {
 	"errors": {
-		"isEmpty": "%s nie może być pusty",
-		"mustBeString": "%s musi być ciągiem znaków",
-		"mustBeMongoObjectId": "%s musi być typu mongo id",
-		"mustBeArray": "%s musi być tablicą",
-		"mustBeNumber": "%s musi być liczbą",
-		"mustBeDate": "%s musi być datą",
+		"isEmpty": "Pole %s nie może być puste",
+		"mustBeString": "Pole %s musi być ciągiem znaków",
+		"mustBeMongoObjectId": "Pole %s musi być typu mongo id",
+		"mustBeArray": "Pole %s musi być tablicą",
+		"mustBeNumber": "Pole %s musi być liczbą",
+		"mustBeDate": "Pole %s musi być datą",
 		"mustBeEmail": "%s jest nieprawidłowym adresem",
 		"notFound": "Nie znaleziono",
 		"alreadyExist": "juz istnieje",
@@ -22,32 +22,32 @@
 	},
 	"orders": {
 		"orderField": {
-			"title": "Tytuł",
-			"mode": "Tryb postępowania",
-			"description": "Opis",
+			"title": "tytuł",
+			"mode": "tryb postępowania",
+			"description": "opis",
 			"files": "Plik",
-			"customerName": "Nazwa instytucji",
-			"expirationDate": "Termin składania ofert",
-			"procedureIdentifier": "Nr postępowania",
-			"category": "Kategoria",
-			"orderId": "Numer id zamówienia publicznego",
-			"price": "Cena"
+			"customerName": "nazwa instytucji",
+			"expirationDate": "termin składania ofert",
+			"procedureIdentifier": "nr postępowania",
+			"category": "kategoria",
+			"orderId": "numer id zamówienia publicznego",
+			"price": "cena"
 		},
-		"deleteConfirmation": "Zamówienie publiczne zostało usunięte",
-		"denyEditOrderConfirmation": "Prośba o edycję zamówienia została odrzucona"
+		"deleteConfirmation": "zamówienie publiczne zostało usunięte",
+		"denyEditOrderConfirmation": "prośba o edycję zamówienia została odrzucona"
 	},
 	"users": {
 		"emailExist": "Konto z podanym e-mailem już istnieje!",
 		"userField": {
-			"name": "Imie",
-			"surname": "Nazwisko",
-			"email": "Email",
-			"password": "Hasło",
-			"phoneNumber": "Numer telefonu",
-			"userId": "Numer id użytkownika",
+			"name": "imie",
+			"surname": "nazwisko",
+			"email": "email",
+			"password": "hasło",
+			"phoneNumber": "numer telefonu",
+			"userId": "numer id użytkownika",
 			"nip": "NIP,",
-			"country": "Kraj",
-			"companyName":"Nazwa firmy"
+			"country": "kraj",
+			"companyName":"nazwa firmy"
 		},
 		"deleteConfirmation": "Konto użytkownika zostało usunięte",
 		"denyVerificationConfirmation": "Prośba o zweryfikowanie została odrzucona",

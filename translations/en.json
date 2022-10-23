@@ -1,12 +1,12 @@
 {
     "errors": {
-        "isEmpty": "the %s can't be empty",
-        "mustBeString": "The %s must be a string",
-        "mustBeMongoObjectId": "%s must be a type of mongo id",
-        "mustBeArray": "The %s must be an array",
-        "mustBeDate": "The %s must be an Date",
+        "isEmpty": "the %s field can't be empty",
+        "mustBeString": "The %s field must be a string",
+        "mustBeMongoObjectId": "%s field must be a type of mongo id",
+        "mustBeArray": "The %s must field be an array",
+        "mustBeDate": "The %s must field be an Date",
         "mustBeEmail": "%s is an invalid address",
-        "mustBeNumber": "The %s must be an number",
+        "mustBeNumber": "The %s field must be an number",
         "notFound": "Not found",
         "invalidEmailOrPassword": "Invalid email Or password",
         "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character",
@@ -21,16 +21,16 @@
     },
     "orders": {
         "orderField": {
-            "title": "Title",
-            "mode": "Procedure",
-            "description": "Description",
+            "title": "title",
+            "mode": "procedure",
+            "description": "description",
             "files": "File",
-            "customerName": "Customer Name",
-            "expirationDate": "Expiration Date",
-            "procedureIdentifier": "Procedure Identifier",
-            "category": "Category",
-            "orderId": "Public order id number",
-            "price": "Price"
+            "customerName": "customer name",
+            "expirationDate": "expiration Date",
+            "procedureIdentifier": "procedure Identifier",
+            "category": "category",
+            "orderId": "public order id number",
+            "price": "price"
         },
         "deleteConfirmation": "The public order has been deleted",
         "denyEditOrderConfirmation": "Request to edit order has been denied"
@@ -38,15 +38,15 @@
     "users": {
         "emailExist": "The account with the email you provided already exists!",
         "userField": {
-            "name": "Name",
-            "surname": "Surname",
-            "email": "Email",
-            "password": "Password",
-            "phoneNumber": "Phone number",
-            "userId": "User id number",
+            "name": "name",
+            "surname": "surname",
+            "email": "email",
+            "password": "password",
+            "phoneNumber": "phone number",
+            "userId": "user id number",
             "nip": "NIP,",
-            "country": "Country",
-            "companyName":"Company Name"
+            "country": "country",
+            "companyName":"company name"
         },
         "deleteConfirmation": "User account has been deleted",
         "denyVerificationConfirmation": "Request for verification denied",
