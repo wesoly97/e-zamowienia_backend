@@ -84,15 +84,16 @@ export const orderValidator = [
 			})
 		),
 	check('expirationDate')
-		.notEmpty().withMessage(getTranslation({
-			key: 'errors.isEmpty',
-			arg: getTranslation({ key: 'orders.orderField.expirationDate' })
-		})
-		).isDate().withMessage(
+		.isDate().withMessage(
 			getTranslation({
 				key: 'errors.mustBeDate',
 				arg: getTranslation({ key: 'orders.orderField.expirationDate' })
 			})
+		)
+		.notEmpty().withMessage(getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'orders.orderField.expirationDate' })
+		})
 		)
 ]
 
