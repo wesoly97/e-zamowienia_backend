@@ -1,8 +1,7 @@
 import { CustomValidator } from 'express-validator'
 import { checkDocumentFormat } from '../utils/checkDocumentFormat'
 import { isCharLetterOrNumber } from '../utils/checkVariableType'
-
-const MAX_FILE_SIZE = 20971520
+import { MAX_FILE_SIZE } from '../constants/files'
 
 export const isFileDocumentFormatValid: CustomValidator  = (value, { req }) => {
 	const validDocumentArray = []

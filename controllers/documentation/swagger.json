@@ -1229,6 +1229,74 @@
           }
         }
       }
+    },
+    "/settings": {
+      "get": {
+        "description": "Pobieranie możliwych ustawień zamówienia",
+        "summary": "getSettings",
+        "tags": [
+          "Settings"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "orderCategories": {
+                  "example": [
+                    "Usługi i roboty budowlane",
+                    "Dostawy",
+                    "Konkursy",
+                    "Usługi społeczne i inne szczególne usługi"
+                  ],
+                  "type": "array"
+                },
+                "orderModes": {
+                  "example":  [
+                    "Przetarg nieograniczony",
+                    "Przetarg ograniczony",
+                    "Negocjacje z ogłoszeniem",
+                    "Dialog konkurencyjny",
+                    "Partnerstwo innowacyjne",
+                    "Negocjacje bez ogłoszenia",
+                    "Zamówienie z wolnej ręki"
+                  ],
+                  "type": "array"
+                },
+                "fileTypes": {
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "application/pdf": {
+                        "example": [],
+                        "type": "array"
+                      },
+                      "text/plain": {
+                        "example": [],
+                        "type": "array"
+                      },
+                      "application/zip": {
+                        "example": [],
+                        "type": "array"
+                      }
+                    }
+                  }
+                },
+                "maxFileSize": {
+                  "example": 17,
+                  "type": "number"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "modyfikacja danych użytkownika nie powiodła się"
+          }
+        }
+      }
     }
   },
   "definitions": {

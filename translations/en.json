@@ -32,6 +32,21 @@
             "orderId": "public order id number",
             "price": "price"
         },
+        "categories": {
+            "servicesAndConstructionWork": "Usługi i roboty budowlane",
+            "deliveries": "Dostawy",
+            "competitions": "Konkursy",
+            "services": "Usługi społeczne i inne szczególne usługi"
+        },
+        "modes": {
+            "unlimitedBidding": "Przetarg nieograniczony",
+            "limitedBidding": "Przetarg ograniczony",
+            "negotiationWithAnnouncement": "Negocjacje z ogłoszeniem",
+            "competitiveDialogue": "Dialog konkurencyjny",
+            "innovationPartnerships": "Partnerstwo innowacyjne",
+            "negotiationWithoutAnnouncement": "Negocjacje bez ogłoszenia",
+            "negotiatedProcurement": "Zamówienie z wolnej ręki"
+        },
         "deleteConfirmation": "The public order has been deleted",
         "denyEditOrderConfirmation": "Request to edit order has been denied"
     },
