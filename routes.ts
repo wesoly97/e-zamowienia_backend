@@ -46,6 +46,7 @@ import { getDocumentationFile } from './controllers/documentation/documentation.
 import { isAdministrator, isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
 import { getFile } from './controllers/files/files.controller'
 import { getStatistics } from './controllers/statistics/statistics.controller'
+import { getSettings } from './controllers/settings/settings.controller'
 
 export const PATHS = {
 	ORDERS: '/orders',
@@ -53,6 +54,7 @@ export const PATHS = {
 	USERS: '/users',
 	FILES: '/files',
 	STATISTICS: '/statistics',
+	SETTINGS: '/settings',
 }
 
 const upload = multer()
@@ -89,6 +91,8 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.USERS}/verify`, userVerificationValidator, checkValidationResult, isUserLogged, createVerifyRequest)
 
 	app.get(`${PATHS.STATISTICS}`, getStatistics)
+	app.get(`${PATHS.SETTINGS}`, getSettings)
+
 }
 
 export default routes
