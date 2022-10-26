@@ -152,13 +152,12 @@ export const orderUpdateValidator = [
 			key: 'errors.invalidFileSize',
 			arg: getTranslation({ key: 'orders.orderField.files' })
 		})),
-	check('price')
-		.isNumeric().withMessage(
-			getTranslation({
-				key: 'errors.mustBeNumber',
-				arg: getTranslation({ key: 'orders.orderField.price' })
-			})
-		),
+	check('price').optional().isString().withMessage(
+		getTranslation({
+			key: 'errors.mustBeString',
+			arg: getTranslation({ key: 'orders.orderField.price' })
+		})
+	),
 	check('expirationDate').optional().isDate().withMessage(
 		getTranslation({
 			key: 'errors.mustBeDate',
