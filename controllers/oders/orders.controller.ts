@@ -58,7 +58,8 @@ export const createOrder:RequestHandler = async (req, res) => {
 export const getOrders:RequestHandler = async (req, res) => {
 	const offset:number = Number(req.query.offset) || 0
 	const limit:number = Number(req.query.limit) || 10
-	const { sortOption, filterOption } = req.body
+	const filterOption = req.query.filterOption as filterOption
+	const sortOption = req.query.sortOption
 	const title = filterOption?.title || ''
 	const mode = filterOption?.mode || ''
 	const category = filterOption?.category || ''
