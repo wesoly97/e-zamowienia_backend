@@ -10,7 +10,7 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/orders?limit=10&offset=0": {
+    "/orders?limit=10&offset=0&filterOption[title]=a&sortOption[_id]=1": {
       "parameters": [
         {
           "name": "limit",
@@ -25,22 +25,28 @@
           "description": "strona pobieranych zamówień",
           "type": "integer",
           "default": "0"
+        },
+        {
+          "name": "sortOption",
+          "in": "query",
+          "description": "opcje sortowania danych",
+          "type": "string",
+          "default": null,
+          "enum": [{"title": 1, "mode": -1}]
+        },
+        {
+          "name": "filtertOption",
+          "in": "query",
+          "description": "opcje filtrowania danych",
+          "type": "string",
+          "default": null,
+          "enum": [{"title": "", "mode": "", "category": ""}]
         }
       ],
       "get": {
         "tags": ["Orders"],
         "description": "Pobieranie wszystkich zamówień publicznych",
         "summary": "getOrders",
-        "parameters": [
-          {
-            "name": "ordersOption",
-            "in": "body",
-            "description": "Opcje sortowania oraz filtrowania danych zamówień publicznych",
-            "schema": {
-              "$ref": "#/definitions/orderPaginationRequestBody"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1520,22 +1526,6 @@
           }
         }
       ]
-    },
-    "orderPaginationRequestBody": {
-      "properties": {
-        "sortOption": {
-          "example": { "_id" :  1},
-          "type": "object",
-          "default": null,
-          "enum": [{"_id" : 1}, {"title" : -1}]
-        },
-        "filterOption": {
-          "example": { "title": "druk", "mode": "rozeznanie cenowe", "category": "Usługi"},
-          "type": "object",
-          "default": null,
-          "enum": [{"title": "", "mode": "", "category": ""}]
-        }
-      }
     }
   },
   "databaseError": {
