@@ -26,7 +26,8 @@ import {
 	emailIsValid,
 	getSessionData,
 	getUserData,
-	getUsers, getUsersVerificationList,
+	getUsers,
+	getUsersVerificationList,
 	logIn,
 	logOut,
 	resetPassword,
@@ -37,6 +38,7 @@ import {
 	checkEmail,
 	checkEmailExist,
 	checkPassword,
+	checkRepeatPassword,
 	checkUserId,
 	userUpdateValidator,
 	userValidator,
@@ -74,11 +76,11 @@ const routes = (app: Express) => {
 	app.post(`${PATHS.ORDERS}/:orderId/deny`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, denyEditOrder)
 	app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, deleteOrder)
 
-	app.post(PATHS.USERS, checkEmail, checkPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
+	app.post(PATHS.USERS, checkEmail, checkPassword, checkRepeatPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
 	app.get(PATHS.USERS, isUserLogged, getUsers)
 	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, checkEmailExist, updateUser)
 	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, resetPassword)
-	app.post(`${PATHS.USERS}/password`, checkPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
+	app.post(`${PATHS.USERS}/password`, checkPassword, checkRepeatPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
 	app.get(`${PATHS.USERS}/session`, isUserLogged, getSessionData)
 	app.get(`${PATHS.USERS}/verify`, isUserLogged, isAdministrator, getUsersVerificationList)

@@ -63,6 +63,12 @@ export const checkPassword = [
 		),
 ]
 
+export const checkRepeatPassword = [
+	check('repeatPassword').custom(isSamePasswords).withMessage(
+		getTranslation({ key: 'errors.passwordsNotMatch' })
+	)
+]
+
 export const userValidator = [
 	check('name')
 		.notEmpty().withMessage(
@@ -87,10 +93,7 @@ export const userValidator = [
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'users.userField.surname' })
 			})
-		),
-	check('repeatPassword').custom(isSamePasswords).withMessage(
-		getTranslation({ key: 'errors.passwordsNotMatch' })
-	)
+		)
 ]
 
 export const userUpdateValidator = [
