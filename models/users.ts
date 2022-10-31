@@ -21,4 +21,6 @@ const userSchema: Schema = new Schema(
 	}
 )
 
+mongoose.Schema.Types.String.checkRequired(v => v != null) // this line allows empty strings in database
+
 export default mongoose.model<IUserModel>(COLLECTION_NAME, userSchema)
