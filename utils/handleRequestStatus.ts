@@ -15,3 +15,4 @@ export const emailNotExist = (res: Response) => res.status(404).json({ message: 
 export const invalidToken = (res: Response) => res.status(401).json({
 	message: getTranslation({ key: 'errors.invalidToken' })
 })
+export const accessNotProvided = (res: Response) => res.status(403).json({ message: getTranslation({ key: 'errors.accessNotProvided' }) })

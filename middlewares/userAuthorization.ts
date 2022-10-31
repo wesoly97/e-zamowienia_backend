@@ -1,9 +1,11 @@
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { CookieOptions, RequestHandler, Response } from 'express'
-import { invalidToken, notAdministrator, notLogged, notVerified } from '../utils/handleRequestStatus'
+import { accessNotProvided, invalidToken, notAdministrator, notLogged, notVerified } from '../utils/handleRequestStatus'
 import { IUserModel } from '../models/users.types'
 import { getUserData } from '../controllers/users/users.utils'
 import { USER_TYPES } from '../controllers/users/users.consts'
+import { getOrderData } from '../controllers/oders/orders.utils'
+import { IOrderModel } from '../models/orders.types'
 
 const NUMBER_OF_DAYS_COOKIE_EXPIRED = 2
 const RESET_PASSWORD_EXPIRE_TIME = 5
@@ -86,5 +88,34 @@ export const isAdministrator:RequestHandler = async (req, res, next) => {
 		next()
 	} else {
 		notAdministrator(res)
+	}
+}
+
+export const isAccountOwnerOrAdministrator:RequestHandler = async (req, res, next) => {
+	const { sessionUserId } = req.body
+	const userId = req.params.userId
+	const userProperties = { accountType: 1 }
+	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
+
+	if(user.accountType === USER_TYPES.ADMIN || sessionUserId === userId) {
+		next()
+	} else {
+		accessNotProvided(res)
+	}
+}
+
+export const isOrderOwnerOrAdministrator:RequestHandler = async (req, res, next) => {
+	const { sessionUserId } = req.body
+	const orderId = req.params.orderId
+	const userProperties = { accountType: 1 }
+	const orderProperties = { ownerId: 1 }
+
+	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
+	const order = await getOrderData(orderId, res, orderProperties) as IOrderModel
+
+	if(user.accountType === USER_TYPES.ADMIN || sessionUserId === order.ownerId) {
+		next()
+	} else {
+		accessNotProvided(res)
 	}
 }

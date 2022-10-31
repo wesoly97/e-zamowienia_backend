@@ -19,7 +19,8 @@
 		"mustBeVerified": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
 		"mustBeAdministrator" : "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
 		"mustStartWithLetterOrNumber": "Filtrowana wartość musi się zaczynać od litery lub liczby",
-		"passwordsNotMatch": "Podane hasła się nie zgadzają"
+		"passwordsNotMatch": "Podane hasła się nie zgadzają",
+		"accessNotProvided": "Nie masz dostepu do tej funkcjonalności"
 	},
 	"orders": {
 		"orderField": {

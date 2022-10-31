@@ -6,7 +6,7 @@ export const getFile:RequestHandler = async (req, res) => {
 	const fileObject = await getFileStream(key)
 	const fileName = key.split('__')
 	const fileNameNormalize = fileName[1].normalize('NFD').replace('ł','l').replace('Ł','L').replace(/[\u0300-\u036f]/g, '')
-	console.log(fileNameNormalize)
+
 	res.set('content-disposition',`attachment; filename=${fileNameNormalize}`)
 	fileObject.pipe(res)
 }
