@@ -48,6 +48,7 @@ import { getDocumentationFile } from './controllers/documentation/documentation.
 import {
 	isAccountOwnerOrAdministrator,
 	isAdministrator,
+	isOrderOwnerOrAdministrator,
 	isResetPasswordTokenValid,
 	isUserLogged,
 	isUserVerified
@@ -77,7 +78,7 @@ const routes = (app: Express) => {
 	app.get(PATHS.ORDERS, getOrdersValidator, checkValidationResult, getOrders)
 	app.get(`${PATHS.ORDERS}/edited`, isUserLogged, isAdministrator, getEditedOrders)
 	app.get(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, getOrder)
-	app.patch(`${PATHS.ORDERS}/:orderId`, upload.array('files'), checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, createEditedOrder)
+	app.patch(`${PATHS.ORDERS}/:orderId`, upload.array('files'), checkOrderId, orderUpdateValidator, checkValidationResult, isUserLogged, isOrderOwnerOrAdministrator, createEditedOrder)
 	app.post(`${PATHS.ORDERS}/:orderId/accept`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, updateOrder)
 	app.post(`${PATHS.ORDERS}/:orderId/deny`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, denyEditOrder)
 	app.delete(`${PATHS.ORDERS}/:orderId`, checkOrderId, checkValidationResult, isUserLogged, isAdministrator, deleteOrder)

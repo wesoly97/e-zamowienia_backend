@@ -233,6 +233,12 @@
             },
             "description": "Użytkownik nie jest zalogowany"
           },
+          "403": {
+            "schema": {
+              "$ref": "#/accessNotProvided"
+            },
+            "description": "Użytkownik nie posiada uprawnień do tej funkcjonalności"
+          },
           "404": {
             "schema": {
               "properties": {
