@@ -17,7 +17,8 @@
         "invalidToken": "Unfortunately, the password cannot be changed because the Token provided is incorrect",
         "mustBeVerified": "You must be verified to be able to add public orders",
         "mustBeAdministrator" : "You must have administrator privileges to use this functionality",
-        "mustStartWithLetterOrNumber": "The filtered text must start with a letter or number"
+        "mustStartWithLetterOrNumber": "The filtered text must start with a letter or number",
+        "passwordsNotMatch": "The passwords provided do not match"
     },
     "orders": {
         "orderField": {

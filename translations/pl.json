@@ -18,7 +18,8 @@
 		"invalidToken": "Niestety hasło nie może zostać zmienione, ponieważ dostarczony Token jest nieprawidłowy",
 		"mustBeVerified": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
 		"mustBeAdministrator" : "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
-		"mustStartWithLetterOrNumber": "Filtrowana wartość musi się zaczynać od litery lub liczby"
+		"mustStartWithLetterOrNumber": "Filtrowana wartość musi się zaczynać od litery lub liczby",
+		"passwordsNotMatch": "Podane hasła się nie zgadzają"
 	},
 	"orders": {
 		"orderField": {

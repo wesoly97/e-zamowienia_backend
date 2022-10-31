@@ -1637,6 +1637,9 @@
       },
       "password": {
         "type": "string"
+      },
+      "repeatPassword": {
+        "type": "string"
       }
     }
   },

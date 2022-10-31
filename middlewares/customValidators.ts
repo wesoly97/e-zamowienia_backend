@@ -30,3 +30,7 @@ export const isFirstCharNumberOrLetter: CustomValidator  = (value, { req }) => {
 		return true
 	return isCharLetterOrNumber(value[0])
 }
+
+export const isSamePasswords: CustomValidator  = (value, { req }) => {
+	return value === req.body.password
+}
