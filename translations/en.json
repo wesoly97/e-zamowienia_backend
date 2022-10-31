@@ -5,7 +5,7 @@
         "mustBeMongoObjectId": "%s field must be a type of mongo id",
         "mustBeArray": "The %s must field be an array",
         "mustBeDate": "The %s must field be an Date",
-        "mustBeEmail": "%s is an invalid address",
+        "mustBeEmail": "The %s is invalid",
         "mustBeNumber": "The %s field must be an number",
         "notFound": "Not found",
         "invalidEmailOrPassword": "Invalid email Or password",

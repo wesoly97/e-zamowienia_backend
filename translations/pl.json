@@ -6,7 +6,7 @@
 		"mustBeArray": "Pole %s musi być tablicą",
 		"mustBeNumber": "Pole %s musi być liczbą",
 		"mustBeDate": "Pole %s musi być datą",
-		"mustBeEmail": "%s jest nieprawidłowym adresem",
+		"mustBeEmail": "Pole %s jest nieprawidłowe",
 		"notFound": "Nie znaleziono",
 		"alreadyExist": "juz istnieje",
 		"invalidEmailOrPassword": "Nieprawidłowy email lub hasło",
