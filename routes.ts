@@ -45,7 +45,13 @@ import {
 	userVerificationValidator
 } from './controllers/users/users.validators'
 import { getDocumentationFile } from './controllers/documentation/documentation.controller'
-import { isAdministrator, isResetPasswordTokenValid, isUserLogged, isUserVerified } from './middlewares/userAuthorization'
+import {
+	isAccountOwnerOrAdministrator,
+	isAdministrator,
+	isResetPasswordTokenValid,
+	isUserLogged,
+	isUserVerified
+} from './middlewares/userAuthorization'
 import { getFile } from './controllers/files/files.controller'
 import { getStatistics } from './controllers/statistics/statistics.controller'
 import { getSettings } from './controllers/settings/settings.controller'
@@ -78,13 +84,13 @@ const routes = (app: Express) => {
 
 	app.post(PATHS.USERS, checkEmail, checkPassword, checkRepeatPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
 	app.get(PATHS.USERS, isUserLogged, getUsers)
-	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, checkEmailExist, updateUser)
+	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, isAccountOwnerOrAdministrator, checkEmailExist, updateUser)
 	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, resetPassword)
 	app.post(`${PATHS.USERS}/password`, checkPassword, checkRepeatPassword, checkValidationResult, isResetPasswordTokenValid, changePassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
 	app.get(`${PATHS.USERS}/session`, isUserLogged, getSessionData)
 	app.get(`${PATHS.USERS}/verify`, isUserLogged, isAdministrator, getUsersVerificationList)
-	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, getUserData)
+	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, isAccountOwnerOrAdministrator, getUserData)
 	app.post(`${PATHS.USERS}/checkEmail`, checkEmail, checkValidationResult, checkEmailExist, emailIsValid)
 	app.post(`${PATHS.USERS}/login`, checkEmail, checkPassword, checkLoginValidationResult, logIn)
 	app.post(`${PATHS.USERS}/logout`, isUserLogged, logOut)

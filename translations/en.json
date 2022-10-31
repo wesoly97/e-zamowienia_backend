@@ -18,7 +18,8 @@
         "mustBeVerified": "You must be verified to be able to add public orders",
         "mustBeAdministrator" : "You must have administrator privileges to use this functionality",
         "mustStartWithLetterOrNumber": "The filtered text must start with a letter or number",
-        "passwordsNotMatch": "The passwords provided do not match"
+        "passwordsNotMatch": "The passwords provided do not match",
+        "accessNotProvided": "You don't have access to this functionality"
     },
     "orders": {
         "orderField": {

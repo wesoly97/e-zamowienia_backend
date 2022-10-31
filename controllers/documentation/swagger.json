@@ -573,6 +573,12 @@
             },
             "description": "Użytkownik nie jest zalogowany"
           },
+          "403": {
+            "schema": {
+              "$ref": "#/accessNotProvided"
+            },
+            "description": "Użytkownik nie posiada uprawnień do tej funkcjonalności"
+          },
           "404": {
             "schema": {
               "properties": {
@@ -672,6 +678,12 @@
               "$ref": "#/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
+          },
+          "403": {
+            "schema": {
+              "$ref": "#/accessNotProvided"
+            },
+            "description": "Użytkownik nie posiada uprawnień do tej funkcjonalności"
           },
           "404": {
             "schema": {
@@ -1667,6 +1679,14 @@
     "properties": {
       "message": {
         "example": "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
+        "type": "string"
+      }
+    }
+  },
+  "accessNotProvided": {
+    "properties": {
+      "message": {
+        "example": "Nie masz dostepu do tej funkcjonalności",
         "type": "string"
       }
     }

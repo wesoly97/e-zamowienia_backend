@@ -1,6 +1,6 @@
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { CookieOptions, RequestHandler, Response } from 'express'
-import { invalidToken, notAdministrator, notLogged, notVerified } from '../utils/handleRequestStatus'
+import { accessNotProvided, invalidToken, notAdministrator, notLogged, notVerified } from '../utils/handleRequestStatus'
 import { IUserModel } from '../models/users.types'
 import { getUserData } from '../controllers/users/users.utils'
 import { USER_TYPES } from '../controllers/users/users.consts'
@@ -12,8 +12,8 @@ const COOKIE_CONFIG: CookieOptions = {
 	path: '/',
 	expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * NUMBER_OF_DAYS_COOKIE_EXPIRED),
 	httpOnly: true,
-	sameSite: 'none',
-	secure: true
+	// sameSite: 'none',
+	// secure: true
 }
 
 export const authorizeUser = (userId: string, res:Response) => {
@@ -86,5 +86,18 @@ export const isAdministrator:RequestHandler = async (req, res, next) => {
 		next()
 	} else {
 		notAdministrator(res)
+	}
+}
+
+export const isAccountOwnerOrAdministrator:RequestHandler = async (req, res, next) => {
+	const { sessionUserId } = req.body
+	const userId = req.params.userId
+	const userProperties = { accountType: 1 }
+	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
+
+	if(user.accountType === USER_TYPES.ADMIN || sessionUserId === userId) {
+		next()
+	} else {
+		accessNotProvided(res)
 	}
 }
