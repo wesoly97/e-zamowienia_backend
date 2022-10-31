@@ -35,7 +35,10 @@ export const createUser:RequestHandler = (req, res) => {
 		nip: '',
 		companyName: '',
 	})
-	return user.save().then(user => onSuccess(user,201, res)).catch(error => onError(error, res))
+	return user.save().then(user => {
+		authorizeUser(user._id, res)
+		onSuccess(user,201, res)
+	}).catch(error => onError(error, res))
 }
 
 export const updateUser:RequestHandler = (req, res) => {
