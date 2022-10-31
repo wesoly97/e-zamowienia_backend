@@ -4,7 +4,7 @@ import { RequestHandler  } from 'express'
 import { USER_TYPES } from './users.consts'
 import {
 	emailNotExist,
-	invalidLoginOrPassword,
+	invalidLoginOrPassword, invalidPassword,
 	invalidToken,
 	onError,
 	onNotFound,
@@ -18,6 +18,8 @@ import { sendEmail } from '../../middlewares/emailSender'
 import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
 import UserVerification from '../../models/userVerification'
 import { IUserVerificationModel } from '../../models/userVerification.types'
+import { IUserModel } from '../../models/users.types'
+import { getUserData as getUser } from './users.utils'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, email, password } = req.body
@@ -99,7 +101,7 @@ export const logOut:RequestHandler = (req, res) => {
 	return onSuccess({ message: getTranslation({ key: 'users.logOutSuccess' }) }, 200, res)
 }
 
-export const resetPassword:RequestHandler = async (req, res) => {
+export const recoverPassword:RequestHandler = async (req, res) => {
 	const { email } = req.body
 
 	if (await emailExist(email, res)) {
@@ -111,7 +113,7 @@ export const resetPassword:RequestHandler = async (req, res) => {
 	}
 }
 
-export const changePassword:RequestHandler = async (req, res) => {
+export const resetPassword:RequestHandler = async (req, res) => {
 	const { email, password } = req.body
 
 	return User.findOne({ email }).then(user => {
@@ -124,6 +126,21 @@ export const changePassword:RequestHandler = async (req, res) => {
 
 	}).catch(error => onError(error, res))
 }
+
+export const changePassword:RequestHandler = async (req, res) => {
+	const { sessionUserId, password, currentPassword } = req.body
+	const userProperties = { password: 1 }
+	const user = await getUser(sessionUserId, res, userProperties) as IUserModel
+	const isPasswordMatch = passwordCompare(currentPassword, user.password)
+
+	if(!isPasswordMatch) {
+		return invalidPassword(res)
+	}
+
+	user.set({ password: encryptPassword(password) })
+	return user.save().then(() => onSuccess({ message: getTranslation({ key: 'users.changePasswordSuccess' }) },200, res)).catch(error => onError(error, res))
+}
+
 
 export const verifyUser:RequestHandler = async (req, res) => {
 	const userId = req.params.userId

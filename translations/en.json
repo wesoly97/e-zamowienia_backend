@@ -9,6 +9,7 @@
         "mustBeNumber": "The %s field must be an number",
         "notFound": "Not found",
         "invalidEmailOrPassword": "Invalid email Or password",
+        "invalidPassword": "Invalid password",
         "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character",
         "mustBeLogged": "You must be logged in",
         "invalidFileFormat": "%s must be in the format: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
@@ -19,6 +20,7 @@
         "mustBeAdministrator" : "You must have administrator privileges to use this functionality",
         "mustStartWithLetterOrNumber": "The filtered text must start with a letter or number",
         "passwordsNotMatch": "The passwords provided do not match",
+        "passwordsMatch": "The current and new password is the same",
         "accessNotProvided": "You don't have access to this functionality"
     },
     "orders": {
@@ -63,7 +65,8 @@
             "userId": "user id number",
             "nip": "NIP,",
             "country": "country",
-            "companyName":"company name"
+            "companyName":"company name",
+            "currentPassword": "current password"
         },
         "deleteConfirmation": "User account has been deleted",
         "denyVerificationConfirmation": "Request for verification denied",
