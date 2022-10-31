@@ -46,7 +46,8 @@ export const resetPasswordGenerateToken = (email: string) => {
 	const token = jwt.sign({ email: email }, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, {
 		expiresIn: `${RESET_PASSWORD_EXPIRE_TIME} min`
 	})
-	return token
+
+	return token.replaceAll('.','%')
 }
 
 export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
@@ -62,8 +63,9 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 	if(!token)
 		return invalidToken(res)
 
-	jwt.verify(token as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
+	const originalToken = token.replaceAll('%','.')
 
+	jwt.verify(originalToken as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
 }
 
 export const isUserVerified:RequestHandler = async (req, res, next) => {
