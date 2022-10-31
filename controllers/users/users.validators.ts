@@ -3,7 +3,7 @@ import { fieldAlreadyExist } from '../../utils/handleRequestStatus'
 import { check } from 'express-validator'
 import { getTranslation } from '../../utils/getTranslation'
 import { emailExist } from '../../utils/emailExist'
-import { isSamePasswords } from '../../middlewares/customValidators'
+import { isDifferentPassword, isSamePasswords } from '../../middlewares/customValidators'
 
 export const checkEmailExist:RequestHandler = async (req, res, next) => {
 	const { email } = req.body
@@ -67,6 +67,17 @@ export const checkRepeatPassword = [
 	check('repeatPassword').custom(isSamePasswords).withMessage(
 		getTranslation({ key: 'errors.passwordsNotMatch' })
 	)
+]
+export const checkOldPassword = [
+	check('currentPassword')
+		.notEmpty().withMessage(
+			getTranslation({
+				key: 'errors.isEmpty',
+				arg: getTranslation({ key: 'users.userField.currentPassword' })
+			})
+		).custom(isDifferentPassword).withMessage(
+			getTranslation({ key: 'errors.passwordsMatch' })
+		)
 ]
 
 export const userValidator = [

@@ -1219,6 +1219,67 @@
             "description": "Resetowanie hasła nie powiodło się"
           }
         }
+      },
+      "patch": {
+        "tags": ["Users"],
+        "description": "Zmiana hasła przez zalogowanego użytkownika",
+        "summary": "changePassword",
+        "parameters": [
+          {
+            "name": "changePassword",
+            "in": "body",
+            "description": "bieżące, nowe oraz powtórzone hasło potrzebne do zmiany",
+            "schema": {
+              "properties": {
+                "currentPassword": {
+                  "example": "Haslo123!",
+                  "type": "string"
+                },
+                "password": {
+                  "example": "Haslo123!",
+                  "type": "string"
+                },
+                "repeatPassword": {
+                  "example": "Haslo123!",
+                  "type": "string"
+                }
+              },
+              "required": ["currentPassword", "password", "repeatPassword"]
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "message": {
+                  "example": "Zmiana hasła przebiegła pomylśnie",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Ok"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/userValidationError"
+            },
+            "description": "Blad walidacji - zostanie zwrocona tablica bledow"
+          },
+          "401": {
+            "schema": {
+              "$ref": "#/userMustBeLogged"
+            },
+            "description": "Użytkownik nie jest zalogowany"
+          },
+          "500": {
+            "schema": {
+              "$ref": "#/databaseError"
+            },
+            "description": "Resetowanie hasła nie powiodło się"
+          }
+        }
       }
     },
     "/statistics": {

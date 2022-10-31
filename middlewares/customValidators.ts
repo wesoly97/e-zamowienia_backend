@@ -32,3 +32,4 @@ export const isFirstCharNumberOrLetter: CustomValidator  = (value, { req }) => {
 }
 
 export const isSamePasswords: CustomValidator  = (value, { req }) => value === req.body.password
+export const isDifferentPassword: CustomValidator  = (value, { req }) => value !== req.body.password
