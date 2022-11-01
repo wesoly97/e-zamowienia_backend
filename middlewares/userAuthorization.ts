@@ -63,7 +63,7 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 	if(!token)
 		return invalidToken(res)
 
-	const originalToken = decodeURIComponent(token)
+	const originalToken = token.replaceAll('&#46;', '.')
 
 	jwt.verify(originalToken as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
 }
