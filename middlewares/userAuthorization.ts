@@ -47,7 +47,7 @@ export const resetPasswordGenerateToken = (email: string) => {
 		expiresIn: `${RESET_PASSWORD_EXPIRE_TIME} min`
 	})
 
-	return token.replaceAll('.','&#46')
+	return encodeURIComponent(token.replaceAll(/\./g, '&#46;'))
 }
 
 export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
@@ -63,7 +63,7 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 	if(!token)
 		return invalidToken(res)
 
-	const originalToken = token.replaceAll('&#46', '.')
+	const originalToken = decodeURIComponent(token)
 
 	jwt.verify(originalToken as string, process.env.JWT_SECRET_KEY_RESET_PASSWORD as string, verifyTokenCallback)
 }
