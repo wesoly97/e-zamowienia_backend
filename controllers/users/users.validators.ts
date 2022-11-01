@@ -128,25 +128,45 @@ export const userUpdateValidator = [
 ]
 
 export const userVerificationValidator = [
-	check('phoneNumber').isString().withMessage(
+	check('phoneNumber').notEmpty().withMessage(
+		getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'users.userField.phoneNumber' })
+		})
+	).isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.phoneNumber' })
 		})
 	),
-	check('country').isString().withMessage(
+	check('country').notEmpty().withMessage(
+		getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'users.userField.country' })
+		})
+	).isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.country' })
 		})
 	),
-	check('companyName').isString().withMessage(
+	check('companyName').notEmpty().withMessage(
+		getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'users.userField.companyName' })
+		})
+	).isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.companyName' })
 		})
 	),
-	check('nip').isString().withMessage(
+	check('nip').notEmpty().withMessage(
+		getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'users.userField.nip' })
+		})
+	).isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.nip' })
