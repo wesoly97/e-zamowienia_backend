@@ -119,7 +119,7 @@ export const createEditedOrder:RequestHandler = async (req, res) => {
 			ownerId: order?.ownerId,
 		}
 		if(!editedOrder) {
-			const modifiedOrder = new EditedOrder( updatedOrder )
+			const modifiedOrder = new EditedOrder(updatedOrder)
 			return modifiedOrder.save().then(modifiedOrder => onSuccess(modifiedOrder,200, res)).catch(error => onError(error, res))
 		} else {
 			editedOrder.set(updatedOrder)

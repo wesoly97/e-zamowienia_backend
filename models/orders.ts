@@ -11,7 +11,6 @@ const orderSchema: Schema = new Schema(
 		mode: { type: String, required: true },
 		title: { type: String, required: true },
 		description: { type: String, required: true },
-		customerName: { type: String, required: true },
 		price:{ type: Number, required: true },
 		files: { type: Array, required: true },
 		dateOfPublication: { type: Date, required: true },
