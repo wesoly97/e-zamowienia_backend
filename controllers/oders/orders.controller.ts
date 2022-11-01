@@ -63,8 +63,14 @@ export const getOrders:RequestHandler = async (req, res) => {
 	const title = filterOption?.title || ''
 	const mode = filterOption?.mode || ''
 	const category = filterOption?.category || ''
+	const ownerId = filterOption?.ownerId
 
-	const filter = { title: getFilteredText(title), mode: getFilteredText(mode), category: getFilteredText(category) }
+	const filter = {
+		title: getFilteredText(title),
+		mode: getFilteredText(mode),
+		category: getFilteredText(category),
+		...(ownerId && { ownerId: new mongoose.Types.ObjectId(ownerId) })
+	}
 
 	const count = await Order.find().countDocuments().catch(error => onError(error, res))
 	const orders = await Order.find(filter).select(orderPropertiesToGet).limit(limit).skip(offset * limit)

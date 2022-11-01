@@ -40,7 +40,7 @@
           "description": "opcje filtrowania danych",
           "type": "string",
           "default": null,
-          "enum": [{"title": "", "mode": "", "category": ""}]
+          "enum": [{"title": "", "mode": "", "category": "", "ownerId":  ""}]
         }
       ],
       "get": {
