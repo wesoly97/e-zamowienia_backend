@@ -4,7 +4,8 @@ import { RequestHandler  } from 'express'
 import { USER_TYPES } from './users.consts'
 import {
 	emailNotExist,
-	invalidLoginOrPassword, invalidPassword,
+	invalidLoginOrPassword,
+	invalidPassword,
 	invalidToken,
 	onError,
 	onNotFound,

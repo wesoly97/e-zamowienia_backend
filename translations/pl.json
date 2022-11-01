@@ -16,7 +16,7 @@
 		"invalidFileFormat": "%s musi być w formacie: pdf, xlsx, xls, doc, docx, gz, zip, 7z, odt, .txt, ods",
 		"invalidFileSize": "%s nie może przekraczać 20 Mb",
 		"emailNotExist": "Podany email nie znajduje się w naszym serwisie!",
-		"invalidToken": "Niestety hasło nie może zostać zmienione, ponieważ dostarczony Token jest nieprawidłowy",
+		"invalidToken": "Niestety hasło nie może zostać zmienione, ponieważ dostarczony token jest nieprawidłowy",
 		"mustBeVerified": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
 		"mustBeAdministrator" : "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
 		"mustStartWithLetterOrNumber": "Filtrowana wartość musi się zaczynać od litery lub liczby",
