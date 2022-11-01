@@ -50,17 +50,11 @@ export const checkEmail = [
 ]
 
 export const checkPassword = [
-	check('password')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.password' })
-			})
-		).isStrongPassword().withMessage(
-			getTranslation({
-				key: 'errors.invalidPasswordFormat',
-			})
-		),
+	check('password').isStrongPassword().withMessage(
+		getTranslation({
+			key: 'errors.invalidPasswordFormat',
+		})
+	),
 ]
 
 export const checkRepeatPassword = [
@@ -68,6 +62,7 @@ export const checkRepeatPassword = [
 		getTranslation({ key: 'errors.passwordsNotMatch' })
 	)
 ]
+
 export const checkOldPassword = [
 	check('currentPassword')
 		.notEmpty().withMessage(
