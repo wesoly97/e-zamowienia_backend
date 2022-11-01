@@ -70,7 +70,7 @@ export const isResetPasswordTokenValid:RequestHandler = (req, res, next) => {
 
 export const isUserVerified:RequestHandler = async (req, res, next) => {
 	const { sessionUserId } = req.body
-	const userProperties = { accountType: 1, companyName: 1 }
+	const userProperties = { accountType: 1 }
 	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
 
 	if([USER_TYPES.ORDERER, USER_TYPES.ADMIN].includes(user.accountType)) {
