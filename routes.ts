@@ -87,7 +87,7 @@ const routes = (app: Express) => {
 	app.post(PATHS.USERS, checkEmail, checkPassword, checkRepeatPassword, userValidator, checkValidationResult, checkEmailExist, createUser)
 	app.get(PATHS.USERS, isUserLogged, getUsers)
 	app.patch(`${PATHS.USERS}/password`, checkPassword, checkRepeatPassword, checkOldPassword, checkValidationResult, isUserLogged, changePassword)
-	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, isAccountOwnerOrAdministrator, checkEmailExist, updateUser)
+	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, isAccountOwnerOrAdministrator, updateUser)
 	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, recoverPassword)
 	app.post(`${PATHS.USERS}/password`, checkPassword, checkRepeatPassword, checkValidationResult, isResetPasswordTokenValid, resetPassword)
 	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)

@@ -554,16 +554,16 @@
           {
             "name": "user",
             "in": "body",
-            "description": "uaktualnione wartości istniejących pól",
+            "description": "uaktualnione wartości imienia lub nazwiska",
             "schema": {
-              "$ref": "#/userFieldToSend"
+              "$ref": "#/userFieldToEdit"
             }
           }
         ],
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/definitions/user"
+              "$ref": "#/editedUserField"
             },
             "description": "Ok"
           },
@@ -595,17 +595,6 @@
               }
             },
             "description": "Nie znaleziono"
-          },
-          "409": {
-            "schema": {
-              "properties": {
-                "message": {
-                  "example": "Konto z podanym e-mailem już istnieje!",
-                  "type": "string"
-                }
-              }
-            },
-            "description": "Konto z podanym e-mailem już istnieje"
           },
           "500": {
             "schema": {
@@ -1408,7 +1397,7 @@
           "example": "jacusK@gmail.com",
           "type": "string"
         },
-        "AccountType": {
+        "accountType": {
          "example": "regular",
           "type": "string"
         },
@@ -1458,7 +1447,7 @@
           "example": "62af396caa850b80e1eb3e78",
           "type": "string"
         },
-        "AccountType": {
+        "accountType": {
           "example": "regular",
           "type": "string"
         }
@@ -1698,6 +1687,10 @@
             "message": {
               "type": "string",
               "example": "Imie musi być ciągiem znaków"
+            },
+            "key": {
+              "type": "string",
+              "example": "name"
             }
           }
         }
@@ -1723,6 +1716,35 @@
       },
       "repeatPassword": {
         "type": "string"
+      }
+    }
+  },
+  "userFieldToEdit": {
+    "properties": {
+      "name": {
+        "example": "Jacek",
+        "type": "string"
+      },
+      "surname": {
+        "example": "Krzynówek",
+        "type": "string"
+      }
+    }
+  },
+  "editedUserField": {
+    "properties": {
+      "name": {
+        "example": "Jacek",
+        "type": "string"
+      },
+      "surname": {
+        "example": "Krzynówek",
+        "type": "string"
+      },
+      "_id": {
+        "example": "635ff30781b4b1c46ff06f2f",
+        "type": "string",
+        "uniqueItems": true
       }
     }
   },
