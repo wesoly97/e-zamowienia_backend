@@ -108,33 +108,26 @@ export const userValidator = [
 ]
 
 export const userUpdateValidator = [
-	check('name').optional().isString().withMessage(
+	check('name').optional().notEmpty().withMessage(
+		getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'users.userField.name' })
+		})
+	).isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.name' })
 		})
 	),
-	check('surname').optional().isString().withMessage(
+	check('surname').optional().notEmpty().withMessage(
+		getTranslation({
+			key: 'errors.isEmpty',
+			arg: getTranslation({ key: 'users.userField.surname' })
+		})
+	).isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.surname' })
-		})
-	),
-	check('email').optional().isEmail().withMessage(
-		getTranslation({
-			key: 'errors.mustBeEmail',
-			arg: getTranslation({ key: 'users.userField.email' })
-		})
-	),
-	check('password').optional().isStrongPassword().withMessage(
-		getTranslation({
-			key: 'errors.invalidPasswordFormat',
-		})
-	),
-	check('phoneNumber').optional().isString().withMessage(
-		getTranslation({
-			key: 'errors.mustBeString',
-			arg: getTranslation({ key: 'users.userField.phoneNumber' })
 		})
 	)
 ]

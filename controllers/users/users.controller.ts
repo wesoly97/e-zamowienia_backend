@@ -44,17 +44,13 @@ export const createUser:RequestHandler = (req, res) => {
 	}).catch(error => onError(error, res))
 }
 
-export const updateUser:RequestHandler = (req, res) => {
+export const updateUser:RequestHandler = async (req, res) => {
 	const userId = req.params.userId
-
-	return User.findById(userId).select(['-password']).then(user => {
-		if (user) {
-			user.set(req.body)
-			return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
-		} else {
-			onNotFound(res)
-		}
-	})
+	const { name, surname } = req.body
+	const userProperties = { name: 1, surname: 1 }
+	const user = await getUser(userId, res, userProperties) as IUserModel
+	user.set({ name: name || user.name, surname: surname || user.surname })
+	return user.save().then(user => onSuccess(user,200, res)).catch(error => onError(error, res))
 }
 
 export const deleteUser:RequestHandler = (req, res) => {
