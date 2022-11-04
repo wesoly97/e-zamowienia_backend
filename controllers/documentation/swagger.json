@@ -1547,7 +1547,7 @@
             "type": "object",
             "properties": {
               "url": {
-                "example": "https://e-zamowienia.onrender.com/files/1661001524__nazwa.pdf",
+                "example": "e-zamowienia.onrender.com/files/1661001524__nazwa.pdf",
                 "type": "string"
               },
               "fileName": {
