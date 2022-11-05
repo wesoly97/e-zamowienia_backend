@@ -1,3 +1,3 @@
 export const getServerDomain = () => {
-	return 'https://e-zamowienia.onrender.com'
+	return 'https://api-e-zamowienia.onrender.com/'
 }
