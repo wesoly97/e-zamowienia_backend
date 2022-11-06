@@ -7,6 +7,7 @@
 		"mustBeNumber": "Pole %s musi być liczbą",
 		"mustBeDate": "Pole %s musi być datą",
 		"mustBeEmail": "Pole %s jest nieprawidłowe",
+		"invalidValue": "%s ma nieprawidłową wartość",
 		"notFound": "Nie znaleziono",
 		"alreadyExist": "juz istnieje",
 		"invalidEmailOrPassword": "Nieprawidłowy email lub hasło",
@@ -64,7 +65,7 @@
 			"password": "hasło",
 			"phoneNumber": "numer telefonu",
 			"userId": "numer id użytkownika",
-			"nip": "NIP,",
+			"nip": "NIP",
 			"country": "kraj",
 			"companyName":"nazwa firmy",
 			"currentPassword": "bieżące hasło"

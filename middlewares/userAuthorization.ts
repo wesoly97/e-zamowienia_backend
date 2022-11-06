@@ -4,7 +4,7 @@ import { accessNotProvided, invalidToken, notAdministrator, notLogged, notVerifi
 import { IUserModel } from '../models/users.types'
 import { getUserData } from '../controllers/users/users.utils'
 import { USER_TYPES } from '../controllers/users/users.consts'
-import { getOrderData } from '../controllers/oders/orders.utils'
+import { getOrderData } from '../controllers/orders/orders.utils'
 import { IOrderModel } from '../models/orders.types'
 
 const NUMBER_OF_DAYS_COOKIE_EXPIRED = 2

@@ -1,4 +1,4 @@
-import { getExpiredOrders, removeEditedOrder } from '../controllers/oders/orders.utils'
+import { getExpiredOrders, removeEditedOrder } from '../controllers/orders/orders.utils'
 import { deleteFiles } from '../middlewares/amazonS3'
 
 export const removeExpiredOrders = async () => {
