@@ -65,7 +65,7 @@
 			"password": "hasło",
 			"phoneNumber": "numer telefonu",
 			"userId": "numer id użytkownika",
-			"nip": "NIP,",
+			"nip": "NIP",
 			"country": "kraj",
 			"companyName":"nazwa firmy",
 			"currentPassword": "bieżące hasło"

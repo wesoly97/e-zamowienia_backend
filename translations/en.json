@@ -64,7 +64,7 @@
             "password": "password",
             "phoneNumber": "phone number",
             "userId": "user id number",
-            "nip": "NIP,",
+            "nip": "NIP",
             "country": "country",
             "companyName":"company name",
             "currentPassword": "current password"
