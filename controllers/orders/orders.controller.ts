@@ -9,6 +9,7 @@ import { getServerDomain } from '../../utils/getServerDomain'
 import { getFilteredText } from '../../utils/getFilters'
 import User from '../../models/users'
 import { IOrderModel } from '../../models/orders.types'
+import { removeEditedOrder } from './orders.utils'
 
 const orderPropertiesToGet = {
 	_id: 1,
@@ -164,6 +165,7 @@ export const deleteOrder:RequestHandler = (req, res) => {
 		if(order) {
 			const filesToDelete: object[] = []
 			order.files.map(file => filesToDelete.push({ Key: file.key }))
+			removeEditedOrder(order._id)
 			deleteFiles(filesToDelete).then(() => order?.delete().then(
 				onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' }) },200, res)
 			)).catch(error => onError(error, res))
