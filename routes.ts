@@ -9,14 +9,14 @@ import {
 	getEditedOrders,
 	getOrder,
 	getOrders, updateOrder
-} from './controllers/oders/orders.controller'
+} from './controllers/orders/orders.controller'
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
 import {
 	checkOrderId,
 	getOrdersValidator,
 	orderUpdateValidator,
 	orderValidator
-} from './controllers/oders/orders.validators'
+} from './controllers/orders/orders.validators'
 import {
 	resetPassword,
 	createUser,
