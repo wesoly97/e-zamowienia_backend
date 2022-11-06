@@ -21,6 +21,8 @@ import UserVerification from '../../models/userVerification'
 import { IUserVerificationModel } from '../../models/userVerification.types'
 import { IUserModel } from '../../models/users.types'
 import { getUserData as getUser } from './users.utils'
+import { getOrdersByOwner, removeEditedOrder } from '../orders/orders.utils'
+import { deleteFiles } from '../../middlewares/amazonS3'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, email, password } = req.body
@@ -56,9 +58,22 @@ export const updateUser:RequestHandler = async (req, res) => {
 export const deleteUser:RequestHandler = (req, res) => {
 	const userId = req.params.userId
 
-	return User.findByIdAndDelete(userId).then(user => user ?
-		onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' }) },200, res)
-		: onNotFound(res)).catch(error => onError(error, res))
+	return User.findByIdAndDelete(userId).then(user => {
+		if(user) {
+			getOrdersByOwner(user._id, res).then(orders => {
+				orders.map(order => {
+					const filesToDelete: object[] = []
+					order.files.map(file => filesToDelete.push({ Key: file.key }))
+					removeEditedOrder(order._id)
+					deleteFiles(filesToDelete)
+					order.delete()
+				})
+				onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' }) },200, res)
+			})
+		} else {
+			onNotFound(res)
+		}
+	}).catch(error => onError(error, res))
 }
 
 export const getUserData:RequestHandler = (req, res) => {
