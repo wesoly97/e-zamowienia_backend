@@ -115,7 +115,7 @@ export const isOrderOwnerOrAdministrator:RequestHandler = async (req, res, next)
 	const user = await getUserData(sessionUserId, res, userProperties) as IUserModel
 	const order = await getOrderData(orderId, res, orderProperties) as IOrderModel
 
-	if(user.accountType === USER_TYPES.ADMIN || sessionUserId === order.ownerId) {
+	if(user.accountType === USER_TYPES.ADMIN || sessionUserId === order.ownerId.toString()) {
 		next()
 	} else {
 		accessNotProvided(res)
