@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import { onError, onNotFound } from '../../utils/handleRequestStatus'
-import { Order } from '../../models/orders'
+import { EditedOrder, Order } from '../../models/orders'
 
 export const getOrderData = (orderId: string, res:Response, orderProperties: object) => Order.findById(orderId).select(orderProperties).then(order => {
 	if(order) {
@@ -12,3 +12,4 @@ export const getOrderData = (orderId: string, res:Response, orderProperties: obj
 
 export const getExpiredOrders = () => Order.find({ expirationDate: { $lt: new Date() } })
 
+export const removeEditedOrder = (orderId: string) => EditedOrder.findByIdAndDelete(orderId)
