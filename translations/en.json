@@ -7,6 +7,7 @@
         "mustBeDate": "The %s must field be an Date",
         "mustBeEmail": "The %s is invalid",
         "mustBeNumber": "The %s field must be an number",
+        "invalidValue": "%s has an invalid value",
         "notFound": "Not found",
         "invalidEmailOrPassword": "Invalid email Or password",
         "invalidPassword": "Invalid password",
