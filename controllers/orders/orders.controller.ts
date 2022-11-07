@@ -95,6 +95,7 @@ export const getOrder:RequestHandler = async (req, res) => {
 			phoneNumber: userData?.phoneNumber || '',
 			email: userData?.email || '',
 			country: userData?.country || '',
+			customerName: userData?.companyName || '',
 		}
 
 		onSuccess(orderDetails,200, res)
