@@ -1,9 +1,11 @@
 import { check } from 'express-validator'
 import { getTranslation } from '../../utils/getTranslation'
 import {
+	isCategoryValid,
 	isFileDocumentFormatValid,
 	isFileDocumentSizeValid,
-	isFirstCharNumberOrLetter
+	isFirstCharNumberOrLetter,
+	isModeValid
 } from '../../middlewares/customValidators'
 
 export const orderValidator = [
@@ -30,7 +32,11 @@ export const orderValidator = [
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'orders.orderField.mode' })
 			})
-		),
+		).custom(isModeValid).withMessage(
+			getTranslation({
+				key: 'errors.invalidValue',
+				arg: getTranslation({ key: 'orders.orderField.mode' })
+			})),
 	check('description')
 		.notEmpty().withMessage(
 			getTranslation({
@@ -54,7 +60,11 @@ export const orderValidator = [
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'orders.orderField.category' })
 			})
-		),
+		).custom(isCategoryValid).withMessage(
+			getTranslation({
+				key: 'errors.invalidValue',
+				arg: getTranslation({ key: 'orders.orderField.category' })
+			})),
 	check('procedureIdentifier')
 		.notEmpty().withMessage(
 			getTranslation({
@@ -124,7 +134,11 @@ export const orderUpdateValidator = [
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'orders.orderField.mode' })
 		})
-	),
+	).custom(isModeValid).withMessage(
+		getTranslation({
+			key: 'errors.invalidValue',
+			arg: getTranslation({ key: 'orders.orderField.mode' })
+		})),
 	check('description').optional().isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
@@ -136,7 +150,11 @@ export const orderUpdateValidator = [
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'orders.orderField.category' })
 		})
-	),
+	).custom(isCategoryValid).withMessage(
+		getTranslation({
+			key: 'errors.invalidValue',
+			arg: getTranslation({ key: 'orders.orderField.category' })
+		})),
 	check('procedureIdentifier').optional().isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',

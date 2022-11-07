@@ -9,14 +9,14 @@ import {
 	getEditedOrders,
 	getOrder,
 	getOrders, updateOrder
-} from './controllers/oders/orders.controller'
+} from './controllers/orders/orders.controller'
 import { checkLoginValidationResult, checkValidationResult } from './utils/checkValidationResult'
 import {
 	checkOrderId,
 	getOrdersValidator,
 	orderUpdateValidator,
 	orderValidator
-} from './controllers/oders/orders.validators'
+} from './controllers/orders/orders.validators'
 import {
 	resetPassword,
 	createUser,
@@ -90,7 +90,7 @@ const routes = (app: Express) => {
 	app.patch(`${PATHS.USERS}/:userId`, checkUserId, userUpdateValidator, checkValidationResult, isUserLogged, isAccountOwnerOrAdministrator, updateUser)
 	app.delete(`${PATHS.USERS}/password`, checkEmail, checkValidationResult, recoverPassword)
 	app.post(`${PATHS.USERS}/password`, checkPassword, checkRepeatPassword, checkValidationResult, isResetPasswordTokenValid, resetPassword)
-	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, deleteUser)
+	app.delete(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, isAdministrator, deleteUser)
 	app.get(`${PATHS.USERS}/session`, isUserLogged, getSessionData)
 	app.get(`${PATHS.USERS}/verify`, isUserLogged, isAdministrator, getUsersVerificationList)
 	app.get(`${PATHS.USERS}/:userId`, checkUserId, checkValidationResult, isUserLogged, isAccountOwnerOrAdministrator, getUserData)
