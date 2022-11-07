@@ -57,13 +57,13 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/orderValidationError"
+              "$ref": "#/definitions/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Pobieranie danych nie powiodło się"
           }
@@ -133,25 +133,25 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/orderValidationError"
+              "$ref": "#/definitions/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeVerified"
+              "$ref": "#/definitions/userMustBeVerified"
             },
             "description": "Użytkownik nie jest zweryfikowany"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Dodawanie zamówienia nie powiodło się"
           }
@@ -172,19 +172,19 @@
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeAdministrator"
+              "$ref": "#/definitions/userMustBeAdministrator"
             },
             "description": "Użytkownik nie posiada uprawnień administratora"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Pobieranie danych nie powiodło się"
           }
@@ -224,19 +224,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/orderValidationError"
+              "$ref": "#/definitions/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/accessNotProvided"
+              "$ref": "#/definitions/accessNotProvided"
             },
             "description": "Użytkownik nie posiada uprawnień do tej funkcjonalności"
           },
@@ -253,7 +253,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -277,7 +277,7 @@
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
@@ -294,7 +294,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -313,7 +313,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/orderValidationError"
+              "$ref": "#/definitions/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
@@ -330,7 +330,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -360,19 +360,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/orderValidationError"
+              "$ref": "#/definitions/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeAdministrator"
+              "$ref": "#/definitions/userMustBeAdministrator"
             },
             "description": "Użytkownik nie posiada uprawnień administratora"
           },
@@ -389,7 +389,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -424,19 +424,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/orderValidationError"
+              "$ref": "#/definitions/orderValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeAdministrator"
+              "$ref": "#/definitions/userMustBeAdministrator"
             },
             "description": "Użytkownik nie posiada uprawnień administratora"
           },
@@ -453,7 +453,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -477,13 +477,13 @@
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Pobieranie danych nie powiodło się"
           }
@@ -499,7 +499,7 @@
             "in": "body",
             "description": "Użytkownik do dodania",
             "schema": {
-              "$ref": "#/userFieldToSend"
+              "$ref": "#/definitions/userFieldToSend"
             }
           }
         ],
@@ -513,7 +513,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
@@ -530,7 +530,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Dodawanie użytkownika nie powiodło się"
           }
@@ -557,32 +557,32 @@
             "in": "body",
             "description": "uaktualnione wartości imienia lub nazwiska",
             "schema": {
-              "$ref": "#/userFieldToEdit"
+              "$ref": "#/definitions/userFieldToEdit"
             }
           }
         ],
         "responses": {
           "200": {
             "schema": {
-              "$ref": "#/editedUserField"
+              "$ref": "#/definitions/editedUserField"
             },
             "description": "Ok"
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/accessNotProvided"
+              "$ref": "#/definitions/accessNotProvided"
             },
             "description": "Użytkownik nie posiada uprawnień do tej funkcjonalności"
           },
@@ -599,7 +599,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -623,13 +623,13 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
@@ -646,7 +646,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -665,19 +665,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/accessNotProvided"
+              "$ref": "#/definitions/accessNotProvided"
             },
             "description": "Użytkownik nie posiada uprawnień do tej funkcjonalności"
           },
@@ -694,7 +694,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja zamówienia nie powiodła się"
           }
@@ -726,19 +726,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeAdministrator"
+              "$ref": "#/definitions/userMustBeAdministrator"
             },
             "description": "Użytkownik nie posiada uprawnień administratora"
           },
@@ -755,7 +755,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -787,19 +787,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeAdministrator"
+              "$ref": "#/definitions/userMustBeAdministrator"
             },
             "description": "Użytkownik nie posiada uprawnień administratora"
           },
@@ -816,7 +816,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -860,7 +860,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
@@ -877,7 +877,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "sprawdzenie email nie powiodło się"
           }
@@ -931,7 +931,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Zalogowanie nie powiodło się"
           }
@@ -958,7 +958,7 @@
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           }
@@ -991,13 +991,13 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
@@ -1014,7 +1014,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -1037,19 +1037,19 @@
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "403": {
             "schema": {
-              "$ref": "#/userMustBeAdministrator"
+              "$ref": "#/definitions/userMustBeAdministrator"
             },
             "description": "Użytkownik nie posiada uprawnień administratora"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -1071,13 +1071,13 @@
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -1121,7 +1121,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
@@ -1138,7 +1138,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Resetowanie hasła nie powiodło się"
           }
@@ -1187,7 +1187,7 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
@@ -1204,7 +1204,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Resetowanie hasła nie powiodło się"
           }
@@ -1253,19 +1253,19 @@
           },
           "400": {
             "schema": {
-              "$ref": "#/userValidationError"
+              "$ref": "#/definitions/userValidationError"
             },
             "description": "Blad walidacji - zostanie zwrocona tablica bledow"
           },
           "401": {
             "schema": {
-              "$ref": "#/userMustBeLogged"
+              "$ref": "#/definitions/userMustBeLogged"
             },
             "description": "Użytkownik nie jest zalogowany"
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "Resetowanie hasła nie powiodło się"
           }
@@ -1302,7 +1302,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -1370,7 +1370,7 @@
           },
           "500": {
             "schema": {
-              "$ref": "#/databaseError"
+              "$ref": "#/definitions/databaseError"
             },
             "description": "modyfikacja danych użytkownika nie powiodła się"
           }
@@ -1379,6 +1379,65 @@
     }
   },
   "definitions": {
+    "databaseError": {
+      "properties": {
+        "errors": {
+          "type": "object",
+          "properties": {
+            "propertyName": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "ValidatorError",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Path `propertyName` is required.",
+                  "type": "string"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "example": "Path `propertyName` is required.",
+                      "type": "string"
+                    },
+                    "type": {
+                      "example": "required",
+                      "type": "string"
+                    },
+                    "path": {
+                      "example": "propertyName",
+                      "type": "string"
+                    }
+                  }
+                },
+                "kind": {
+                  "example": "required",
+                  "type": "string"
+                },
+                "path": {
+                  "example": "propertyName",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "_message": {
+          "example": "validation failed",
+          "type": "string"
+        },
+        "name": {
+          "example": "validationError",
+          "type": "string"
+        },
+        "message": {
+          "example": "validation failed: propertyName: Path `propertyName` is required.",
+          "type": "string"
+        }
+      }
+    },
     "user": {
       "properties": {
         "_id": {
@@ -1599,185 +1658,126 @@
           }
         }
       ]
-    }
-  },
-  "databaseError": {
-    "properties": {
-      "errors": {
-        "type": "object",
-        "properties": {
-          "propertyName": {
-            "type": "object",
+    },
+    "orderValidationError": {
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
             "properties": {
-              "name": {
-                "example": "ValidatorError",
-                "type": "string"
-              },
               "message": {
-                "example": "Path `propertyName` is required.",
-                "type": "string"
+                "type": "string",
+                "example": "Cena musi być liczbą"
               },
-              "properties": {
-                "type": "object",
-                "properties": {
-                  "message": {
-                    "example": "Path `propertyName` is required.",
-                    "type": "string"
-                  },
-                  "type": {
-                    "example": "required",
-                    "type": "string"
-                  },
-                  "path": {
-                    "example": "propertyName",
-                    "type": "string"
-                  }
-                }
-              },
-              "kind": {
-                "example": "required",
-                "type": "string"
-              },
-              "path": {
-                "example": "propertyName",
-                "type": "string"
+              "key": {
+                "type": "string",
+                "example": "price"
               }
             }
           }
         }
-      },
-      "_message": {
-        "example": "validation failed",
-        "type": "string"
-      },
-      "name": {
-        "example": "validationError",
-        "type": "string"
-      },
-      "message": {
-        "example": "validation failed: propertyName: Path `propertyName` is required.",
-        "type": "string"
       }
-    }
-  },
-  "orderValidationError": {
-    "properties": {
-      "errors": {
-        "type": "array",
-        "items": {
-          "properties": {
-            "message": {
-              "type": "string",
-              "example": "Cena musi być liczbą"
-            },
-            "key": {
-              "type": "string",
-              "example": "price"
+    },
+    "userValidationError": {
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "message": {
+                "type": "string",
+                "example": "Imie musi być ciągiem znaków"
+              },
+              "key": {
+                "type": "string",
+                "example": "name"
+              }
             }
           }
         }
       }
-    }
-  },
-  "userValidationError": {
-    "properties": {
-      "errors": {
-        "type": "array",
-        "items": {
-          "properties": {
-            "message": {
-              "type": "string",
-              "example": "Imie musi być ciągiem znaków"
-            },
-            "key": {
-              "type": "string",
-              "example": "name"
-            }
-          }
+    },
+    "userFieldToSend": {
+      "properties": {
+        "name": {
+          "example": "Jacek",
+          "type": "string"
+        },
+        "surname": {
+          "example": "Krzynówek",
+          "type": "string"
+        },
+        "email": {
+          "example": "jacusK@gmail.com",
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "repeatPassword": {
+          "type": "string"
         }
       }
-    }
-  },
-  "userFieldToSend": {
-    "properties": {
-      "name": {
-        "example": "Jacek",
-        "type": "string"
-      },
-      "surname": {
-        "example": "Krzynówek",
-        "type": "string"
-      },
-      "email": {
-        "example": "jacusK@gmail.com",
-        "type": "string"
-      },
-      "password": {
-        "type": "string"
-      },
-      "repeatPassword": {
-        "type": "string"
+    },
+    "userFieldToEdit": {
+      "properties": {
+        "name": {
+          "example": "Jacek",
+          "type": "string"
+        },
+        "surname": {
+          "example": "Krzynówek",
+          "type": "string"
+        }
       }
-    }
-  },
-  "userFieldToEdit": {
-    "properties": {
-      "name": {
-        "example": "Jacek",
-        "type": "string"
-      },
-      "surname": {
-        "example": "Krzynówek",
-        "type": "string"
+    },
+    "editedUserField": {
+      "properties": {
+        "name": {
+          "example": "Jacek",
+          "type": "string"
+        },
+        "surname": {
+          "example": "Krzynówek",
+          "type": "string"
+        },
+        "_id": {
+          "example": "635ff30781b4b1c46ff06f2f",
+          "type": "string",
+          "uniqueItems": true
+        }
       }
-    }
-  },
-  "editedUserField": {
-    "properties": {
-      "name": {
-        "example": "Jacek",
-        "type": "string"
-      },
-      "surname": {
-        "example": "Krzynówek",
-        "type": "string"
-      },
-      "_id": {
-        "example": "635ff30781b4b1c46ff06f2f",
-        "type": "string",
-        "uniqueItems": true
+    },
+    "userMustBeLogged": {
+      "properties": {
+        "message": {
+          "example": "Musisz być zalogowany!",
+          "type": "string"
+        }
       }
-    }
-  },
-  "userMustBeLogged": {
-    "properties": {
-      "message": {
-        "example": "Musisz być zalogowany!",
-        "type": "string"
+    },
+    "userMustBeVerified": {
+      "properties": {
+        "message": {
+          "example": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
+          "type": "string"
+        }
       }
-    }
-  },
-  "userMustBeVerified": {
-    "properties": {
-      "message": {
-        "example": "Musisz zostać zweryfikowany, aby mieć możiwość dodawania zamówień publicznych",
-        "type": "string"
+    },
+    "userMustBeAdministrator": {
+      "properties": {
+        "message": {
+          "example": "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
+          "type": "string"
+        }
       }
-    }
-  },
-  "userMustBeAdministrator": {
-    "properties": {
-      "message": {
-        "example": "Musisz posiadać uprawnienia administratora do skorzystania z tej funkcjonalności",
-        "type": "string"
-      }
-    }
-  },
-  "accessNotProvided": {
-    "properties": {
-      "message": {
-        "example": "Nie masz dostepu do tej funkcjonalności",
-        "type": "string"
+    },
+    "accessNotProvided": {
+      "properties": {
+        "message": {
+          "example": "Nie masz dostepu do tej funkcjonalności",
+          "type": "string"
+        }
       }
     }
   }
