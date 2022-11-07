@@ -5,7 +5,7 @@
     "title": "E-Zamówienia Dokumentacja API",
     "description": "Dokumentacja wszystkich endpointow dostępnych w api E-zamówienia"
   },
-  "host": "e-zamowienia.onrender.com",
+  "host": "api-e-zamowienia.onrender.com",
   "schemes": ["https"],
   "basePath": "/",
   "consumes": ["application/json"],
