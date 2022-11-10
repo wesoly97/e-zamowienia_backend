@@ -12,7 +12,7 @@ import {
 	onSuccess
 } from '../../utils/handleRequestStatus'
 import { getTranslation } from '../../utils/getTranslation'
-import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
+import { encryptPassword, passwordCompare } from '../../utils/passwordEncryption'
 import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/userAuthorization'
 import { emailExist } from '../../utils/emailExist'
 import { sendEmail } from '../../middlewares/emailSender'
