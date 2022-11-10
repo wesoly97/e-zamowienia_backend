@@ -10,15 +10,15 @@ import {
 
 export const orderValidator = [
 	check('title')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'orders.orderField.title' })
-			})
-		).isString().withMessage(
+		.isString().withMessage(
 			getTranslation({
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'orders.orderField.title' })
+			})
+		).isLength({ min: 3, max: 255 }).withMessage(
+			getTranslation({
+				key: 'errors.invalidRange',
+				arg: { fieldName: getTranslation({ key: 'orders.orderField.title' }), min: '3', max: '255' }
 			})
 		),
 	check('mode')
@@ -48,6 +48,11 @@ export const orderValidator = [
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'orders.orderField.description' })
 			})
+		).isLength({ max: 2048 }).withMessage(
+			getTranslation({
+				key: 'errors.invalidLMaxLength',
+				arg: { fieldName: getTranslation({ key: 'orders.orderField.description' }), length: '2048' }
+			})
 		),
 	check('category')
 		.notEmpty().withMessage(
@@ -66,15 +71,15 @@ export const orderValidator = [
 				arg: getTranslation({ key: 'orders.orderField.category' })
 			})),
 	check('procedureIdentifier')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'orders.orderField.procedureIdentifier' })
-			})
-		).isString().withMessage(
+		.isString().withMessage(
 			getTranslation({
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'orders.orderField.procedureIdentifier' })
+			})
+		).isLength({ min: 3, max: 255 }).withMessage(
+			getTranslation({
+				key: 'errors.invalidRange',
+				arg: { fieldName: getTranslation({ key: 'orders.orderField.procedureIdentifier' }), min: '3', max: '255' }
 			})
 		),
 	check('files').custom(isFileDocumentFormatValid).withMessage(
@@ -128,6 +133,11 @@ export const orderUpdateValidator = [
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'orders.orderField.title' })
 		})
+	).isLength({ min: 3, max: 255 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidRange',
+			arg: { fieldName: getTranslation({ key: 'orders.orderField.title' }), min: '3', max: '255' }
+		})
 	),
 	check('mode').optional().isString().withMessage(
 		getTranslation({
@@ -144,6 +154,11 @@ export const orderUpdateValidator = [
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'orders.orderField.description' })
 		})
+	).isLength({ max: 2048 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidLMaxLength',
+			arg: { fieldName: getTranslation({ key: 'orders.orderField.description' }), length: '2048' }
+		})
 	),
 	check('category').optional().isString().withMessage(
 		getTranslation({
@@ -159,6 +174,11 @@ export const orderUpdateValidator = [
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'orders.orderField.procedureIdentifier' })
+		})
+	).isLength({ min: 3, max: 255 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidRange',
+			arg: { fieldName: getTranslation({ key: 'orders.orderField.procedureIdentifier' }), min: '3', max: '255' }
 		})
 	),
 	check('files').optional().custom(isFileDocumentFormatValid).withMessage(
