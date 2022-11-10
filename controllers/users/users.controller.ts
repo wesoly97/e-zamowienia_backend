@@ -118,7 +118,11 @@ export const recoverPassword:RequestHandler = async (req, res) => {
 
 	if (await emailExist(email, res)) {
 		const token = resetPasswordGenerateToken(email)
-		await sendEmail(email, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
+		try {
+			await sendEmail(email, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
+		} catch (error) {
+			return onError(error as object, res)
+		}
 		onSuccess({ message: getTranslation({ key: 'users.resetPasswordEmailHasBeenSend' }) }, 200, res)
 	} else {
 		emailNotExist(res)
