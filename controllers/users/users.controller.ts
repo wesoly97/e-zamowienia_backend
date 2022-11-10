@@ -22,7 +22,7 @@ import { IUserVerificationModel } from '../../models/userVerification.types'
 import { IUserModel } from '../../models/users.types'
 import { getUserData as getUser } from './users.utils'
 import { getOrdersByOwner, removeEditedOrder } from '../orders/orders.utils'
-import { deleteFiles } from '../../middlewares/amazonS3'
+import { deleteFiles } from '../../utils/filesUpload'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, email, password } = req.body

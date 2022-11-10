@@ -1,0 +1,59 @@
+{
+	"orders": {
+		"orderField": {
+			"title": "orders.orderField.title",
+			"mode": "orders.orderField.mode",
+			"description": "orders.orderField.description",
+			"category": "orders.orderField.category",
+			"procedureIdentifier": "orders.orderField.procedureIdentifier",
+			"files": "orders.orderField.files",
+			"price": "orders.orderField.price",
+			"expirationDate": "orders.orderField.expirationDate",
+			"orderId": "orders.orderField.orderId"
+		},
+		"modes": {
+			"unlimitedBidding": "orders.modes.unlimitedBidding",
+			"limitedBidding": "orders.modes.limitedBidding",
+			"negotiationWithAnnouncement": "orders.modes.negotiationWithAnnouncement",
+			"competitiveDialogue": "orders.modes.competitiveDialogue",
+			"innovationPartnerships": "orders.modes.innovationPartnerships",
+			"negotiationWithoutAnnouncement": "orders.modes.negotiationWithoutAnnouncement",
+			"negotiatedProcurement": "orders.modes.negotiatedProcurement"
+		},
+		"categories": {
+			"servicesAndConstructionWork": "orders.categories.servicesAndConstructionWork",
+			"deliveries": "orders.categories.deliveries",
+			"competitions": "orders.categories.competitions",
+			"services": "orders.categories.services"
+		}
+	},
+	"errors": {
+		"isEmpty": "errors.isEmpty",
+		"mustBeString": "errors.mustBeString",
+		"invalidValue": "errors.invalidValue",
+		"invalidFileFormat": "errors.invalidFileFormat",
+		"invalidFileSize": "errors.invalidFileSize",
+		"mustBeNumber": "errors.mustBeNumber",
+		"mustBeDate": "errors.mustBeDate",
+		"mustBeMongoObjectId": "errors.mustBeMongoObjectId",
+		"mustStartWithLetterOrNumber": "errors.mustStartWithLetterOrNumber",
+		"mustBeEmail": "errors.mustBeEmail",
+		"invalidPasswordFormat": "errors.invalidPasswordFormat",
+		"passwordsNotMatch": "errors.passwordsNotMatch",
+		"passwordsMatch": "errors.passwordsMatch",
+		"mustBeLogged": "errors.mustBeLogged"
+	},
+	"users": {
+		"userField": {
+			"userId": "users.userField.userId",
+			"email": "users.userField.email",
+			"currentPassword": "users.userField.currentPassword",
+			"name": "users.userField.name",
+			"surname": "users.userField.surname",
+			"phoneNumber": "users.userField.phoneNumber",
+			"country": "users.userField.country",
+			"companyName": "users.userField.companyName",
+			"nip": "users.userField.nip"
+		}
+	}
+}
