@@ -77,52 +77,52 @@ export const checkOldPassword = [
 
 export const userValidator = [
 	check('name')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.name' })
-			})
-		).isString().withMessage(
+		.isString().withMessage(
 			getTranslation({
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'users.userField.name' })
+			})
+		).isLength({ min: 3, max: 64 }).withMessage(
+			getTranslation({
+				key: 'errors.invalidRange',
+				arg: { fieldName: getTranslation({ key: 'users.userField.name' }), min: '3', max: '64' }
 			})
 		),
 	check('surname')
-		.notEmpty().withMessage(
-			getTranslation({
-				key: 'errors.isEmpty',
-				arg: getTranslation({ key: 'users.userField.surname' })
-			})
-		).isString().withMessage(
+		.isString().withMessage(
 			getTranslation({
 				key: 'errors.mustBeString',
 				arg: getTranslation({ key: 'users.userField.surname' })
+			})
+		).isLength({ min: 3, max: 64 }).withMessage(
+			getTranslation({
+				key: 'errors.invalidRange',
+				arg: { fieldName: getTranslation({ key: 'users.userField.surname' }), min: '3', max: '64' }
 			})
 		)
 ]
 
 export const userUpdateValidator = [
-	check('name').optional().notEmpty().withMessage(
-		getTranslation({
-			key: 'errors.isEmpty',
-			arg: getTranslation({ key: 'users.userField.name' })
-		})
-	).isString().withMessage(
+	check('name').optional().notEmpty().isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.name' })
+		})
+	).isLength({ min: 3, max: 64 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidRange',
+			arg: { fieldName: getTranslation({ key: 'users.userField.name' }), min: '3', max: '64' }
 		})
 	),
-	check('surname').optional().notEmpty().withMessage(
-		getTranslation({
-			key: 'errors.isEmpty',
-			arg: getTranslation({ key: 'users.userField.surname' })
-		})
-	).isString().withMessage(
+	check('surname').optional().isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.surname' })
+		})
+	).isLength({ min: 3, max: 64 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidRange',
+			arg: { fieldName: getTranslation({ key: 'users.userField.surname' }), min: '3', max: '64' }
 		})
 	)
 ]
@@ -139,26 +139,26 @@ export const userVerificationValidator = [
 			arg: getTranslation({ key: 'users.userField.phoneNumber' })
 		})
 	),
-	check('country').notEmpty().withMessage(
-		getTranslation({
-			key: 'errors.isEmpty',
-			arg: getTranslation({ key: 'users.userField.country' })
-		})
-	).isString().withMessage(
+	check('country').isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.country' })
+		})
+	).isLength({ min: 4, max: 56 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidRange',
+			arg: { fieldName: getTranslation({ key: 'users.userField.country' }), min: '4', max: '56' }
 		})
 	),
-	check('companyName').notEmpty().withMessage(
-		getTranslation({
-			key: 'errors.isEmpty',
-			arg: getTranslation({ key: 'users.userField.companyName' })
-		})
-	).isString().withMessage(
+	check('companyName').isString().withMessage(
 		getTranslation({
 			key: 'errors.mustBeString',
 			arg: getTranslation({ key: 'users.userField.companyName' })
+		})
+	).isLength({ min: 3, max: 255 }).withMessage(
+		getTranslation({
+			key: 'errors.invalidRange',
+			arg: { fieldName: getTranslation({ key: 'users.userField.companyName' }), min: '3', max: '255' }
 		})
 	),
 	check('nip').notEmpty().withMessage(
