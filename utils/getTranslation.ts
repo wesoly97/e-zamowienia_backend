@@ -1,4 +1,4 @@
-import i18n from '../middlewares/i18n.config'
+import i18n from '../config/i18n'
 
 export const getTranslation = ({ key = '', language = 'pl', arg = '' }) => i18n.__(
 	{
