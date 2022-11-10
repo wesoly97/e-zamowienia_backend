@@ -12,17 +12,17 @@ import {
 	onSuccess
 } from '../../utils/handleRequestStatus'
 import { getTranslation } from '../../utils/getTranslation'
-import { encryptPassword, passwordCompare } from '../../middlewares/passwordEncryption'
+import { encryptPassword, passwordCompare } from '../../utils/passwordEncryption'
 import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/userAuthorization'
 import { emailExist } from '../../utils/emailExist'
-import { sendEmail } from '../../middlewares/emailSender'
+import { sendEmail } from '../../utils/emailSender'
 import { resetPasswordTemplate } from '../../templates/emails/resetPassword'
 import UserVerification from '../../models/userVerification'
 import { IUserVerificationModel } from '../../models/userVerification.types'
 import { IUserModel } from '../../models/users.types'
 import { getUserData as getUser } from './users.utils'
 import { getOrdersByOwner, removeEditedOrder } from '../orders/orders.utils'
-import { deleteFiles } from '../../middlewares/amazonS3'
+import { deleteFiles } from '../../utils/filesUpload'
 
 export const createUser:RequestHandler = (req, res) => {
 	const { name, surname, email, password } = req.body
@@ -118,7 +118,11 @@ export const recoverPassword:RequestHandler = async (req, res) => {
 
 	if (await emailExist(email, res)) {
 		const token = resetPasswordGenerateToken(email)
-		await sendEmail(email, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
+		try {
+			await sendEmail(email, resetPasswordTemplate(token), `${process.env.WEBSITE_TITLE} resetowanie hasła`)
+		} catch (error) {
+			return onError(error as object, res)
+		}
 		onSuccess({ message: getTranslation({ key: 'users.resetPasswordEmailHasBeenSend' }) }, 200, res)
 	} else {
 		emailNotExist(res)

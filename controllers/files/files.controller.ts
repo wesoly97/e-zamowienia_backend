@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express'
-import { getFileStream } from '../../middlewares/amazonS3'
+import { getFileStream } from '../../utils/filesUpload'
 
 export const getFile:RequestHandler = async (req, res) => {
 	const key = req.params.key
