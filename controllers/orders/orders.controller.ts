@@ -1,7 +1,6 @@
 import { RequestHandler } from 'express'
 import { EditedOrder, Order } from '../../models/orders'
 import mongoose from 'mongoose'
-import { getTranslation } from '../../utils/getTranslation'
 import { onError, onNotFound, onSuccess } from '../../utils/handleRequestStatus'
 import { deleteFiles, fileUpload } from '../../utils/filesUpload'
 import { PATHS } from '../../routes'
@@ -157,7 +156,7 @@ export const updateOrder:RequestHandler = async (req, res) => {
 export const denyEditOrder:RequestHandler = async (req, res) => {
 	const orderId = req.params.orderId
 	return EditedOrder.findByIdAndDelete(orderId).then(user => user ?
-		onSuccess({ message: getTranslation({ key: 'orders.denyEditOrderConfirmation' }) },200, res)
+		onSuccess({ message: res.__('orders.denyEditOrderConfirmation') },200, res)
 		: onNotFound(res)).catch(error => onError(error, res))
 }
 
@@ -169,7 +168,7 @@ export const deleteOrder:RequestHandler = (req, res) => {
 			order.files.map(file => filesToDelete.push({ Key: file.key }))
 			removeEditedOrder(order._id)
 			deleteFiles(filesToDelete).then(() => order?.delete().then(
-				onSuccess({ message: getTranslation({ key: 'orders.deleteConfirmation' }) },200, res)
+				onSuccess({ message: res.__('orders.deleteConfirmation') },200, res)
 			)).catch(error => onError(error, res))
 		}
 		else

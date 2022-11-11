@@ -11,7 +11,6 @@ import {
 	onNotFound,
 	onSuccess
 } from '../../utils/handleRequestStatus'
-import { getTranslation } from '../../utils/getTranslation'
 import { encryptPassword, passwordCompare } from '../../utils/passwordEncryption'
 import { authorizeUser, resetPasswordGenerateToken } from '../../middlewares/userAuthorization'
 import { emailExist } from '../../utils/emailExist'
@@ -68,7 +67,7 @@ export const deleteUser:RequestHandler = (req, res) => {
 					deleteFiles(filesToDelete)
 					order.delete()
 				})
-				onSuccess({ message: getTranslation({ key: 'users.deleteConfirmation' }) },200, res)
+				onSuccess({ message: res.__( 'users.deleteConfirmation') },200, res)
 			})
 		} else {
 			onNotFound(res)
@@ -87,7 +86,7 @@ export const getUsers:RequestHandler = (req, res) => User.find().select(['-passw
 	.then(users => onSuccess(users,200, res)).catch(error => onError(error, res))
 
 export const emailIsValid:RequestHandler = (req, res) => onSuccess({
-	message: getTranslation({ key: 'users.emailIsValid' })
+	message: res.__('users.emailIsValid')
 },200, res)
 
 export const logIn:RequestHandler = (req, res) => {
@@ -110,7 +109,7 @@ export const logIn:RequestHandler = (req, res) => {
 export const logOut:RequestHandler = (req, res) => {
 	const { sessionUserId } = req.body
 	res.clearCookie(`${sessionUserId}`, { sameSite: 'none', secure: true })
-	return onSuccess({ message: getTranslation({ key: 'users.logOutSuccess' }) }, 200, res)
+	return onSuccess({ message: res.__('users.logOutSuccess') }, 200, res)
 }
 
 export const recoverPassword:RequestHandler = async (req, res) => {
@@ -123,7 +122,7 @@ export const recoverPassword:RequestHandler = async (req, res) => {
 		} catch (error) {
 			return onError(error as object, res)
 		}
-		onSuccess({ message: getTranslation({ key: 'users.resetPasswordEmailHasBeenSend' }) }, 200, res)
+		onSuccess({ message: res.__('users.resetPasswordEmailHasBeenSend') }, 200, res)
 	} else {
 		emailNotExist(res)
 	}
@@ -135,7 +134,7 @@ export const resetPassword:RequestHandler = async (req, res) => {
 	return User.findOne({ email }).then(user => {
 		if (user) {
 			user.set({ password: encryptPassword(password) })
-			return user.save().then(() => onSuccess({ message: getTranslation({ key: 'users.changePasswordSuccess' }) },200, res)).catch(error => onError(error, res))
+			return user.save().then(() => onSuccess({ message:res.__('users.changePasswordSuccess') },200, res)).catch(error => onError(error, res))
 		} else {
 			invalidToken(res)
 		}
@@ -154,7 +153,7 @@ export const changePassword:RequestHandler = async (req, res) => {
 	}
 
 	user.set({ password: encryptPassword(password) })
-	return user.save().then(() => onSuccess({ message: getTranslation({ key: 'users.changePasswordSuccess' }) },200, res)).catch(error => onError(error, res))
+	return user.save().then(() => onSuccess({ message: res.__('users.changePasswordSuccess') },200, res)).catch(error => onError(error, res))
 }
 
 
@@ -175,7 +174,7 @@ export const denyVerifyUser:RequestHandler = async (req, res) => {
 	const userId = req.params.userId
 
 	return UserVerification.findByIdAndDelete(userId).then(user => user ?
-		onSuccess({ message: getTranslation({ key: 'users.denyVerificationConfirmation' }) },200, res)
+		onSuccess({ message: res.__('users.denyVerificationConfirmation') },200, res)
 		: onNotFound(res)).catch(error => onError(error, res))
 }
 
