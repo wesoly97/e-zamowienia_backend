@@ -12,7 +12,7 @@
         "invalidRange": "The {{fieldName}} field should contain a minimum of {{min}} and a maximum of {{max}} characters.",
         "invalidValue": "%s has an invalid value",
         "notFound": "Not found",
-        "invalidEmailOrPassword": "Invalid email Or password",
+        "invalidEmailOrPassword": "Invalid email or password",
         "invalidPassword": "Invalid password",
         "invalidPasswordFormat": "The password must contain at least 8 characters, one uppercase letter, one lowercase letter, a number, and a special character",
         "mustBeLogged": "You must be logged in",
@@ -41,19 +41,19 @@
             "price": "price"
         },
         "categories": {
-            "servicesAndConstructionWork": "Usługi i roboty budowlane",
-            "deliveries": "Dostawy",
-            "competitions": "Konkursy",
-            "services": "Usługi społeczne i inne szczególne usługi"
+            "servicesAndConstructionWork": "Services and construction work",
+            "deliveries": "Deliveries",
+            "competitions": "Competitions",
+            "services": "Social and other specific services"
         },
         "modes": {
-            "unlimitedBidding": "Przetarg nieograniczony",
-            "limitedBidding": "Przetarg ograniczony",
-            "negotiationWithAnnouncement": "Negocjacje z ogłoszeniem",
-            "competitiveDialogue": "Dialog konkurencyjny",
-            "innovationPartnerships": "Partnerstwo innowacyjne",
-            "negotiationWithoutAnnouncement": "Negocjacje bez ogłoszenia",
-            "negotiatedProcurement": "Zamówienie z wolnej ręki"
+            "unlimitedBidding": "Unlimited bidding",
+            "limitedBidding": "Limited bidding",
+            "negotiationWithAnnouncement": "Negotiation with announcement",
+            "competitiveDialogue": "Competitive dialogue",
+            "innovationPartnerships": "Innovation partnerships",
+            "negotiationWithoutAnnouncement": "Negotiation without announcement",
+            "negotiatedProcurement": "Negotiated procurement"
         },
         "deleteConfirmation": "The public order has been deleted",
         "denyEditOrderConfirmation": "Request to edit order has been denied"

@@ -7,9 +7,9 @@ const languages = ['pl', 'en']
 
 i18n.configure({
 	locales: languages,
-	defaultLocale: languages[0],
 	directory: path.join(__dirname, '../../translations'),
 	objectNotation: true,
+	cookie: 'lang',
 })
 
 export default i18n
