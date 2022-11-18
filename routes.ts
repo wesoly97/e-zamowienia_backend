@@ -1,4 +1,4 @@
-import { Express } from 'express'
+import { CookieOptions, Express } from 'express'
 import redoc from 'redoc-express'
 import multer from 'multer'
 import {
@@ -65,6 +65,7 @@ export const PATHS = {
 	FILES: '/files',
 	STATISTICS: '/statistics',
 	SETTINGS: '/settings',
+	LANG: '/lang',
 }
 
 const upload = multer()
@@ -103,7 +104,16 @@ const routes = (app: Express) => {
 
 	app.get(`${PATHS.STATISTICS}`, getStatistics)
 	app.get(`${PATHS.SETTINGS}`, getSettings)
-
+	app.post(`${PATHS.LANG}`, (req, res) => {
+		const { lang } = req.body
+		const COOKIE_CONFIG: CookieOptions = {
+			path: '/',
+			expires: new Date(253402300799999),
+			sameSite: 'none',
+			secure: true
+		}
+		res.cookie(lang, COOKIE_CONFIG)
+	})
 }
 
 export default routes
